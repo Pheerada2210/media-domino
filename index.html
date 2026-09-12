@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>สื่อ-ต่อ-สาร | เกมโดมิโนกระบวนการสื่อสาร</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -76,6 +77,7 @@ button:disabled{
 }
 
 .hidden{display:none!important}
+.center{text-align:center}
 
 .roomCode{
   text-align:center;
@@ -88,8 +90,6 @@ button:disabled{
   border-radius:18px;
   margin:12px 0;
 }
-
-.center{text-align:center}
 
 .players{
   display:flex;
@@ -128,24 +128,6 @@ button:disabled{
   color:#7659b9;
 }
 
-.notice{
-  background:#fff9dc;
-  border-left:6px solid #e4bd45;
-  padding:12px 15px;
-  border-radius:12px;
-  margin:10px 0;
-}
-
-.success{
-  background:#e6fff5;
-  border-left:6px solid #67c7aa;
-}
-
-.noiseNotice{
-  background:#fff5a8;
-  border-left:6px solid #e9b900;
-}
-
 /* BOARD */
 
 .boardWrap{
@@ -174,7 +156,7 @@ button:disabled{
 }
 
 .board .art{
-  font-size:26px;
+  font-size:27px;
   width:42px;
   height:42px;
 }
@@ -216,10 +198,6 @@ button:disabled{
 .domino.playable{
   border-color:#73cdbb;
   box-shadow:0 0 0 4px #73cdbb33,0 6px 15px #0002;
-}
-
-.domino.noiseTile{
-  border-color:#efb600;
 }
 
 .half{
@@ -276,6 +254,30 @@ button:disabled{
   border-color:#efb600;
 }
 
+/* PROCESS */
+
+.process{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin:15px 0;
+}
+
+.process span{
+  background:#f2f4fa;
+  padding:7px 10px;
+  border-radius:12px;
+  font-weight:bold;
+  font-size:13px;
+}
+
+.arrow{
+  color:#8d72d8;
+  font-weight:bold;
+}
+
 /* RULES */
 
 .rules{
@@ -302,7 +304,10 @@ button:disabled{
   font-weight:900;
 }
 
-/* SCORE */
+.score{
+  margin-left:auto;
+  font-weight:bold;
+}
 
 .playerRow{
   display:flex;
@@ -314,53 +319,31 @@ button:disabled{
   margin:5px 0;
 }
 
-.score{
-  margin-left:auto;
-  font-weight:bold;
-}
-
 .small{
   font-size:13px;
   color:#7b8292;
 }
 
-.legend{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:12px;
+.endPoint{
+  padding:10px 15px;
+  border-radius:14px;
+  background:#fff;
+  border:2px dashed #aab4c8;
+  font-weight:bold;
+  white-space:nowrap;
 }
 
-.legend span{
-  padding:7px 10px;
-  border-radius:12px;
-  font-size:13px;
+.noiseNotice{
+  background:#fff7bf;
+  border:2px solid #efc94c;
+  padding:12px;
+  border-radius:15px;
+  margin-top:10px;
   font-weight:bold;
 }
 
-/* MOBILE */
-
-@media(max-width:600px){
-
-  header h1{
-    font-size:25px;
-  }
-
-  .domino{
-    width:165px;
-  }
-
-  .board .domino{
-    width:125px;
-  }
-
-  .label{
-    font-size:12px;
-  }
-
-  .board .label{
-    font-size:9px;
-  }
+.scoreTable{
+  margin-top:15px;
 }
 </style>
 </head>
@@ -380,9 +363,7 @@ button:disabled{
 
   <h2>🎮 เข้าสู่เกม</h2>
 
-  <p>
-    ให้นักเรียนแต่ละกลุ่มใช้รหัสห้องเดียวกัน
-  </p>
+  <p>ให้นักเรียนแต่ละกลุ่มใช้รหัสห้องเดียวกัน</p>
 
   <input
     id="playerName"
@@ -425,10 +406,9 @@ button:disabled{
 
   <div id="waitingPlayers" class="players"></div>
 
-  <div id="waitingMessage" class="message"></div>
-
-  <div class="notice">
-    💡 ห้องรองรับผู้เล่นสูงสุด 5 คน
+  <div
+    id="waitingMessage"
+    class="message">
   </div>
 
   <div class="center">
@@ -436,9 +416,10 @@ button:disabled{
     <button
       id="startGameBtn"
       onclick="startGame()"
-      class="hidden"
-    >
+      class="hidden">
+
       ▶️ เริ่มเกม
+
     </button>
 
   </div>
@@ -452,15 +433,48 @@ button:disabled{
 
   <section class="card">
 
-    <div id="roundText" class="big center">
+    <div
+      id="roundText"
+      class="big center">
+
       รอบที่ 1
+
     </div>
 
-    <div id="status" class="status"></div>
+    <div
+      id="status"
+      class="status">
+    </div>
 
-    <div id="turnMessage" class="message"></div>
+    <div
+      id="turnMessage"
+      class="message">
+    </div>
 
-    <div id="specialNotice"></div>
+    <div class="process">
+
+      <span>📣 ผู้ส่งสาร</span>
+      <b class="arrow">→</b>
+
+      <span>🧠 การเข้ารหัส</span>
+      <b class="arrow">→</b>
+
+      <span>📱 ข่าวสาร/สื่อ</span>
+      <b class="arrow">→</b>
+
+      <span>👁️ การถอดรหัส</span>
+      <b class="arrow">→</b>
+
+      <span>👥 ผู้รับสาร</span>
+      <b class="arrow">→</b>
+
+      <span>📱 การตอบสนอง</span>
+      <b class="arrow">→</b>
+
+      <span>📈 ผลสะท้อนกลับ</span>
+      <b class="arrow">↩️</b>
+
+    </div>
 
   </section>
 
@@ -477,8 +491,9 @@ button:disabled{
 
     </div>
 
-    <div class="small center">
-      ปลายซ้าย ← กระบวนการ → ปลายขวา
+    <div
+      id="noiseNotice"
+      class="noiseNotice hidden">
     </div>
 
   </section>
@@ -492,7 +507,10 @@ button:disabled{
 
     <div id="hand" class="hand"></div>
 
-    <div id="handHint" class="small center"></div>
+    <div
+      id="handHint"
+      class="small center">
+    </div>
 
   </section>
 
@@ -505,16 +523,18 @@ button:disabled{
 
     <button
       id="drawBtn"
-      onclick="drawTile()"
-    >
+      onclick="drawTile()">
+
       🂠 จั่วเบี้ย
+
     </button>
 
     <button
       id="passBtn"
-      onclick="passTurn()"
-    >
+      onclick="passTurn()">
+
       ⏭️ ผ่าน
+
     </button>
 
     <div>
@@ -541,14 +561,18 @@ button:disabled{
 
   <section
     id="winnerBox"
-    class="card winner hidden"
-  >
+    class="card winner hidden">
 
     <div class="big">
       🏆 จบเกม!
     </div>
 
     <p id="winnerText"></p>
+
+    <div
+      id="scoreTable"
+      class="scoreTable">
+    </div>
 
   </section>
 
@@ -568,7 +592,7 @@ button:disabled{
 </li>
 
 <li>
-ผู้เล่น 5 คน จั่วเบี้ยคนละ 5 ใบ
+ผู้เล่นจั่วเบี้ยคนละ 5 ใบ
 </li>
 
 <li>
@@ -578,17 +602,18 @@ button:disabled{
 </li>
 
 <li>
-<b>รอบที่ 1</b>
-เป็นรอบทดลอง สามารถวางเบี้ยได้อย่างอิสระ
+<b>รอบที่ 1 เป็นรอบทดลอง</b>
+สามารถวางเบี้ยได้อย่างอิสระ
+เพื่อให้ผู้เล่นได้ทำความคุ้นเคยกับเกม
 </li>
 
 <li>
-เมื่อเข้าสู่การเล่นตามกระบวนการ
-ต้องต่อเบี้ยให้ตรงกับคำที่ปลายแถว
+เมื่อเข้าสู่ <b>รอบที่ 2</b>
+จะต้องต่อเบี้ยตามกระบวนการสื่อสาร
 </li>
 
 <li>
-กระบวนการหลักคือ
+กระบวนการคือ
 <b>
 ผู้ส่งสาร →
 การเข้ารหัส →
@@ -614,42 +639,31 @@ button:disabled{
 </li>
 
 <li>
-ถ้ามี Noise ที่ปลายแถว
-ผู้เล่นต้องจั่วเบี้ยจากกองกลาง
-จนกว่าจะเจอเบี้ยที่มี
-<b>Noise | คำศัพท์อื่น</b>
+เมื่อมี Noise ขวางทาง
+ผู้เล่นคนถัดไปจะไม่สามารถวางเบี้ยปกติได้
+ต้องจั่วจนพบเบี้ย
+<b>[ Noise | คำศัพท์อื่น ]</b>
+เพื่อกำจัดสิ่งรบกวน
 </li>
 
 <li>
-เบี้ย Noise ที่มีอีกฝั่งเป็นคำศัพท์
-ใช้เพื่อกำจัดสิ่งรบกวน
-และกลับเข้าสู่กระบวนการ
+เมื่อพบเบี้ย Noise ที่จับคู่กับคำศัพท์อื่น
+ผู้เล่นสามารถวางเบี้ยนั้นต่อได้
+และกระบวนการกลับเข้าสู่เส้นทางปกติ
 </li>
 
 <li>
-ใครที่เบี้ยในมือหมดก่อน
+ผู้ที่เบี้ยในมือหมดก่อน
 เป็นผู้ชนะ
 </li>
 
 <li>
-ผู้ที่วางเบี้ยปิดลูปสุดท้าย
+ผู้ที่วางเบี้ยเพื่อปิดลูป
+<b>ผลสะท้อนกลับ → ผู้ส่งสาร</b>
 ได้คะแนนพิเศษ
 </li>
 
 </ol>
-
-<div class="legend">
-
-  <span class="sender">📣 ผู้ส่งสาร</span>
-  <span class="encoding">🧠 การเข้ารหัส</span>
-  <span class="media">📱 ข่าวสาร/สื่อ</span>
-  <span class="decoding">👁️ การถอดรหัส</span>
-  <span class="receiver">👥 ผู้รับสาร</span>
-  <span class="response">📱 การตอบสนอง</span>
-  <span class="feedback">📈 ผลสะท้อนกลับ</span>
-  <span class="noise">⚡ Noise</span>
-
-</div>
 
 </section>
 
@@ -687,6 +701,7 @@ const firebaseConfig = {
 
   measurementId:
     "G-MPFMVRYYDE"
+
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -696,7 +711,13 @@ const db =
 
 
 /* =====================================================
-   เบี้ยหลัก 22 ใบตามรายการที่กำหนด
+   เบี้ย 30 ใบ
+=====================================================
+
+22 แบบตามรายการครูกำหนด
++
+8 ใบสำรองเพื่อให้มีเบี้ยสำหรับจั่ว
+
 ===================================================== */
 
 const BASE_TILES = [
@@ -743,17 +764,9 @@ const BASE_TILES = [
 
   ["Noise","ผู้ส่งสาร"],
 
-  ["Noise","การตอบสนอง"]
+  ["Noise","การตอบสนอง"],
 
-];
-
-
-/* =====================================================
-   เบี้ยเพิ่มสำหรับให้ 5 คนจั่วคนละ 5 ใบ
-   รวม 30 ใบ
-===================================================== */
-
-const EXTRA_TILES = [
+  /* สำรอง */
 
   ["ผู้ส่งสาร","การเข้ารหัส"],
 
@@ -771,11 +784,6 @@ const EXTRA_TILES = [
 
   ["Noise","การตอบสนอง"]
 
-];
-
-const ALL_TILES = [
-  ...BASE_TILES,
-  ...EXTRA_TILES
 ];
 
 
@@ -833,11 +841,11 @@ const CLASS = {
    ตัวแปร
 ===================================================== */
 
-let roomCode = "";
-let myId = "";
-let myName = "";
-let roomRef = null;
-let gameState = null;
+let roomCode="";
+let myId="";
+let myName="";
+let roomRef=null;
+let gameState=null;
 
 
 /* =====================================================
@@ -846,7 +854,7 @@ let gameState = null;
 
 function shuffle(arr){
 
-  const a = [...arr];
+  const a=[...arr];
 
   for(
     let i=a.length-1;
@@ -854,13 +862,13 @@ function shuffle(arr){
     i--
   ){
 
-    const j =
+    const j=
       Math.floor(
         Math.random()*(i+1)
       );
 
-    [a[i],a[j]] =
-      [a[j],a[i];
+    [a[i],a[j]]=
+      [a[j],a[i]];
 
   }
 
@@ -874,18 +882,14 @@ function shuffle(arr){
 
 function makeRoomCode(){
 
-  const chars =
+  const chars=
     "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
   let code="";
 
-  for(
-    let i=0;
-    i<6;
-    i++
-  ){
+  for(let i=0;i<6;i++){
 
-    code +=
+    code+=
       chars[
         Math.floor(
           Math.random()*chars.length
@@ -899,19 +903,17 @@ function makeRoomCode(){
 
 
 /* =====================================================
-   ID ผู้เล่น
+   Player ID
 ===================================================== */
 
 function makePlayerId(){
 
-  return (
-    "p_" +
-    Date.now().toString(36) +
-    "_" +
+  return "p_"+
+    Date.now().toString(36)+
+    "_"+
     Math.random()
       .toString(36)
-      .slice(2,8)
-  );
+      .slice(2,9);
 
 }
 
@@ -922,11 +924,10 @@ function makePlayerId(){
 
 async function createRoom(){
 
-  myName =
+  myName=
     document
       .getElementById("playerName")
-      .value
-      .trim();
+      .value.trim();
 
   if(!myName){
 
@@ -936,33 +937,29 @@ async function createRoom(){
 
   }
 
-  myId =
-    makePlayerId();
+  myId=makePlayerId();
 
-  roomCode =
-    makeRoomCode();
+  roomCode=makeRoomCode();
 
-  roomRef =
+  roomRef=
     db.ref(
-      "rooms/" + roomCode
+      "rooms/"+roomCode
     );
 
-  const players = {};
+  const players={};
 
-  players[myId] = {
+  players[myId]={
 
     id:myId,
-
     name:myName,
-
     joinedAt:
       firebase.database.ServerValue.TIMESTAMP
 
   };
 
-  const initial = {
+  const initial={
 
-    roomCode,
+    roomCode:roomCode,
 
     hostId:myId,
 
@@ -970,9 +967,11 @@ async function createRoom(){
 
     round:1,
 
-    roundMoves:0,
+    turnIndex:0,
 
     currentPlayerId:null,
+
+    players:players,
 
     board:[],
 
@@ -984,19 +983,29 @@ async function createRoom(){
 
     winner:null,
 
-    loopWinner:null,
+    loopBonus:0,
 
     createdAt:
       firebase.database.ServerValue.TIMESTAMP
 
   };
 
-  initial.players =
-    players;
+  try{
 
-  await roomRef.set(initial);
+    await roomRef.set(initial);
 
-  showWaiting();
+    showWaiting();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "สร้างห้องไม่สำเร็จค่ะ\n"+
+      error.message
+    );
+
+  }
 
 }
 
@@ -1007,13 +1016,12 @@ async function createRoom(){
 
 async function joinRoom(){
 
-  myName =
+  myName=
     document
       .getElementById("playerName")
-      .value
-      .trim();
+      .value.trim();
 
-  roomCode =
+  roomCode=
     document
       .getElementById("roomInput")
       .value
@@ -1036,71 +1044,84 @@ async function joinRoom(){
 
   }
 
-  myId =
-    makePlayerId();
+  myId=makePlayerId();
 
-  roomRef =
+  roomRef=
     db.ref(
-      "rooms/" + roomCode
+      "rooms/"+roomCode
     );
 
-  const snap =
-    await roomRef.once("value");
+  try{
 
-  if(!snap.exists()){
+    const snap=
+      await roomRef.once("value");
 
-    alert("ไม่พบห้องนี้ค่ะ");
+    if(!snap.exists()){
 
-    return;
+      alert(
+        "ไม่พบห้องนี้ค่ะ\n\n"+
+        "ตรวจสอบรหัสห้องอีกครั้ง"
+      );
 
-  }
-
-  const data =
-    snap.val();
-
-  const players =
-    data.players || {};
-
-  if(
-    Object.keys(players).length >= 5
-  ){
-
-    alert(
-      "ห้องนี้มีผู้เล่นครบ 5 คนแล้วค่ะ"
-    );
-
-    return;
-
-  }
-
-  if(
-    data.status !== "waiting"
-  ){
-
-    alert(
-      "เกมห้องนี้เริ่มไปแล้วค่ะ"
-    );
-
-    return;
-
-  }
-
-  await roomRef.update({
-
-    ["players/"+myId]:{
-
-      id:myId,
-
-      name:myName,
-
-      joinedAt:
-        firebase.database.ServerValue.TIMESTAMP
+      return;
 
     }
 
-  });
+    const data=snap.val();
 
-  showWaiting();
+    const players=
+      data.players || {};
+
+    if(
+      Object.keys(players).length>=5
+    ){
+
+      alert(
+        "ห้องนี้มีผู้เล่นครบ 5 คนแล้วค่ะ"
+      );
+
+      return;
+
+    }
+
+    if(data.status!=="waiting"){
+
+      alert(
+        "เกมห้องนี้เริ่มไปแล้วค่ะ"
+      );
+
+      return;
+
+    }
+
+    const player={
+
+      id:myId,
+      name:myName,
+      joinedAt:
+        firebase.database.ServerValue.TIMESTAMP
+
+    };
+
+    await roomRef.update({
+
+      ["players/"+myId]:
+        player
+
+    });
+
+    showWaiting();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "เข้าห้องไม่สำเร็จค่ะ\n"+
+      error.message
+    );
+
+  }
 
 }
 
@@ -1121,8 +1142,7 @@ function showWaiting(){
 
   document
     .getElementById("roomCode")
-    .textContent =
-      roomCode;
+    .textContent=roomCode;
 
   listenRoom();
 
@@ -1135,30 +1155,20 @@ function showWaiting(){
 
 function listenRoom(){
 
-  if(!roomRef) return;
+  if(!roomRef)return;
+
+  roomRef.off();
 
   roomRef.on(
     "value",
     snap=>{
 
-      if(!snap.exists()){
+      if(!snap.exists())return;
 
-        alert(
-          "ห้องนี้ถูกปิดค่ะ"
-        );
-
-        location.reload();
-
-        return;
-
-      }
-
-      gameState =
-        snap.val();
+      gameState=snap.val();
 
       if(
-        gameState.status ===
-        "waiting"
+        gameState.status==="waiting"
       ){
 
         renderWaiting();
@@ -1166,10 +1176,8 @@ function listenRoom(){
       }
 
       if(
-        gameState.status ===
-        "playing" ||
-        gameState.status ===
-        "finished"
+        gameState.status==="playing" ||
+        gameState.status==="finished"
       ){
 
         document
@@ -1196,69 +1204,68 @@ function listenRoom(){
 
 function renderWaiting(){
 
-  const players =
-    gameState.players || {};
-
-  const arr =
-    Object.values(players);
-
-  const box =
-    document.getElementById(
-      "waitingPlayers"
+  const players=
+    Object.values(
+      gameState.players || {}
     );
+
+  const box=
+    document
+      .getElementById(
+        "waitingPlayers"
+      );
 
   box.innerHTML="";
 
-  arr.forEach(p=>{
+  players.forEach(p=>{
 
-    const div =
+    const div=
       document.createElement("div");
 
-    div.className =
-      "player " +
-      (
-        p.id===myId
-        ? "me"
-        : ""
-      );
+    div.className=
+      "player "+
+      (p.id===myId ? "me":"");
 
-    div.textContent =
-      "👤 " + p.name;
+    div.textContent=
+      "👤 "+p.name;
 
     box.appendChild(div);
 
   });
 
   document
-    .getElementById("waitingMessage")
-    .textContent =
-      arr.length + "/5 คน";
+    .getElementById(
+      "waitingMessage"
+    )
+    .textContent=
+      players.length+"/5 คน";
 
-  const start =
-    document.getElementById(
-      "startGameBtn"
-    );
+  const start=
+    document
+      .getElementById(
+        "startGameBtn"
+      );
 
   if(
-    gameState.hostId === myId
+    gameState.hostId===myId
   ){
 
     start.classList.remove(
       "hidden"
     );
 
-    if(arr.length < 2){
+    if(players.length<2){
 
       start.disabled=true;
 
-      start.textContent =
+      start.textContent=
         "⏳ รอเพื่อนเข้าห้อง";
 
     }else{
 
       start.disabled=false;
 
-      start.textContent =
+      start.textContent=
         "▶️ เริ่มเกม";
 
     }
@@ -1281,19 +1288,15 @@ function renderWaiting(){
 async function startGame(){
 
   if(
-    gameState.hostId !== myId
-  ){
+    gameState.hostId!==myId
+  )return;
 
-    return;
-
-  }
-
-  const players =
+  const players=
     Object.values(
       gameState.players || {}
     );
 
-  if(players.length < 2){
+  if(players.length<2){
 
     alert(
       "ต้องมีผู้เล่นอย่างน้อย 2 คนค่ะ"
@@ -1303,18 +1306,18 @@ async function startGame(){
 
   }
 
-  const deck =
-    shuffle(ALL_TILES);
+  const shuffled=
+    shuffle(BASE_TILES);
 
-  const startIndex =
-    deck.findIndex(
-      tile =>
-        tile[0] === "START" &&
-        tile[1] === "ผู้ส่งสาร"
+  const startIndex=
+    shuffled.findIndex(
+      t=>
+        t[0]==="START" &&
+        t[1]==="ผู้ส่งสาร"
     );
 
-  const startTile =
-    deck.splice(
+  const startTile=
+    shuffled.splice(
       startIndex,
       1
     )[0];
@@ -1325,19 +1328,17 @@ async function startGame(){
 
     hands[p.id]=[];
 
-    for(
-      let i=0;
-      i<5;
-      i++
-    ){
+    for(let i=0;i<5;i++){
 
       hands[p.id].push(
-        deck.pop()
+        shuffled.pop()
       );
 
     }
 
   });
+
+  const drawPile=shuffled;
 
   const scores={};
 
@@ -1351,24 +1352,22 @@ async function startGame(){
 
     round:1,
 
-    roundMoves:0,
+    turnIndex:0,
 
     currentPlayerId:
       players[0].id,
 
-    board:[
-      startTile
-    ],
+    board:[startTile],
 
-    hands,
+    hands:hands,
 
-    drawPile:deck,
+    drawPile:drawPile,
 
-    scores,
+    scores:scores,
 
     winner:null,
 
-    loopWinner:null
+    loopBonus:0
 
   });
 
@@ -1376,29 +1375,15 @@ async function startGame(){
 
 
 /* =====================================================
-   DOMINO
+   สร้าง DOMINO
 ===================================================== */
 
-function makeDomino(
-  tile,
-  clickFn
-){
+function makeDomino(tile,clickFn){
 
-  const d =
+  const d=
     document.createElement("div");
 
   d.className="domino";
-
-  if(
-    tile[0] === "Noise" &&
-    tile[1] === "Noise"
-  ){
-
-    d.classList.add(
-      "noiseTile"
-    );
-
-  }
 
   if(clickFn){
 
@@ -1421,31 +1406,29 @@ function makeDomino(
 
 function makeHalf(word){
 
-  const h =
+  const h=
     document.createElement("div");
 
-  h.className =
-    "half " +
-    CLASS[word];
+  h.className=
+    "half "+CLASS[word];
 
-  const art =
+  const art=
     document.createElement("div");
 
   art.className="art";
 
-  art.textContent =
+  art.textContent=
     ART[word];
 
-  const label =
+  const label=
     document.createElement("div");
 
   label.className="label";
 
-  label.textContent =
+  label.textContent=
     word;
 
   h.appendChild(art);
-
   h.appendChild(label);
 
   return h;
@@ -1454,19 +1437,17 @@ function makeHalf(word){
 
 
 /* =====================================================
-   Board
+   กระดาน
 ===================================================== */
 
 function renderBoard(){
 
-  const board =
-    document.getElementById(
-      "board"
-    );
+  const board=
+    document.getElementById("board");
 
   board.innerHTML="";
 
-  const tiles =
+  const tiles=
     gameState.board || [];
 
   tiles.forEach(tile=>{
@@ -1477,65 +1458,31 @@ function renderBoard(){
 
   });
 
-}
+  if(tiles.length){
 
+    const last=
+      tiles[tiles.length-1];
 
-/* =====================================================
-   รอบที่ 1 = วางอิสระ
-===================================================== */
+    const end=
+      document.createElement("div");
 
-function roundOnePlayable(){
+    end.className="endPoint";
 
-  return true;
+    end.textContent=
+      "ปลายแถว: "+last[1];
 
-}
+    board.appendChild(end);
 
-
-/* =====================================================
-   ตรวจ Noise
-===================================================== */
-
-function boardHasNoiseEnd(){
-
-  const board =
-    gameState.board || [];
-
-  if(board.length===0)
-    return false;
-
-  const left =
-    board[0][0];
-
-  const right =
-    board[board.length-1][1];
-
-  return (
-    left === "Noise" ||
-    right === "Noise"
-  );
+  }
 
 }
 
 
 /* =====================================================
-   ตรวจว่าเบี้ยมี Noise
+   กติกากระบวนการ
 ===================================================== */
 
-function isNoiseTile(tile){
-
-  return (
-    tile[0] === "Noise" ||
-    tile[1] === "Noise"
-  );
-
-}
-
-
-/* =====================================================
-   คำถัดไปตามกระบวนการ
-===================================================== */
-
-const FLOW = [
+const PROCESS=[
 
   "ผู้ส่งสาร",
 
@@ -1554,109 +1501,154 @@ const FLOW = [
 ];
 
 
-function nextFlowWord(word){
-
-  const index =
-    FLOW.indexOf(word);
-
-  if(index === -1)
-    return null;
-
-  return FLOW[
-    (index+1)%FLOW.length
-  ];
-
-}
-
-
 /* =====================================================
-   ตรวจว่าเบี้ยเล่นได้
+   ตรวจว่าเป็น Noise
 ===================================================== */
 
-function playable(tile){
-
-  const board =
-    gameState.board || [];
-
-  if(
-    gameState.round === 1
-  ){
-
-    return true;
-
-  }
-
-  if(board.length===0)
-    return true;
-
-  const left =
-    board[0][0];
-
-  const right =
-    board[
-      board.length-1
-    ][1];
-
-  /*
-     ถ้ามี Noise ที่ปลาย
-     ต้องใช้เบี้ยที่มี Noise
-  */
-
-  if(
-    left === "Noise"
-  ){
-
-    return (
-      tile[0] === "Noise" ||
-      tile[1] === "Noise"
-    );
-
-  }
-
-  if(
-    right === "Noise"
-  ){
-
-    return (
-      tile[0] === "Noise" ||
-      tile[1] === "Noise"
-    );
-
-  }
-
-  /*
-     การต่อปกติ
-     ต้องมีคำเดียวกับปลายแถว
-  */
+function isNoise(tile){
 
   return (
-    tile[0] === left ||
-    tile[1] === left ||
-    tile[0] === right ||
-    tile[1] === right
+    tile[0]==="Noise" ||
+    tile[1]==="Noise"
   );
 
 }
 
 
 /* =====================================================
-   เล่นเบี้ย
+   ปลายแถว
+===================================================== */
+
+function getEnd(){
+
+  const board=
+    gameState.board || [];
+
+  if(!board.length)return null;
+
+  return board[
+    board.length-1
+  ][1];
+
+}
+
+
+/* =====================================================
+   รอบที่ 1
+=====================================================
+
+รอบทดลอง:
+เบี้ยอะไรก็ได้
+
+แต่ยังคงวางต่อทางขวา
+เพื่อให้กระดานเป็นเส้นเดียว
+
+===================================================== */
+
+function canPlayRound1(tile){
+
+  return true;
+
+}
+
+
+/* =====================================================
+   รอบที่ 2
+=====================================================
+
+ต้องต่อจากคำที่ปลายแถว
+
+ตัวอย่าง:
+
+ผู้ส่งสาร
+→ การเข้ารหัส
+→ ข่าวสาร/สื่อ
+→ การถอดรหัส
+...
+
+===================================================== */
+
+function canPlayNormal(tile){
+
+  const end=getEnd();
+
+  if(!end)return true;
+
+  /*
+     Noise | Noise
+     ต้องใช้เบี้ย Noise
+     แก้ Noise เท่านั้น
+  */
+
+  if(end==="Noise"){
+
+    return (
+      tile[0]==="Noise" &&
+      tile[1]!=="Noise"
+    );
+
+  }
+
+  /*
+     ถ้าปลายแถวเป็นศัพท์ปกติ
+     ต้องให้เบี้ยเริ่มด้วยศัพท์นั้น
+     หรือเป็นคู่ศัพท์นั้น
+  */
+
+  return tile[0]===end;
+
+}
+
+
+/* =====================================================
+   ตรวจวางได้
+===================================================== */
+
+function playable(tile){
+
+  if(
+    gameState.round===1
+  ){
+
+    return canPlayRound1(tile);
+
+  }
+
+  return canPlayNormal(tile);
+
+}
+
+
+/* =====================================================
+   ตรวจว่าเป็นการปิดลูป
+===================================================== */
+
+function isLoopClosing(tile){
+
+  const end=getEnd();
+
+  return (
+    end==="ผลสะท้อนกลับ" &&
+    tile[0]==="ผู้ส่งสาร"
+  );
+
+}
+
+
+/* =====================================================
+   วางเบี้ย
 ===================================================== */
 
 async function playTile(index){
 
-  if(!gameState)
-    return;
+  if(!gameState)return;
 
   if(
-    gameState.status !==
-    "playing"
-  )
-    return;
+    gameState.status!=="playing"
+  )return;
 
   if(
-    gameState.currentPlayerId !==
-    myId
+    gameState.currentPlayerId!==myId
   ){
 
     alert(
@@ -1667,259 +1659,178 @@ async function playTile(index){
 
   }
 
-  const hand =
+  const hand=
     gameState.hands?.[myId] || [];
 
-  const tile =
-    hand[index];
+  const tile=hand[index];
 
-  if(!tile)
-    return;
+  if(!tile)return;
 
   /*
-     รอบที่ 2
-     ตรวจการวาง
+     ตรวจ Noise
   */
 
+  const end=getEnd();
+
   if(
-    gameState.round === 2 &&
-    !playable(tile)
+    gameState.round>1 &&
+    end==="Noise" &&
+    !(
+      tile[0]==="Noise" &&
+      tile[1]!=="Noise"
+    )
   ){
 
     alert(
-      "เบี้ยนี้ยังต่อไม่ได้ค่ะ\n\n"+
-      "ต้องต่อให้ตรงกับคำที่ปลายแถว"
+      "⚡ ตอนนี้มี Noise ขวางอยู่\n\n"+
+      "ต้องใช้เบี้ย [ Noise | คำศัพท์อื่น ] "+
+      "เพื่อกำจัดสิ่งรบกวนค่ะ"
     );
 
     return;
 
   }
 
-  const board =
-    [...(gameState.board || [])];
-
-  let placed=false;
-
   /*
-     กระดานว่าง
+     ตรวจรอบปกติ
   */
 
-  if(board.length===0){
-
-    board.push(tile);
-
-    placed=true;
-
-  }
-
-  else{
-
-    const first =
-      board[0];
-
-    const last =
-      board[
-        board.length-1
-      ];
-
-    /*
-       ถ้ามี Noise ทางขวา
-    */
-
-    if(
-      last[1] === "Noise"
-    ){
-
-      if(tile[0] === "Noise"){
-
-        board.push(tile);
-
-        placed=true;
-
-      }
-
-      else if(
-        tile[1] === "Noise"
-      ){
-
-        board.push([
-          tile[1],
-          tile[0]
-        ]);
-
-        placed=true;
-
-      }
-
-    }
-
-    /*
-       ถ้ามี Noise ทางซ้าย
-    */
-
-    else if(
-      first[0] === "Noise"
-    ){
-
-      if(tile[1] === "Noise"){
-
-        board.unshift(tile);
-
-        placed=true;
-
-      }
-
-      else if(
-        tile[0] === "Noise"
-      ){
-
-        board.unshift([
-          tile[1],
-          tile[0]
-        ]);
-
-        placed=true;
-
-      }
-
-    }
-
-    /*
-       ต่อด้านขวา
-    */
-
-    else if(
-      tile[0] === last[1]
-    ){
-
-      board.push(tile);
-
-      placed=true;
-
-    }
-
-    else if(
-      tile[1] === last[1]
-    ){
-
-      board.push([
-        tile[1],
-        tile[0]
-      ]);
-
-      placed=true;
-
-    }
-
-    /*
-       ต่อด้านซ้าย
-    */
-
-    else if(
-      tile[1] === first[0]
-    ){
-
-      board.unshift(tile);
-
-      placed=true;
-
-    }
-
-    else if(
-      tile[0] === first[0]
-    ){
-
-      board.unshift([
-        tile[1],
-        tile[0]
-      ]);
-
-      placed=true;
-
-    }
-
-  }
-
-  if(!placed){
+  if(
+    gameState.round>1 &&
+    !canPlayNormal(tile)
+  ){
 
     alert(
-      "เบี้ยนี้ต่อไม่ได้ค่ะ"
+      "🧩 เบี้ยนี้ยังต่อไม่ได้ค่ะ\n\n"+
+      "ปลายแถวคือ: "+end+
+      "\nต้องใช้เบี้ยที่ขึ้นต้นด้วย \""+
+      end+"\""
     );
 
     return;
 
   }
 
-  hand.splice(
-    index,
-    1
-  );
-
   /*
-     ตรวจการปิดลูป
+     ทุกเบี้ยวางทางขวา
   */
 
-  let loopBonus=0;
+  const board=[
+    ...(gameState.board || [])
+  ];
+
+  let placed=[...tile];
+
+  /*
+     รอบ 1:
+     วางอะไรก็ได้
+  */
 
   if(
-    board.length >= 2
+    gameState.round===1
   ){
 
-    const last =
-      board[
-        board.length-1
-      ];
+    board.push(placed);
 
-    const previous =
-      board[
-        board.length-2
-      ];
+  }else{
+
+    /*
+       รอบ 2:
+       ต้องต่อให้ตรง
+    */
 
     if(
-      previous[1] ===
-      "ผลสะท้อนกลับ" &&
-      last[1] ===
-      "ผู้ส่งสาร"
+      placed[0]!==end
     ){
 
-      loopBonus=5;
+      /*
+         กรณี Noise
+         ไม่อนุญาตให้กลับด้าน
+      */
+
+      if(
+        placed[1]===end &&
+        placed[0]!=="Noise"
+      ){
+
+        placed=[
+          placed[1],
+          placed[0]
+        ];
+
+      }else{
+
+        alert(
+          "เบี้ยนี้วางไม่ได้ค่ะ"
+        );
+
+        return;
+
+      }
 
     }
 
+    board.push(placed);
+
   }
 
-  const scores =
-    {
-      ...(gameState.scores || {})
-    };
-
-  scores[myId] =
-    (scores[myId] || 0) +
-    loopBonus;
+  hand.splice(index,1);
 
   /*
-     หมดมือ = ชนะ
+     ตรวจปิดลูป
+  */
+
+  let newScore=
+    Number(
+      gameState.scores?.[myId] || 0
+    );
+
+  let bonus=
+    Number(
+      gameState.loopBonus || 0
+    );
+
+  if(
+    gameState.round>1 &&
+    isLoopClosing(placed)
+  ){
+
+    newScore+=5;
+
+    bonus+=5;
+
+    alert(
+      "🎉 ปิดลูปสำเร็จ!\n\n"+
+      "ได้รับคะแนนพิเศษ +5 คะแนน"
+    );
+
+  }
+
+  /*
+     ตรวจชนะ
   */
 
   if(hand.length===0){
 
+    const scores={
+      ...(gameState.scores || {})
+    };
+
+    scores[myId]=newScore;
+
     await roomRef.update({
 
-      board,
+      board:board,
 
-      ["hands/"+myId]:
-        hand,
+      ["hands/"+myId]:hand,
 
-      scores,
+      ["scores/"+myId]:newScore,
+
+      loopBonus:bonus,
 
       status:"finished",
 
-      winner:myId,
-
-      loopWinner:
-        loopBonus > 0
-        ? myId
-        : gameState.loopWinner
+      winner:myId
 
     });
 
@@ -1928,77 +1839,65 @@ async function playTile(index){
   }
 
   /*
-     รอบ 1
-     ให้ผู้เล่นทุกคนได้ลองวางคนละ 1 ครั้ง
+     รอบ 1:
+     ผู้เล่นทุกคนต้องได้ทดลองวาง
+     อย่างน้อยคนละ 1 ครั้ง
   */
 
-  let round =
+  let round=
     gameState.round;
 
-  let roundMoves =
+  let turnIndex=
     Number(
-      gameState.roundMoves || 0
+      gameState.turnIndex || 0
     );
 
-  if(round === 1){
-
-    roundMoves++;
-
-    if(
-      roundMoves >=
-      Object.keys(
-        gameState.players || {}
-      ).length
-    ){
-
-      round=2;
-      roundMoves=0;
-
-    }
-
-  }
-
-  /*
-     ผู้เล่นคนต่อไป
-  */
-
-  const players =
+  const players=
     Object.values(
       gameState.players || {}
     );
 
-  const currentIndex =
-    players.findIndex(
-      p=>p.id===myId
-    );
+  if(
+    round===1 &&
+    board.length>=
+      players.length+1
+  ){
 
-  const nextIndex =
-    (
-      currentIndex + 1
-    ) % players.length;
+    round=2;
 
-  await roomRef.update({
+  }
 
-    board,
+  /*
+     คนถัดไป
+  */
 
-    ["hands/"+myId]:
-      hand,
+  turnIndex=
+    (turnIndex+1)%
+    players.length;
 
-    scores,
+  const nextPlayer=
+    players[turnIndex];
 
-    round,
+  const updates={
 
-    roundMoves,
+    board:board,
+
+    ["hands/"+myId]:hand,
+
+    ["scores/"+myId]:newScore,
+
+    round:round,
+
+    turnIndex:turnIndex,
 
     currentPlayerId:
-      players[nextIndex].id,
+      nextPlayer.id
 
-    loopWinner:
-      loopBonus > 0
-      ? myId
-      : gameState.loopWinner
+  };
 
-  });
+  await roomRef.update(
+    updates
+  );
 
 }
 
@@ -2009,32 +1908,29 @@ async function playTile(index){
 
 async function drawTile(){
 
-  if(
-    !gameState ||
-    gameState.status !==
-    "playing"
-  )
-    return;
+  if(!gameState)return;
 
   if(
-    gameState.currentPlayerId !==
-    myId
+    gameState.status!=="playing"
+  )return;
+
+  if(
+    gameState.currentPlayerId!==myId
   ){
 
     alert(
-      "ยังไม่ถึงตาของคุณค่ะ"
+      "ยังไม่ถึงตาคุณค่ะ"
     );
 
     return;
 
   }
 
-  let pile =
-    [
-      ...(gameState.drawPile || [])
-    ];
+  const pile=[
+    ...(gameState.drawPile || [])
+  ];
 
-  if(pile.length===0){
+  if(!pile.length){
 
     alert(
       "กองกลางหมดแล้วค่ะ"
@@ -2044,67 +1940,37 @@ async function drawTile(){
 
   }
 
-  const hand =
-    [
-      ...(gameState.hands?.[myId] || [])
-    ];
+  const tile=
+    pile.pop();
+
+  const hand=[
+    ...(gameState.hands?.[myId] || [])
+  ];
+
+  hand.push(tile);
 
   /*
-     ถ้ามี Noise ที่ปลาย
-     ต้องจั่วจนเจอเบี้ย Noise
+     ถ้าเจอ Noise | คำอื่น
+     และปลายแถวเป็น Noise
+     สามารถใช้กำจัด Noise ได้ทันที
   */
 
   if(
-    boardHasNoiseEnd()
+    getEnd()==="Noise" &&
+    tile[0]==="Noise" &&
+    tile[1]!=="Noise"
   ){
 
-    let foundNoise=null;
+    alert(
+      "⚡ พบเบี้ย Noise สำหรับกำจัดสิ่งรบกวนแล้วค่ะ!\n\n"+
+      "กดเบี้ยนี้เพื่อวางต่อและกลับเข้าสู่กระบวนการปกติ"
+    );
 
-    while(
-      pile.length > 0
-    ){
+  }else{
 
-      const tile =
-        pile.pop();
-
-      hand.push(tile);
-
-      if(
-        isNoiseTile(tile)
-      ){
-
-        foundNoise=tile;
-
-        break;
-
-      }
-
-    }
-
-    if(foundNoise){
-
-      alert(
-        "⚡ พบเบี้ย Noise!\n\n"+
-        "นำเบี้ยนี้ไปต่อกับ Noise "+
-        "เพื่อกำจัดสิ่งรบกวนค่ะ"
-      );
-
-    }else{
-
-      alert(
-        "กองกลางหมดแล้ว และยังไม่พบเบี้ย Noise"
-      );
-
-    }
-
-  }
-
-  else{
-
-    const tile =
-      pile.pop();
-
-    hand.push(tile);
+    alert(
+      "🂠 จั่วได้: "+tile[0]+" | "+tile[1]
+    );
 
   }
 
@@ -2112,8 +1978,7 @@ async function drawTile(){
 
     drawPile:pile,
 
-    ["hands/"+myId]:
-      hand
+    ["hands/"+myId]:hand
 
   });
 
@@ -2126,32 +1991,54 @@ async function drawTile(){
 
 async function passTurn(){
 
+  if(!gameState)return;
+
   if(
-    !gameState ||
-    gameState.currentPlayerId !==
-    myId
-  )
+    gameState.status!=="playing"
+  )return;
+
+  if(
+    gameState.currentPlayerId!==myId
+  )return;
+
+  /*
+     ถ้ามี Noise ห้ามผ่าน
+  */
+
+  if(
+    gameState.round>1 &&
+    getEnd()==="Noise"
+  ){
+
+    alert(
+      "⚡ มี Noise ขวางอยู่\n\n"+
+      "ต้องจั่วจนพบเบี้ย [ Noise | คำศัพท์อื่น ]"
+    );
+
     return;
 
-  const players =
+  }
+
+  const players=
     Object.values(
       gameState.players || {}
     );
 
-  const i =
-    players.findIndex(
-      p=>p.id===myId
+  let turnIndex=
+    Number(
+      gameState.turnIndex || 0
     );
 
-  const next =
-    players[
-      (i+1)%players.length
-    ];
+  turnIndex=
+    (turnIndex+1)%
+    players.length;
 
   await roomRef.update({
 
+    turnIndex:turnIndex,
+
     currentPlayerId:
-      next.id
+      players[turnIndex].id
 
   });
 
@@ -2164,28 +2051,25 @@ async function passTurn(){
 
 function renderHand(){
 
-  const box =
-    document.getElementById(
-      "hand"
-    );
+  const box=
+    document.getElementById("hand");
 
   box.innerHTML="";
 
-  const hand =
+  const hand=
     gameState.hands?.[myId] || [];
 
   hand.forEach(
     (tile,index)=>{
 
-      const d =
+      const d=
         makeDomino(
           tile,
           ()=>playTile(index)
         );
 
       if(
-        gameState.currentPlayerId ===
-        myId &&
+        gameState.currentPlayerId===myId &&
         playable(tile)
       ){
 
@@ -2200,47 +2084,39 @@ function renderHand(){
     }
   );
 
-  const hint =
-    document.getElementById(
-      "handHint"
-    );
+  let hint="";
 
   if(
-    gameState.currentPlayerId ===
-    myId
+    gameState.currentPlayerId!==myId
   ){
 
-    if(
-      boardHasNoiseEnd()
-    ){
+    hint=
+      "⏳ รอผู้เล่นคนอื่น";
 
-      hint.textContent =
-        "⚡ มี Noise! จั่วจนพบเบี้ยที่มี Noise";
+  }else if(
+    gameState.round===1
+  ){
 
-    }
+    hint=
+      "🎲 รอบที่ 1: เลือกเบี้ยใบไหนก็ได้เพื่อทดลองวาง";
 
-    else if(
-      gameState.round === 1
-    ){
+  }else if(
+    getEnd()==="Noise"
+  ){
 
-      hint.textContent =
-        "🎲 รอบที่ 1 — เลือกเบี้ยใดก็ได้";
-
-    }
-
-    else{
-
-      hint.textContent =
-        "✨ ถึงตาคุณ — เลือกเบี้ยที่ต่อกับปลายแถวได้";
-
-    }
+    hint=
+      "⚡ มี Noise ขวางอยู่ — ต้องหา [ Noise | คำศัพท์อื่น ]";
 
   }else{
 
-    hint.textContent =
-      "⏳ รอผู้เล่นคนอื่น";
+    hint=
+      "✨ ถึงตาคุณ — เลือกเบี้ยที่ตรงกับปลายแถว";
 
   }
+
+  document
+    .getElementById("handHint")
+    .textContent=hint;
 
 }
 
@@ -2251,38 +2127,33 @@ function renderHand(){
 
 function renderGamePlayers(){
 
-  const box =
+  const box=
     document.getElementById(
       "gamePlayers"
     );
 
   box.innerHTML="";
 
-  const players =
+  const players=
     Object.values(
       gameState.players || {}
     );
 
   players.forEach(p=>{
 
-    const row =
-      document.createElement(
-        "div"
-      );
+    const row=
+      document.createElement("div");
 
-    row.className =
-      "playerRow";
+    row.className="playerRow";
 
-    if(
-      p.id === myId
-    ){
+    if(p.id===myId){
 
       row.classList.add("me");
 
     }
 
     if(
-      p.id ===
+      p.id===
       gameState.currentPlayerId
     ){
 
@@ -2290,34 +2161,34 @@ function renderGamePlayers(){
 
     }
 
-    const hand =
+    const hand=
       gameState.hands?.[p.id] || [];
 
-    row.innerHTML =
+    const score=
+      Number(
+        gameState.scores?.[p.id] || 0
+      );
+
+    row.innerHTML=
       "👤 <b>"+
       escapeHtml(p.name)+
       "</b>"+
       " — เหลือ "+
       hand.length+
-      " เบี้ย";
+      " เบี้ย"+
+      " <span class='score'>"+
+      score+
+      " คะแนน</span>";
 
     if(
-      p.id ===
+      p.id===
       gameState.currentPlayerId
     ){
 
-      row.innerHTML +=
+      row.innerHTML+=
         " 🎯";
 
     }
-
-    const score =
-      gameState.scores?.[p.id] || 0;
-
-    row.innerHTML +=
-      '<span class="score">'+
-      "⭐ "+score+
-      "</span>";
 
     box.appendChild(row);
 
@@ -2343,7 +2214,7 @@ function escapeHtml(text){
 
 
 /* =====================================================
-   สถานะเกม
+   แสดงเกม
 ===================================================== */
 
 function renderGame(){
@@ -2356,55 +2227,60 @@ function renderGame(){
 
   document
     .getElementById("pileCount")
-    .textContent =
+    .textContent=
       (
         gameState.drawPile || []
       ).length;
 
   document
     .getElementById("roundText")
-    .textContent =
-      gameState.round === 1
+    .textContent=
+      gameState.round===1
       ? "รอบที่ 1 — ทดลองวาง 🎲"
       : "รอบที่ 2 — กระบวนการสื่อสาร 🧩";
 
-  const special =
-    document.getElementById(
-      "specialNotice"
-    );
-
-  special.innerHTML="";
-
   /*
-     Noise
+     Noise notice
   */
 
+  const notice=
+    document.getElementById(
+      "noiseNotice"
+    );
+
   if(
-    boardHasNoiseEnd()
+    gameState.round>1 &&
+    getEnd()==="Noise"
   ){
 
-    special.innerHTML =
-      '<div class="notice noiseNotice">'+
-      "⚡ <b>สิ่งรบกวน (Noise)!</b><br>"+
-      "ปลายแถวติด Noise อยู่ "+
-      "ผู้เล่นคนต่อไปต้องจั่วจนเจอเบี้ยที่มี Noise "+
-      "เพื่อกำจัดสิ่งรบกวน"+
-      "</div>";
+    notice.classList.remove(
+      "hidden"
+    );
+
+    notice.textContent=
+      "⚡ สิ่งรบกวนกำลังขวางกระบวนการ! "+
+      "ผู้เล่นคนถัดไปต้องจั่วจนพบ "+
+      "[ Noise | คำศัพท์อื่น ]";
+
+  }else{
+
+    notice.classList.add(
+      "hidden"
+    );
 
   }
 
   /*
-     จบเกม
+     เกมจบ
   */
 
   if(
-    gameState.status ===
-    "finished"
+    gameState.status==="finished"
   ){
 
     document
       .getElementById("status")
-      .textContent =
+      .textContent=
         "🏆 เกมจบแล้ว";
 
     document
@@ -2417,39 +2293,28 @@ function renderGame(){
         "hidden"
       );
 
-    const winner =
+    const winner=
       gameState.players?.[
         gameState.winner
       ];
 
-    const loopPlayer =
-      gameState.players?.[
-        gameState.loopWinner
-      ];
-
-    let text =
-      winner
-      ? winner.name+
-        " เป็นผู้ชนะ 🎉"
-      : "จบเกมแล้ว";
-
-    if(loopPlayer){
-
-      text +=
-        "<br>⭐ "+
-        loopPlayer.name+
-        " ได้คะแนนพิเศษจากการปิดลูป";
-
-    }
-
     document
       .getElementById("winnerText")
-      .innerHTML =
-        text;
+      .textContent=
+        winner
+        ? winner.name+
+          " เป็นผู้ชนะ 🎉"
+        : "จบเกมแล้ว";
+
+    renderScores();
 
     return;
 
   }
+
+  /*
+     เกมกำลังเล่น
+  */
 
   document
     .getElementById("winnerBox")
@@ -2457,51 +2322,41 @@ function renderGame(){
       "hidden"
     );
 
-  const current =
+  const current=
     gameState.players?.[
       gameState.currentPlayerId
     ];
 
-  if(!current)
-    return;
+  if(!current)return;
 
   if(
-    current.id === myId
+    current.id===myId
   ){
 
     document
       .getElementById("status")
-      .textContent =
+      .textContent=
         "✨ ถึงตาของคุณ!";
 
-    if(
-      gameState.round === 1
-    ){
-
-      document
-        .getElementById("turnMessage")
-        .textContent =
-          "🎲 รอบทดลอง — วางเบี้ยใบไหนก็ได้";
-
-    }else{
-
-      document
-        .getElementById("turnMessage")
-        .textContent =
-          "🧩 เลือกเบี้ยที่ต่อกับกระบวนการได้";
-
-    }
+    document
+      .getElementById("turnMessage")
+      .textContent=
+        gameState.round===1
+        ? "🎲 รอบทดลอง — เลือกเบี้ยอะไรก็ได้"
+        : getEnd()==="Noise"
+        ? "⚡ ต้องกำจัด Noise ก่อน"
+        : "เลือกเบี้ยที่ต่อกับปลายแถว";
 
   }else{
 
     document
       .getElementById("status")
-      .textContent =
+      .textContent=
         "กำลังรอ "+current.name;
 
     document
       .getElementById("turnMessage")
-      .textContent =
+      .textContent=
         "🎯 ถึงตาของ "+current.name;
 
   }
@@ -2510,7 +2365,64 @@ function renderGame(){
 
 
 /* =====================================================
-   ปิดหน้า
+   คะแนน
+===================================================== */
+
+function renderScores(){
+
+  const box=
+    document.getElementById(
+      "scoreTable"
+    );
+
+  const players=
+    Object.values(
+      gameState.players || {}
+    );
+
+  players.sort(
+    (a,b)=>
+      Number(
+        gameState.scores?.[b.id] || 0
+      )-
+      Number(
+        gameState.scores?.[a.id] || 0
+      )
+  );
+
+  box.innerHTML=
+    "<h3>🏅 คะแนน</h3>";
+
+  players.forEach((p,index)=>{
+
+    const score=
+      Number(
+        gameState.scores?.[p.id] || 0
+      );
+
+    const row=
+      document.createElement("div");
+
+    row.className="playerRow";
+
+    row.innerHTML=
+      (index===0 ? "🥇 " : "")+
+      "<b>"+
+      escapeHtml(p.name)+
+      "</b>"+
+      " — "+
+      score+
+      " คะแนน";
+
+    box.appendChild(row);
+
+  });
+
+}
+
+
+/* =====================================================
+   ป้องกันชื่อหายจาก Firebase
 ===================================================== */
 
 window.addEventListener(
@@ -2518,8 +2430,8 @@ window.addEventListener(
   ()=>{
 
     /*
-       ไม่ลบผู้เล่นทันที
-       เพื่อป้องกันปัญหา refresh บนมือถือ
+       ไม่ลบผู้เล่น
+       เพราะมือถืออาจ refresh
     */
 
   }
