@@ -4,428 +4,841 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>สื่อ-ต่อ-สาร | Domino</title>
+<title>สื่อ-ต่อ-สาร | Communication Domino</title>
 
 <style>
+
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Noto Sans Thai", sans-serif;
-  background: #f4f7fb;
-  color: #263238;
+    margin: 0;
+    font-family:
+        "Noto Sans Thai",
+        "Sarabun",
+        system-ui,
+        sans-serif;
+
+    background:
+        linear-gradient(135deg, #fdf8ff, #eefaff);
+
+    color: #39445b;
 }
 
-/* HEADER */
 header {
-  background: linear-gradient(135deg, #19b6c9, #7048e8);
-  color: white;
-  text-align: center;
-  padding: 22px 15px;
+    background:
+        linear-gradient(135deg, #8edfe4, #b99bea);
+
+    color: white;
+    text-align: center;
+
+    padding: 25px 15px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.10);
 }
 
 header h1 {
-  margin: 0;
-  font-size: 30px;
+    margin: 0;
+    font-size: 32px;
+    letter-spacing: 1px;
 }
 
 header p {
-  margin: 6px 0 0;
-  font-size: 16px;
+    margin: 7px 0 0;
+    font-size: 16px;
 }
 
-/* MAIN */
-.wrap {
-  max-width: 1100px;
-  margin: auto;
-  padding: 18px;
+.container {
+    width: min(1100px, 94%);
+    margin: auto;
+    padding: 20px 0 50px;
 }
 
 .card {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 18px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    background: rgba(255,255,255,.95);
+
+    border-radius: 24px;
+
+    padding: 20px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(79,91,120,.10);
 }
 
 h2 {
-  margin-top: 0;
-}
-
-/* INPUT */
-input {
-  width: 100%;
-  padding: 13px;
-  border: 2px solid #d7deea;
-  border-radius: 12px;
-  font-size: 16px;
-  margin: 8px 0;
+    margin-top: 0;
+    color: #59617a;
 }
 
 button {
-  border: 0;
-  border-radius: 12px;
-  padding: 12px 18px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  background: #7048e8;
-  color: white;
-  margin: 5px;
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 13px 22px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: #9274df;
+    color: white;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.10);
 }
 
 button:hover {
-  opacity: 0.9;
+    transform: translateY(-1px);
 }
 
-button.secondary {
-  background: #7b8794;
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
 }
 
-button.success {
-  background: #20a464;
+input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border-radius: 14px;
+
+    border: 2px solid #dce2ef;
+
+    font-size: 16px;
+
+    margin: 7px 0 12px;
+
+    outline: none;
 }
 
-button.danger {
-  background: #e05252;
+input:focus {
+    border-color: #9d86df;
 }
 
-/* STATUS */
+.hidden {
+    display: none !important;
+}
+
+
+/* =====================================
+   ROOM
+===================================== */
+
+.room-box {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.room-box input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.room-code {
+    font-size: 28px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    text-align: center;
+
+    padding: 12px;
+
+    border-radius: 16px;
+
+    background: #f1ebff;
+
+    color: #7354b7;
+
+    margin: 10px 0;
+}
+
+
+/* =====================================
+   PLAYERS
+===================================== */
+
+.players {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.player {
+    background: #f4f6fb;
+
+    border-radius: 14px;
+
+    padding: 10px 15px;
+
+    font-weight: bold;
+}
+
+.player.active {
+    background: #dff8f4;
+
+    box-shadow:
+        0 0 0 3px #79d9ca;
+}
+
+
+/* =====================================
+   GAME STATUS
+===================================== */
+
+.round-title {
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    margin-bottom: 8px;
+}
+
 .status {
-  text-align: center;
-  font-weight: 700;
-  font-size: 18px;
-  padding: 10px;
-  border-radius: 12px;
-  background: #eef1ff;
-  margin: 10px 0;
+    text-align: center;
+
+    padding: 12px;
+
+    border-radius: 15px;
+
+    background: #f3f5fb;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
 }
 
-.message {
-  text-align: center;
-  font-weight: 700;
-  min-height: 25px;
+.turn-message {
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    color: #7658b9;
 }
 
-/* BOARD */
-.board {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-  min-height: 180px;
-  padding: 15px;
-  background: #f8fafc;
-  border-radius: 16px;
-  border: 2px dashed #d7deea;
-}
 
-/* DOMINO */
-.domino {
-  width: 190px;
-  min-height: 105px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: white;
-  border: 4px solid #333;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-  transition: transform .15s, box-shadow .15s;
-}
+/* =====================================
+   DOMINO
+===================================== */
 
-.domino:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 7px 15px rgba(0,0,0,0.16);
-}
-
-.half {
-  min-height: 105px;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-}
-
-.half:first-child {
-  border-right: 2px solid #333;
-}
-
-.half:last-child {
-  border-left: 0;
-}
-
-.icon {
-  font-size: 40px;
-  line-height: 1;
-  margin-bottom: 5px;
-}
-
-.label {
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.noise {
-  background: #fff176 !important;
-  color: #6b5600;
-}
-
-.noise .icon {
-  display: none;
-}
-
-/* HAND */
 .hand {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  justify-content: center;
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 14px;
+}
+
+.domino {
+    width: 190px;
+    min-height: 118px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    background: white;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    border: 3px solid #c8cede;
+
+    box-shadow:
+        0 5px 13px rgba(0,0,0,.12);
+
+    transition:
+        .2s;
 }
 
 .hand .domino {
-  width: 175px;
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .hand .domino:hover {
-  transform: translateY(-7px) rotate(-1deg);
+    transform:
+        translateY(-7px)
+        rotate(-1deg);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.16);
 }
 
-/* PALETTE */
-.messenger {
-  background: #ffe4e9;
+.domino.playable {
+    border-color: #78cdbd;
+
+    box-shadow:
+        0 0 0 4px rgba(120,205,189,.22),
+        0 6px 15px rgba(0,0,0,.10);
+}
+
+.domino.unplayable {
+    opacity: .55;
+}
+
+.domino-half {
+    min-height: 118px;
+
+    padding: 8px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    border-right: 2px solid #d0d5e0;
+}
+
+.domino-half:last-child {
+    border-right: none;
+}
+
+.tile-image {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 34px;
+
+    margin-bottom: 5px;
+}
+
+.tile-name {
+    font-size: 14px;
+
+    line-height: 1.25;
+
+    font-weight: 900;
+}
+
+
+/* =====================================
+   PASTEL TILE COLORS
+===================================== */
+
+.sender {
+    background: #ffe3e8;
 }
 
 .encoding {
-  background: #e8ddff;
+    background: #e8ddff;
 }
 
 .media {
-  background: #dff7f2;
+    background: #d9f6ee;
 }
 
 .decoding {
-  background: #fff0d5;
+    background: #fff0d4;
 }
 
 .receiver {
-  background: #dcecff;
+    background: #dceeff;
 }
 
 .response {
-  background: #e4f6d5;
+    background: #e5f7d7;
 }
 
 .feedback {
-  background: #ffe2c6;
+    background: #ffe4c9;
 }
 
-/* PLAYER */
-.player {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
+.start {
+    background: #e4efff;
 }
 
-/* RULES */
+.noise {
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            #fff06a,
+            #fff06a 8px,
+            #ffd95a 8px,
+            #ffd95a 16px
+        );
+
+    color: #9a5700;
+
+    border-color: #f0b400;
+}
+
+
+/* =====================================
+   BOARD
+===================================== */
+
+.board-wrapper {
+    overflow-x: auto;
+
+    padding-bottom: 10px;
+}
+
+.board {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: max-content;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4f7fb,
+            #eef2fa
+        );
+
+    border-radius: 20px;
+
+    min-height: 190px;
+}
+
+.board .domino {
+    width: 145px;
+    min-height: 95px;
+}
+
+.board .domino-half {
+    min-height: 95px;
+}
+
+.board .tile-image {
+    width: 42px;
+    height: 42px;
+    font-size: 25px;
+}
+
+.board .tile-name {
+    font-size: 11px;
+}
+
+
+/* =====================================
+   DRAW AREA
+===================================== */
+
+.draw-box {
+    text-align: center;
+
+    background: #f8f5ff;
+
+    border-radius: 18px;
+
+    padding: 15px;
+}
+
+.draw-count {
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+
+/* =====================================
+   RULES
+===================================== */
+
 .rules {
-  background: #fff9e6;
-  border-left: 6px solid #ffc107;
+    background: #fffaf0;
+
+    border-left: 6px solid #e7bd55;
 }
 
 .rules li {
-  margin-bottom: 7px;
+    margin-bottom: 8px;
+
+    line-height: 1.5;
 }
 
-/* ROUND */
-.round {
-  text-align: center;
-  font-size: 21px;
-  font-weight: 800;
+
+/* =====================================
+   WINNER
+===================================== */
+
+.winner {
+    text-align: center;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background: #f1fff7;
 }
 
-/* SCORE */
-.score {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  font-weight: 700;
+.winner h2 {
+    font-size: 30px;
 }
 
-/* MOBILE */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 24px;
-  }
 
-  .domino {
-    width: 170px;
-  }
+/* =====================================
+   MOBILE
+===================================== */
 
-  .hand .domino {
-    width: 160px;
-  }
+@media(max-width:600px) {
 
-  .label {
-    font-size: 13px;
-  }
+    header h1 {
+        font-size: 25px;
+    }
 
-  .icon {
-    font-size: 34px;
-  }
+    .domino {
+        width: 165px;
+    }
+
+    .tile-image {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+    }
+
+    .tile-name {
+        font-size: 12px;
+    }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
+
 <header>
-  <h1>📢 สื่อ-ต่อ-สาร</h1>
-  <p>เกมโดมิโนในกระบวนการสื่อสาร</p>
-</header>
 
-<div class="wrap">
-
-  <!-- START -->
-  <section class="card" id="startScreen">
-
-    <h2>เริ่มเกม</h2>
+    <h1>📢 สื่อ-ต่อ-สาร</h1>
 
     <p>
-      เกมนี้มีโดมิโนทั้งหมด 22 เบี้ย
-      <br>
-      รอบที่ 1 เป็นรอบทดลอง สามารถวางเบี้ยได้อย่างอิสระ
+        เกมโดมิโนกระบวนการสื่อสาร
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =====================================
+     HOME
+===================================== -->
+
+<section id="home" class="card">
+
+    <h2>
+        🎮 เข้าสู่เกม
+    </h2>
+
+    <p>
+        เกมโดมิโนสำหรับเรียนรู้
+        กระบวนการสื่อสาร
     </p>
 
     <input
-      id="playerName"
-      type="text"
-      placeholder="ชื่อผู้เล่น"
+        id="playerName"
+        placeholder="ใส่ชื่อของคุณ"
+        maxlength="30"
     >
 
-    <button onclick="startGame()">
-      เริ่มเล่น
+    <div class="room-box">
+
+        <button onclick="createRoom()">
+            สร้างห้อง
+        </button>
+
+        <input
+            id="roomCodeInput"
+            placeholder="รหัสห้อง"
+            maxlength="6"
+        >
+
+        <button onclick="joinRoom()">
+            เข้าห้อง
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     WAITING ROOM
+===================================== -->
+
+<section id="waiting" class="card hidden">
+
+    <h2>
+        🏠 ห้องเกม
+    </h2>
+
+    <div
+        id="roomCodeDisplay"
+        class="room-code">
+        ------
+    </div>
+
+    <p style="text-align:center;">
+        ส่งรหัสห้องให้เพื่อนในกลุ่ม
+    </p>
+
+    <h3>
+        ผู้เล่นในห้อง
+    </h3>
+
+    <div
+        id="players"
+        class="players">
+    </div>
+
+    <p
+        id="waitingText"
+        class="turn-message">
+        รอผู้เล่น...
+    </p>
+
+    <button
+        id="startButton"
+        onclick="startGame()"
+        class="hidden">
+        ▶️ เริ่มเกม
     </button>
 
-  </section>
+</section>
 
 
-  <!-- GAME -->
-  <section class="card" id="gameScreen" style="display:none;">
+<!-- =====================================
+     GAME
+===================================== -->
 
-    <div class="round" id="roundTitle">
-      รอบที่ 1 — ทดลองวาง
-    </div>
-
-    <div class="status" id="status">
-      วางเบี้ยไหนก่อนก็ได้เลย 🎲
-    </div>
-
-    <div class="score">
-      <div>👤 ผู้เล่น: <span id="playerDisplay">-</span></div>
-      <div>🁢 เบี้ยในมือ: <span id="remaining">22</span></div>
-    </div>
-
-  </section>
+<section
+    id="game"
+    class="hidden">
 
 
-  <!-- BOARD -->
-  <section class="card" id="boardCard" style="display:none;">
+    <div class="card">
 
-    <h2>กระดานโดมิโน</h2>
+        <div
+            id="roundTitle"
+            class="round-title">
+            รอบที่ 1
+        </div>
 
-    <div id="board" class="board">
-      <div style="color:#8993a4;">
-        เลือกเบี้ยจากด้านล่างเพื่อเริ่มวาง
-      </div>
-    </div>
+        <div
+            id="status"
+            class="status">
+            กำลังเริ่มเกม...
+        </div>
 
-  </section>
-
-
-  <!-- HAND -->
-  <section class="card" id="handCard" style="display:none;">
-
-    <h2>เบี้ยโดมิโนของฉัน</h2>
-
-    <div id="hand" class="hand"></div>
-
-    <div class="message" id="message"></div>
-
-    <div style="text-align:center; margin-top:15px;">
-
-      <button
-        id="nextRoundBtn"
-        class="success"
-        onclick="startRound2()"
-        style="display:none;"
-      >
-        ▶️ เข้าสู่รอบที่ 2
-      </button>
-
-      <button
-        class="secondary"
-        onclick="resetGame()"
-      >
-        🔄 เริ่มเกมใหม่
-      </button>
+        <div
+            id="turnMessage"
+            class="turn-message">
+        </div>
 
     </div>
 
-  </section>
+
+    <!-- BOARD -->
+
+    <section class="card">
+
+        <h2>
+            🁢 กระดานสื่อ-ต่อ-สาร
+        </h2>
+
+        <div class="board-wrapper">
+
+            <div
+                id="board"
+                class="board">
+            </div>
+
+        </div>
+
+    </section>
 
 
-  <!-- RULES -->
-  <section class="card rules">
+    <!-- HAND -->
 
-    <h2>📖 กติกา</h2>
+    <section class="card">
 
-    <ul>
-      <li>
-        <b>รอบที่ 1:</b>
-        ทดลองวางได้อย่างอิสระ จะวางเบี้ยไหนก่อนหรือวางมั่วก็ได้
-      </li>
+        <h2>
+            🧩 เบี้ยของฉัน
+        </h2>
 
-      <li>
-        เมื่อเล่นรอบที่ 1 ครบแล้ว
-        กด <b>“เข้าสู่รอบที่ 2”</b>
-      </li>
+        <div
+            id="hand"
+            class="hand">
+        </div>
 
-      <li>
-        <b>รอบที่ 2:</b>
-        ต้องต่อเบี้ยโดยให้คำที่ติดกันเป็นคำเดียวกัน
-      </li>
+    </section>
 
-      <li>
-        สามารถต่อได้ทั้งด้านซ้ายและด้านขวาของแถวโดมิโน
-      </li>
 
-      <li>
-        ถ้าด้านของเบี้ยไม่ตรงกับปลายที่เปิดอยู่
-        จะไม่สามารถวางได้
-      </li>
+    <!-- DRAW -->
 
-      <li>
-        เบี้ย <b>Noise</b> เป็นสิ่งรบกวน
-        ใช้สีเหลืองเด่นและไม่มีรูปภาพ
-      </li>
+    <section class="card">
 
-      <li>
-        ผู้ชนะคือผู้ที่วางเบี้ยหมดก่อน 🎉
-      </li>
-    </ul>
+        <div class="draw-box">
 
-  </section>
+            <div class="draw-count">
+                🂠 กองกลางเหลือ
+                <span id="drawCount">0</span>
+                เบี้ย
+            </div>
+
+            <button
+                id="drawButton"
+                onclick="drawTile()">
+                🂠 จั่วเบี้ย
+            </button>
+
+            <button
+                id="passButton"
+                onclick="passTurn()">
+                ⏭️ ผ่าน
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLAYERS -->
+
+    <section class="card">
+
+        <h2>
+            👥 ผู้เล่น
+        </h2>
+
+        <div
+            id="gamePlayers"
+            class="players">
+        </div>
+
+    </section>
+
+
+</section>
+
+
+<!-- =====================================
+     RULES
+===================================== -->
+
+<section class="card rules">
+
+    <h2>
+        📖 วิธีเล่น
+    </h2>
+
+    <ol>
+
+        <li>
+            คว่ำเบี้ยทั้งหมดลงแล้วผสมกัน
+            เป็นกองกลาง
+        </li>
+
+        <li>
+            ผู้เล่น 5 คน
+            จั่วเบี้ยคนละ 5 ใบ
+        </li>
+
+        <li>
+            วางเบี้ย
+            <b>[ START | ผู้ส่งสาร ]</b>
+            ไว้กลางวง
+        </li>
+
+        <li>
+            ผู้เล่นคนถัดไปต้องหาเบี้ย
+            ที่มีคำว่า
+            <b>การเข้ารหัส</b>
+            มาวางต่อ
+        </li>
+
+        <li>
+            ต่อไปตามกระบวนการ
+            <br>
+            ผู้ส่งสาร →
+            การเข้ารหัส →
+            ข่าวสาร/สื่อ →
+            การถอดรหัส →
+            ผู้รับสาร →
+            การตอบสนอง →
+            ผลสะท้อนกลับ
+        </li>
+
+        <li>
+            เมื่อถึง
+            <b>ผลสะท้อนกลับ</b>
+            สามารถวนกลับไป
+            <b>ผู้ส่งสาร</b>
+            ได้
+        </li>
+
+        <li>
+            <b>Noise | Noise</b>
+            เป็นเบี้ยทางตัน
+        </li>
+
+        <li>
+            เมื่อเจอ Noise
+            ผู้เล่นต้องจั่วจากกองกลาง
+            จนพบเบี้ย
+            <b>Noise | คำศัพท์อื่น</b>
+        </li>
+
+        <li>
+            ผู้เล่นที่เบี้ยหมดมือก่อน
+            เป็นผู้ชนะ
+        </li>
+
+        <li>
+            ผู้ที่วางเบี้ยปิดลูปสุดท้าย
+            ได้คะแนนพิเศษ
+        </li>
+
+    </ol>
+
+</section>
+
 
 </div>
 
@@ -433,753 +846,979 @@ button.danger {
 <script>
 
 /* =========================================================
-   ข้อมูลโดมิโน 22 เบี้ย
-   ========================================================= */
+   DOMINO DATA
+   =========================================================
 
-const dominoData = [
+   22 เบี้ยตามรายการเดิมของคุณ
 
-  {
-    id: 1,
-    a: "Start",
-    b: "ผู้ส่งสาร"
-  },
+   เราจะเพิ่มเบี้ยที่จำเป็นในขั้นตอน
+   เชื่อมต่อเกมออนไลน์ภายหลัง
+========================================================= */
 
-  {
-    id: 2,
-    a: "ผู้ส่งสาร",
-    b: "การเข้ารหัส"
-  },
+const TILES = [
 
-  {
-    id: 3,
-    a: "ข่าวสาร/สื่อ",
-    b: "การเข้ารหัส"
-  },
+    ["START", "ผู้ส่งสาร"],
 
-  {
-    id: 4,
-    a: "การเข้ารหัส",
-    b: "ข่าวสาร/สื่อ"
-  },
+    ["ผู้ส่งสาร", "การเข้ารหัส"],
 
-  {
-    id: 5,
-    a: "ข่าวสาร/สื่อ",
-    b: "การถอดรหัส"
-  },
+    ["ข่าวสาร/สื่อ", "การเข้ารหัส"],
 
-  {
-    id: 6,
-    a: "การถอดรหัส",
-    b: "ผู้รับสาร"
-  },
+    ["การเข้ารหัส", "ข่าวสาร/สื่อ"],
 
-  {
-    id: 7,
-    a: "ผู้รับสาร",
-    b: "การตอบสนอง"
-  },
+    ["ข่าวสาร/สื่อ", "การถอดรหัส"],
 
-  {
-    id: 8,
-    a: "การตอบสนอง",
-    b: "ผลสะท้อนกลับ"
-  },
+    ["การถอดรหัส", "ผู้รับสาร"],
 
-  {
-    id: 9,
-    a: "ผลสะท้อนกลับ",
-    b: "ผู้ส่งสาร"
-  },
+    ["ผู้รับสาร", "การตอบสนอง"],
 
-  {
-    id: 10,
-    a: "ผู้รับสาร",
-    b: "ผลสะท้อนกลับ"
-  },
+    ["การตอบสนอง", "ผลสะท้อนกลับ"],
 
-  {
-    id: 11,
-    a: "ผู้ส่งสาร",
-    b: "ผู้ส่งสาร"
-  },
+    ["ผลสะท้อนกลับ", "ผู้ส่งสาร"],
 
-  {
-    id: 12,
-    a: "การเข้ารหัส",
-    b: "การเข้ารหัส"
-  },
+    ["ผู้รับสาร", "ผลสะท้อนกลับ"],
 
-  {
-    id: 13,
-    a: "ข่าวสาร/สื่อ",
-    b: "ข่าวสาร/สื่อ"
-  },
+    ["ผู้ส่งสาร", "ผู้ส่งสาร"],
 
-  {
-    id: 14,
-    a: "การถอดรหัส",
-    b: "การถอดรหัส"
-  },
+    ["การเข้ารหัส", "การเข้ารหัส"],
 
-  {
-    id: 15,
-    a: "ผู้รับสาร",
-    b: "ผู้รับสาร"
-  },
+    ["ข่าวสาร/สื่อ", "ข่าวสาร/สื่อ"],
 
-  {
-    id: 16,
-    a: "การตอบสนอง",
-    b: "การตอบสนอง"
-  },
+    ["การถอดรหัส", "การถอดรหัส"],
 
-  {
-    id: 17,
-    a: "ผลสะท้อนกลับ",
-    b: "ผลสะท้อนกลับ"
-  },
+    ["ผู้รับสาร", "ผู้รับสาร"],
 
-  {
-    id: 18,
-    a: "Noise",
-    b: "Noise"
-  },
+    ["การตอบสนอง", "การตอบสนอง"],
 
-  {
-    id: 19,
-    a: "Noise",
-    b: "ข่าวสาร/สื่อ"
-  },
+    ["ผลสะท้อนกลับ", "ผลสะท้อนกลับ"],
 
-  {
-    id: 20,
-    a: "Noise",
-    b: "การถอดรหัส"
-  },
+    ["Noise", "Noise"],
 
-  {
-    id: 21,
-    a: "Noise",
-    b: "ผู้ส่งสาร"
-  },
+    ["Noise", "ข่าวสาร/สื่อ"],
 
-  {
-    id: 22,
-    a: "Noise",
-    b: "การตอบสนอง"
-  }
+    ["Noise", "การถอดรหัส"],
+
+    ["Noise", "ผู้ส่งสาร"],
+
+    ["Noise", "การตอบสนอง"]
 
 ];
 
 
 /* =========================================================
-   รูปภาพ/ไอคอนของแต่ละประเภท
-   ========================================================= */
+   ภาพประกอบการ์ตูนกึ่งสมจริง
+========================================================= */
 
-const icons = {
+const TILE_ART = {
 
-  "Start": "▶️",
+    "START":
+        "🚩",
 
-  "ผู้ส่งสาร": "📣",
+    "ผู้ส่งสาร":
+        "📣",
 
-  "การเข้ารหัส": "🧠⚙️",
+    "การเข้ารหัส":
+        "🧠⚙️",
 
-  "ข่าวสาร/สื่อ": "📱🔗",
+    "ข่าวสาร/สื่อ":
+        "📱🌐",
 
-  "การถอดรหัส": "👁️",
+    "การถอดรหัส":
+        "👁️",
 
-  "ผู้รับสาร": "👥👂",
+    "ผู้รับสาร":
+        "👥👂",
 
-  "การตอบสนอง": "📱✅",
+    "การตอบสนอง":
+        "📱✓",
 
-  "ผลสะท้อนกลับ": "📈💰",
+    "ผลสะท้อนกลับ":
+        "📈💰",
 
-  "Noise": ""
-
-};
-
-
-/* =========================================================
-   สีของแต่ละประเภท
-   ========================================================= */
-
-const classes = {
-
-  "Start": "messenger",
-
-  "ผู้ส่งสาร": "messenger",
-
-  "การเข้ารหัส": "encoding",
-
-  "ข่าวสาร/สื่อ": "media",
-
-  "การถอดรหัส": "decoding",
-
-  "ผู้รับสาร": "receiver",
-
-  "การตอบสนอง": "response",
-
-  "ผลสะท้อนกลับ": "feedback",
-
-  "Noise": "noise"
+    "Noise":
+        ""
 
 };
 
 
 /* =========================================================
-   ตัวแปรเกม
-   ========================================================= */
+   สีของภาพ
+========================================================= */
 
-let hand = [];
+const TILE_CLASS = {
 
-let board = [];
+    "START":
+        "start",
 
-let currentRound = 1;
+    "ผู้ส่งสาร":
+        "sender",
 
-let player = "";
+    "การเข้ารหัส":
+        "encoding",
+
+    "ข่าวสาร/สื่อ":
+        "media",
+
+    "การถอดรหัส":
+        "decoding",
+
+    "ผู้รับสาร":
+        "receiver",
+
+    "การตอบสนอง":
+        "response",
+
+    "ผลสะท้อนกลับ":
+        "feedback",
+
+    "Noise":
+        "noise"
+
+};
 
 
 /* =========================================================
-   เริ่มเกม
-   ========================================================= */
+   GAME STATE
+========================================================= */
 
-function startGame() {
+let game = {
 
-  player =
-    document.getElementById("playerName").value.trim()
-    || "ผู้เล่น";
+    roomCode: "",
 
-  document.getElementById("playerDisplay").textContent =
-    player;
+    playerId: "",
 
-  document.getElementById("startScreen").style.display =
-    "none";
+    playerName: "",
 
-  document.getElementById("gameScreen").style.display =
-    "block";
+    players: [],
 
-  document.getElementById("boardCard").style.display =
-    "block";
+    round: 1,
 
-  document.getElementById("handCard").style.display =
-    "block";
+    currentPlayer: 0,
 
-  /*
-    เริ่มด้วยเบี้ยทั้ง 22 เบี้ย
-  */
+    board: [],
 
-  hand = [...dominoData];
+    hand: [],
 
-  board = [];
+    drawPile: [],
 
-  currentRound = 1;
+    winner: null
 
-  updateRound();
+};
 
-  renderHand();
 
-  renderBoard();
+/* =========================================================
+   สร้างเบี้ย HTML
+========================================================= */
 
+function makeHalf(name) {
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "domino-half " +
+        TILE_CLASS[name];
+
+    const art =
+        document.createElement("div");
+
+    art.className =
+        "tile-image";
+
+    art.textContent =
+        TILE_ART[name];
+
+    const label =
+        document.createElement("div");
+
+    label.className =
+        "tile-name";
+
+    label.textContent =
+        name;
+
+    div.appendChild(art);
+
+    div.appendChild(label);
+
+    return div;
 }
 
 
-/* =========================================================
-   สร้างเบี้ยโดมิโน
-   ========================================================= */
-
-function createDomino(tile, clickable = true) {
-
-  const domino =
-    document.createElement("div");
-
-  domino.className = "domino";
-
-  if (clickable) {
-
-    domino.onclick = function() {
-
-      playTile(tile.id);
-
-    };
-
-  }
-
-
-  const left =
-    document.createElement("div");
-
-  left.className =
-    "half " + classes[tile.a];
-
-
-  const right =
-    document.createElement("div");
-
-  right.className =
-    "half " + classes[tile.b];
-
-
-  const leftIcon =
-    document.createElement("div");
-
-  leftIcon.className =
-    "icon";
-
-  leftIcon.textContent =
-    icons[tile.a];
-
-
-  const rightIcon =
-    document.createElement("div");
-
-  rightIcon.className =
-    "icon";
-
-  rightIcon.textContent =
-    icons[tile.b];
-
-
-  const leftLabel =
-    document.createElement("div");
-
-  leftLabel.className =
-    "label";
-
-  leftLabel.textContent =
-    tile.a;
-
-
-  const rightLabel =
-    document.createElement("div");
-
-  rightLabel.className =
-    "label";
-
-  rightLabel.textContent =
-    tile.b;
-
-
-  left.appendChild(leftIcon);
-
-  left.appendChild(leftLabel);
-
-  right.appendChild(rightIcon);
-
-  right.appendChild(rightLabel);
-
-
-  domino.appendChild(left);
-
-  domino.appendChild(right);
-
-
-  return domino;
-
-}
-
-
-/* =========================================================
-   แสดงเบี้ยในมือ
-   ========================================================= */
-
-function renderHand() {
-
-  const handElement =
-    document.getElementById("hand");
-
-  handElement.innerHTML = "";
-
-
-  hand.forEach(tile => {
+function makeDomino(tile) {
 
     const domino =
-      createDomino(tile, true);
+        document.createElement("div");
 
-    handElement.appendChild(domino);
+    domino.className =
+        "domino";
 
-  });
+    domino.appendChild(
+        makeHalf(tile[0])
+    );
 
+    domino.appendChild(
+        makeHalf(tile[1])
+    );
 
-  document.getElementById("remaining")
-    .textContent = hand.length;
+    return domino;
 
 }
 
 
 /* =========================================================
    แสดงกระดาน
-   ========================================================= */
+========================================================= */
 
 function renderBoard() {
 
-  const boardElement =
-    document.getElementById("board");
+    const board =
+        document.getElementById("board");
 
-  boardElement.innerHTML = "";
+    board.innerHTML = "";
 
+    game.board.forEach(tile => {
 
-  if (board.length === 0) {
+        board.appendChild(
+            makeDomino(tile)
+        );
 
-    boardElement.innerHTML =
-      `<div style="color:#8993a4;">
-        ยังไม่มีเบี้ยบนกระดาน
-      </div>`;
-
-    return;
-
-  }
-
-
-  board.forEach(tile => {
-
-    const domino =
-      createDomino(tile, false);
-
-    boardElement.appendChild(domino);
-
-  });
+    });
 
 }
 
 
 /* =========================================================
-   ตรวจสอบการต่อเบี้ย
-   ========================================================= */
+   แสดงมือผู้เล่น
+========================================================= */
 
-function canPlay(tile) {
+function renderHand() {
 
-  /*
-    รอบที่ 1:
-    วางได้ทุกเบี้ย
-  */
+    const hand =
+        document.getElementById("hand");
 
-  if (currentRound === 1) {
+    hand.innerHTML = "";
 
-    return true;
+    game.hand.forEach((tile, index) => {
 
-  }
+        const domino =
+            makeDomino(tile);
 
+        domino.onclick =
+            () => playTile(index);
 
-  /*
-    ถ้ากระดานยังว่าง
-    รอบ 2 ก็ให้เริ่มได้
-  */
+        hand.appendChild(domino);
 
-  if (board.length === 0) {
+    });
 
-    return true;
-
-  }
-
-
-  const first =
-    board[0];
-
-  const last =
-    board[board.length - 1];
-
-
-  /*
-    ต่อด้านซ้ายหรือด้านขวาได้
-  */
-
-  const canLeft =
-    tile.a === first.a ||
-    tile.b === first.a;
-
-  const canRight =
-    tile.a === last.b ||
-    tile.b === last.b;
-
-
-  return canLeft || canRight;
+    document.getElementById("drawCount")
+        .textContent =
+        game.drawPile.length;
 
 }
 
 
 /* =========================================================
-   เล่นเบี้ย
-   ========================================================= */
+   ตรวจสอบว่าต่อได้หรือไม่
+========================================================= */
 
-function playTile(id) {
+function canConnect(tile) {
 
-  const index =
-    hand.findIndex(tile => tile.id === id);
+    if (game.board.length === 0) {
 
-  if (index === -1) return;
+        return true;
+
+    }
+
+    const first =
+        game.board[0];
+
+    const last =
+        game.board[
+            game.board.length - 1
+        ];
 
 
-  const tile =
-    hand[index];
+    const left =
+        tile[0] === first[0] ||
+        tile[1] === first[0];
+
+    const right =
+        tile[0] === last[1] ||
+        tile[1] === last[1];
 
 
-  /* ตรวจสอบกติกา */
+    return left || right;
 
-  if (!canPlay(tile)) {
+}
 
-    showMessage(
-      "❌ เบี้ยนี้ยังต่อไม่ได้ ต้องให้ด้านที่ติดกันเป็นคำเดียวกัน",
-      true
+
+/* =========================================================
+   วางเบี้ย
+========================================================= */
+
+function playTile(index) {
+
+    const tile =
+        game.hand[index];
+
+
+    /*
+       ถ้าไม่ใช่ตาของเรา
+    */
+
+    if (
+        game.currentPlayer !==
+        getMyPlayerIndex()
+    ) {
+
+        alert(
+            "ตอนนี้ยังไม่ถึงตาของคุณค่ะ 😊"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       รอบที่ 1
+       สามารถทดลองวางได้
+    */
+
+    if (game.round === 1) {
+
+        game.board.push(tile);
+
+        game.hand.splice(index, 1);
+
+        nextTurn();
+
+        renderBoard();
+
+        renderHand();
+
+        checkWinner();
+
+        return;
+
+    }
+
+
+    /*
+       รอบที่ 2
+       ต้องต่อให้ตรง
+    */
+
+    if (!canConnect(tile)) {
+
+        alert(
+            "เบี้ยนี้ยังต่อไม่ได้ค่ะ\n\n" +
+            "ลองหาเบี้ยที่มีคำตรงกับปลายแถว"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       ถ้าเป็น Noise | Noise
+       ให้กลายเป็นทางตัน
+    */
+
+    game.board.push(tile);
+
+    game.hand.splice(index, 1);
+
+
+    nextTurn();
+
+    renderBoard();
+
+    renderHand();
+
+    checkWinner();
+
+}
+
+
+/* =========================================================
+   จั่วเบี้ย
+========================================================= */
+
+function drawTile() {
+
+    if (
+        game.currentPlayer !==
+        getMyPlayerIndex()
+    ) {
+
+        alert(
+            "ยังไม่ถึงตาคุณค่ะ"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        game.drawPile.length === 0
+    ) {
+
+        alert(
+            "กองกลางหมดแล้วค่ะ"
+        );
+
+        return;
+
+    }
+
+
+    const tile =
+        game.drawPile.pop();
+
+
+    game.hand.push(tile);
+
+
+    renderHand();
+
+
+    /*
+       ถ้าจั่วได้ Noise
+       สามารถกำจัด Noise
+       และกลับเข้าสู่เส้นทางได้
+    */
+
+    if (
+        tile[0] === "Noise" ||
+        tile[1] === "Noise"
+    ) {
+
+        alert(
+            "⚡ คุณพบเบี้ย Noise แล้ว!\n\n" +
+            "สามารถใช้กำจัดสิ่งรบกวนได้"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ผ่าน
+========================================================= */
+
+function passTurn() {
+
+    if (
+        game.currentPlayer !==
+        getMyPlayerIndex()
+    ) return;
+
+    nextTurn();
+
+}
+
+
+/* =========================================================
+   เปลี่ยนผู้เล่น
+========================================================= */
+
+function nextTurn() {
+
+    game.currentPlayer++;
+
+    if (
+        game.currentPlayer >=
+        game.players.length
+    ) {
+
+        game.currentPlayer = 0;
+
+    }
+
+    updateStatus();
+
+}
+
+
+/* =========================================================
+   หาผู้เล่นของเรา
+========================================================= */
+
+function getMyPlayerIndex() {
+
+    return game.players.findIndex(
+        p => p.id === game.playerId
     );
 
-    return;
-
-  }
+}
 
 
-  /*
-    รอบที่ 1
-    วางตรงไหนก็ได้
-  */
+/* =========================================================
+   ตรวจผู้ชนะ
+========================================================= */
 
-  if (currentRound === 1) {
+function checkWinner() {
 
-    board.push(tile);
+    if (
+        game.hand.length === 0
+    ) {
 
-  }
+        game.winner =
+            game.playerName;
 
-  /*
-    รอบที่ 2
-    พยายามต่อให้ถูกด้าน
-  */
+        document.getElementById("status")
+            .textContent =
+            "🏆 " +
+            game.playerName +
+            " ชนะเกม!";
 
-  else {
+        alert(
+            "🎉 ยินดีด้วย!\n\n" +
+            game.playerName +
+            " เป็นผู้ชนะ"
+        );
 
-    placeCorrectly(tile);
+    }
 
-  }
-
-
-  /*
-    เอาเบี้ยออกจากมือ
-  */
-
-  hand.splice(index, 1);
-
-
-  renderHand();
-
-  renderBoard();
+}
 
 
-  showMessage(
-    "วางเบี้ยแล้ว 👍",
-    false
-  );
+/* =========================================================
+   แสดงสถานะ
+========================================================= */
+
+function updateStatus() {
+
+    const current =
+        game.players[
+            game.currentPlayer
+        ];
+
+    if (!current) return;
 
 
-  /*
-    ถ้าวางครบ 22 เบี้ย
-  */
+    document.getElementById("turnMessage")
+        .textContent =
+        "🎯 ถึงตาของ " +
+        current.name;
 
-  if (hand.length === 0) {
 
-    if (currentRound === 1) {
+    if (
+        current.id === game.playerId
+    ) {
 
-      showMessage(
-        "🎉 รอบที่ 1 จบแล้ว! ทดลองได้ครบทุกเบี้ยแล้ว",
-        false
-      );
-
-      document.getElementById("nextRoundBtn")
-        .style.display = "inline-block";
+        document.getElementById("status")
+            .textContent =
+            "✨ ถึงตาคุณแล้ว! เลือกเบี้ยที่ต้องการเล่น";
 
     }
 
     else {
 
-      showMessage(
-        "🏆 ยอดเยี่ยม! วางครบทั้ง 22 เบี้ยแล้ว!",
-        false
-      );
+        document.getElementById("status")
+            .textContent =
+            "กำลังรอ " +
+            current.name;
 
     }
 
-  }
-
 }
 
 
 /* =========================================================
-   ต่อเบี้ยให้ถูกต้องในรอบที่ 2
-   ========================================================= */
+   รอบที่ 1
+========================================================= */
 
-function placeCorrectly(tile) {
+function beginRoundOne() {
 
-  if (board.length === 0) {
+    game.round = 1;
 
-    board.push(tile);
-
-    return;
-
-  }
-
-
-  const first =
-    board[0];
-
-  const last =
-    board[board.length - 1];
-
-
-  /*
-    ถ้าต่อด้านซ้ายได้
-  */
-
-  if (tile.b === first.a) {
-
-    board.unshift(tile);
-
-    return;
-
-  }
-
-
-  if (tile.a === first.a) {
-
-    board.unshift({
-      id: tile.id,
-      a: tile.b,
-      b: tile.a
-    });
-
-    return;
-
-  }
-
-
-  /*
-    ถ้าต่อด้านขวาได้
-  */
-
-  if (tile.a === last.b) {
-
-    board.push(tile);
-
-    return;
-
-  }
-
-
-  if (tile.b === last.b) {
-
-    board.push({
-      id: tile.id,
-      a: tile.b,
-      b: tile.a
-    });
-
-    return;
-
-  }
-
-}
-
-
-/* =========================================================
-   เข้าสู่รอบ 2
-   ========================================================= */
-
-function startRound2() {
-
-  /*
-    รีเซ็ตกระดานเพื่อให้รอบ 2
-    เป็นการเล่นโดมิโนจริง
-  */
-
-  board = [];
-
-  currentRound = 2;
-
-
-  document.getElementById("nextRoundBtn")
-    .style.display = "none";
-
-
-  /*
-    เริ่มรอบใหม่ด้วยเบี้ยครบ 22 เบี้ย
-  */
-
-  hand = [...dominoData];
-
-
-  updateRound();
-
-  renderHand();
-
-  renderBoard();
-
-
-  showMessage(
-    "รอบที่ 2 เริ่มแล้ว! ต่อเบี้ยให้คำที่ติดกันตรงกันนะ 🎯",
-    false
-  );
-
-}
-
-
-/* =========================================================
-   เปลี่ยนข้อความรอบ
-   ========================================================= */
-
-function updateRound() {
-
-  const title =
-    document.getElementById("roundTitle");
-
-  if (currentRound === 1) {
-
-    title.textContent =
-      "รอบที่ 1 — ทดลองวาง 🎲";
+    document.getElementById("roundTitle")
+        .textContent =
+        "รอบที่ 1 — ทดลองวาง 🎲";
 
     document.getElementById("status")
-      .textContent =
-      "วางเบี้ยไหนก่อนก็ได้ จะวางมั่วก็ได้!";
+        .textContent =
+        "รอบแรกวางได้อย่างอิสระ ลองสังเกตกระบวนการสื่อสาร";
 
-  }
+}
 
-  else {
 
-    title.textContent =
-      "รอบที่ 2 — ต่อโดมิโนจริง 🁢";
+/* =========================================================
+   รอบที่ 2
+========================================================= */
+
+function beginRoundTwo() {
+
+    game.round = 2;
+
+    game.board = [];
+
+    document.getElementById("roundTitle")
+        .textContent =
+        "รอบที่ 2 — ต่อกระบวนการสื่อสาร 🧩";
 
     document.getElementById("status")
-      .textContent =
-      "ต้องต่อให้คำที่ติดกันเป็นคำเดียวกัน";
+        .textContent =
+        "ต้องต่อเบี้ยให้คำที่ติดกันตรงกัน";
 
-  }
-
-}
-
-
-/* =========================================================
-   ข้อความแจ้งเตือน
-   ========================================================= */
-
-function showMessage(text, error) {
-
-  const message =
-    document.getElementById("message");
-
-  message.textContent =
-    text;
-
-  message.style.color =
-    error ? "#d64545" : "#20a464";
+    renderBoard();
 
 }
 
 
 /* =========================================================
-   เริ่มใหม่
-   ========================================================= */
+   สร้างรหัสห้อง
+========================================================= */
 
-function resetGame() {
+function generateRoomCode() {
 
-  location.reload();
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code = "";
+
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        code +=
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
+
+    }
+
+    return code;
 
 }
+
+
+/* =========================================================
+   สร้างห้อง
+========================================================= */
+
+function createRoom() {
+
+    const name =
+        document.getElementById(
+            "playerName"
+        ).value.trim();
+
+
+    if (!name) {
+
+        alert(
+            "กรุณาใส่ชื่อก่อนค่ะ"
+        );
+
+        return;
+
+    }
+
+
+    game.playerName = name;
+
+    game.playerId =
+        Date.now().toString();
+
+    game.roomCode =
+        generateRoomCode();
+
+
+    showWaitingRoom();
+
+}
+
+
+/* =========================================================
+   เข้าห้อง
+========================================================= */
+
+function joinRoom() {
+
+    const name =
+        document.getElementById(
+            "playerName"
+        ).value.trim();
+
+
+    const code =
+        document.getElementById(
+            "roomCodeInput"
+        ).value
+        .trim()
+        .toUpperCase();
+
+
+    if (!name) {
+
+        alert(
+            "กรุณาใส่ชื่อก่อนค่ะ"
+        );
+
+        return;
+
+    }
+
+
+    if (!code) {
+
+        alert(
+            "กรุณาใส่รหัสห้องค่ะ"
+        );
+
+        return;
+
+    }
+
+
+    game.playerName = name;
+
+    game.playerId =
+        Date.now().toString();
+
+    game.roomCode =
+        code;
+
+
+    showWaitingRoom();
+
+}
+
+
+/* =========================================================
+   หน้ารอผู้เล่น
+========================================================= */
+
+function showWaitingRoom() {
+
+    document.getElementById("home")
+        .classList.add("hidden");
+
+    document.getElementById("waiting")
+        .classList.remove("hidden");
+
+
+    document.getElementById(
+        "roomCodeDisplay"
+    ).textContent =
+        game.roomCode;
+
+
+    game.players = [
+
+        {
+            id: game.playerId,
+            name: game.playerName
+        }
+
+    ];
+
+
+    renderPlayers();
+
+
+    /*
+       เวอร์ชันทดสอบ:
+       ให้เจ้าของห้องเริ่มเกมได้ทันที
+
+       เมื่อเชื่อม Firebase
+       จะเปลี่ยนเป็นระบบ 5 คนจริง
+    */
+
+    document.getElementById(
+        "startButton"
+    ).classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   แสดงรายชื่อผู้เล่น
+========================================================= */
+
+function renderPlayers() {
+
+    const box =
+        document.getElementById(
+            "players"
+        );
+
+    box.innerHTML = "";
+
+
+    game.players.forEach(
+        (player, index) => {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "player";
+
+            div.textContent =
+                "👤 " +
+                player.name;
+
+            box.appendChild(div);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   เริ่มเกม
+========================================================= */
+
+function startGame() {
+
+    document.getElementById(
+        "waiting"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "game"
+    ).classList.remove("hidden");
+
+
+    /*
+       สร้างกองเบี้ย
+    */
+
+    let pile =
+        TILES.map(
+            tile => [...tile]
+        );
+
+
+    /*
+       สับไพ่
+    */
+
+    pile =
+        shuffle(pile);
+
+
+    /*
+       START ต้องอยู่กลางกระดาน
+    */
+
+    const startIndex =
+        pile.findIndex(
+            t =>
+                t[0] === "START" &&
+                t[1] === "ผู้ส่งสาร"
+        );
+
+
+    const startTile =
+        pile.splice(
+            startIndex,
+            1
+        )[0];
+
+
+    game.board =
+        [startTile];
+
+
+    /*
+       แจกให้ผู้เล่น
+    */
+
+    game.hand = [];
+
+
+    for (
+        let i = 0;
+        i < 5;
+        i++
+    ) {
+
+        if (pile.length > 0) {
+
+            game.hand.push(
+                pile.pop()
+            );
+
+        }
+
+    }
+
+
+    game.drawPile =
+        pile;
+
+
+    game.round = 1;
+
+    game.currentPlayer = 0;
+
+
+    beginRoundOne();
+
+    renderBoard();
+
+    renderHand();
+
+    updateStatus();
+
+}
+
+
+/* =========================================================
+   สุ่ม
+========================================================= */
+
+function shuffle(array) {
+
+    const result =
+        [...array];
+
+    for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
+
+        [
+            result[i],
+            result[j]
+        ] =
+        [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+    return result;
+
+}
+
+
+/* =========================================================
+   เริ่มต้น
+========================================================= */
 
 </script>
 
