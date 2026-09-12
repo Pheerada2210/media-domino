@@ -1,104 +1,420 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>สื่อ-ต่อ-สาร | Domino</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;background:#f5f7fb;color:#18212f}
-header{padding:18px;text-align:center;background:linear-gradient(135deg,#13b9c9,#7048e8);color:white}
-h1{margin:0;font-size:28px}.wrap{max-width:900px;margin:auto;padding:18px}
-.card{background:white;border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 5px 20px #0001}
-button{border:0;border-radius:12px;padding:12px 18px;font-size:16px;font-weight:700;cursor:pointer;background:#7048e8;color:white}
-input{padding:12px;border:1px solid #ccd3df;border-radius:10px;font-size:16px;width:100%;margin:6px 0}
-.hidden{display:none}.status{text-align:center;font-weight:700;margin:10px}
-.board{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;min-height:120px}
-.domino{width:190px;display:grid;grid-template-columns:1fr 1fr;background:white;border:4px solid #222;border-radius:18px;overflow:hidden;box-shadow:0 3px 8px #0002}
-.half{min-height:105px;padding:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-right:3px solid #222}
-.half:last-child{border:0}.emoji{font-size:42px}.word{font-size:17px;font-weight:800}.en{font-size:11px;color:#555}.start{background:#fff3e8}.noise{background:#eee}
-.hand{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}.hand .domino{cursor:pointer;width:175px}.hand .domino:hover{transform:translateY(-3px)}
-.small{font-size:13px;color:#5d6675}.scores{display:flex;gap:8px;flex-wrap:wrap}.score{padding:8px 12px;background:#eef0ff;border-radius:10px}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;
+  background:#f1f5f9;
+  color:#172033;
+}
+
+header{
+  background:linear-gradient(135deg,#16b5c8,#7048e8);
+  color:white;
+  text-align:center;
+  padding:22px 15px;
+}
+
+header h1{
+  margin:0;
+  font-size:30px;
+}
+
+header p{
+  margin:6px 0 0;
+  font-size:17px;
+}
+
+.wrap{
+  max-width:1000px;
+  margin:auto;
+  padding:18px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  margin:15px 0;
+  box-shadow:0 5px 20px #0001;
+}
+
+.center{text-align:center}
+
+input{
+  width:100%;
+  padding:14px;
+  border:2px solid #d5dce7;
+  border-radius:12px;
+  font-size:17px;
+  margin:8px 0;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  font-size:16px;
+  font-weight:700;
+  background:#7048e8;
+  color:white;
+  cursor:pointer;
+  margin:4px;
+}
+
+button:active{transform:scale(.97)}
+
+.hidden{display:none}
+
+.info{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  font-weight:700;
+}
+
+.board{
+  min-height:145px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:7px;
+  padding:15px;
+  background:#e8f5e9;
+  border-radius:15px;
+  border:3px dashed #9ccc65;
+}
+
+.domino{
+  width:76px;
+  height:108px;
+  background:white;
+  border:3px solid #222;
+  border-radius:10px;
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.domino .half{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:800;
+}
+
+.domino .half:first-child{
+  border-bottom:2px solid #222;
+}
+
+.hand{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:12px 4px;
+}
+
+.hand .domino{
+  cursor:pointer;
+}
+
+.hand .domino:hover{
+  transform:translateY(-5px);
+  box-shadow:0 6px 12px #0003;
+}
+
+.message{
+  text-align:center;
+  font-weight:700;
+  min-height:28px;
+}
+
+.win{
+  font-size:25px;
+  color:#16803c;
+  font-weight:800;
+}
 </style>
 </head>
+
 <body>
-<header><h1>🀄 สื่อ-ต่อ-สาร</h1><div>เกมโดมิโนกระบวนการสื่อสาร</div></header>
+
+<header>
+  <h1>🀄 สื่อ-ต่อ-สาร</h1>
+  <p>เกมโดมิโนในกระบวนการสื่อสาร</p>
+</header>
+
 <div class="wrap">
-<section id="setup" class="card">
-<h2>เริ่มเกม</h2>
-<p>ต้นแบบนี้เป็นโหมดทดลองบนเครื่องเดียวก่อน เพื่อทดสอบกติกาและหน้าตาเกม</p>
-<input id="name" placeholder="ชื่อผู้เล่น">
-<button onclick="startGame()">เริ่มเล่น</button>
+
+<!-- START -->
+<section id="start" class="card">
+  <h2>เริ่มเกม</h2>
+  <p>ใส่ชื่อผู้เล่น แล้วกดเริ่มเล่น</p>
+
+  <input id="playerName" placeholder="ชื่อผู้เล่น">
+
+  <button onclick="startGame()">เริ่มเล่น</button>
 </section>
 
+<!-- GAME -->
 <section id="game" class="hidden">
-<div class="card">
-<div class="status" id="turn"></div>
-<div class="scores" id="scores"></div>
-</div>
-<div class="card">
-<h2>กระดาน</h2><div class="board" id="board"></div>
-</div>
-<div class="card">
-<h2>เบี้ยในมือ</h2><p class="small">กดเบี้ยที่ต้องการวาง ระบบจะตรวจสอบให้</p>
-<div class="hand" id="hand"></div>
-<button onclick="draw()">จั่วเบี้ยจากกองกลาง</button>
-<span id="deck" class="small"></span>
-</div>
+
+  <div class="card">
+    <div class="info">
+      <span>👤 ผู้เล่น: <span id="name"></span></span>
+      <span>🏆 คะแนน: <span id="score">0</span></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>กระดาน</h2>
+
+    <div id="board" class="board">
+      <span>เลือกโดมิโนจากด้านล่างเพื่อเริ่มเล่น</span>
+    </div>
+
+    <p id="message" class="message">
+      เลือกโดมิโนที่ตรงกับด้านที่ต้องต่อ
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>🀄 โดมิโนของคุณ</h2>
+
+    <div id="hand" class="hand"></div>
+  </div>
+
+  <div class="card center">
+    <button onclick="newGame()">🔄 เริ่มเกมใหม่</button>
+  </div>
+
 </section>
+
 </div>
+
 <script>
-const pieces=[
-["ผู้ส่งสาร","การเข้ารหัส","👤","🔐"],
-["การเข้ารหัส","ข่าวสาร/สื่อ","🔐","📱"],
-["ข่าวสาร/สื่อ","การถอดรหัส","📱","🔓"],
-["การถอดรหัส","ผู้รับสาร","🔓","👂"],
-["ผู้รับสาร","การตอบสนอง","👂","💬"],
-["การตอบสนอง","ผลสะท้อนกลับ","💬","🔄"],
-["ผลสะท้อนกลับ","ผู้ส่งสาร","🔄","👤"],
-["Noise","Noise","📡","📡"],
-["Noise","ผู้ส่งสาร","📡","👤"],
-["Noise","การเข้ารหัส","📡","🔐"],
-["Noise","ข่าวสาร/สื่อ","📡","📱"],
-["Noise","การถอดรหัส","📡","🔓"],
-["Noise","ผู้รับสาร","📡","👂"],
-["Noise","การตอบสนอง","📡","💬"],
-["Noise","ผลสะท้อนกลับ","📡","🔄"]
+
+let player = "";
+let score = 0;
+let hand = [];
+let board = [];
+let nextNumber = null;
+
+const allDominoes = [
+  [0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],
+  [1,1],[1,2],[1,3],[1,4],[1,5],[1,6],
+  [2,2],[2,3],[2,4],[2,5],[2,6],
+  [3,3],[3,4],[3,5],[3,6],
+  [4,4],[4,5],[4,6],
+  [5,5],[5,6],
+  [6,6]
 ];
-let deck=[],hand=[],board=[],scores=[0],started=false;
-const info={
-"ผู้ส่งสาร":["👤","Sources"],"การเข้ารหัส":["🔐","Encoding"],"ข่าวสาร/สื่อ":["📱","Message / Media"],
-"การถอดรหัส":["🔓","Decoding"],"ผู้รับสาร":["👂","Receiver"],"การตอบสนอง":["💬","Response"],"ผลสะท้อนกลับ":["🔄","Feedback"],"Noise":["📡","Noise"],"START":["🏁","START"]
-};
-function card(a,b,ea,eb,cls=""){
-return `<div class="domino ${cls}"><div class="half">${ea?`<div class="emoji">${ea}</div>`:""}<div class="word">${a}</div><div class="en">${info[a]?.[1]||""}</div></div><div class="half">${eb?`<div class="emoji">${eb}</div>`:""}<div class="word">${b}</div><div class="en">${info[b]?.[1]||""}</div></div></div>`;
-}
+
 function startGame(){
-let n=document.getElementById("name").value.trim()||"ผู้เล่น";
-document.getElementById("setup").classList.add("hidden");document.getElementById("game").classList.remove("hidden");
-deck=pieces.map(x=>x); board=[["START","ผู้ส่งสาร","🏁","👤"]]; hand=[
-["ผู้ส่งสาร","การเข้ารหัส","👤","🔐"],["การเข้ารหัส","ข่าวสาร/สื่อ","🔐","📱"],
-["Noise","Noise","📡","📡"],["ผู้รับสาร","การตอบสนอง","👂","💬"],["ผลสะท้อนกลับ","ผู้ส่งสาร","🔄","👤"]
-]; started=true; render();
+
+  const input = document.getElementById("playerName");
+  player = input.value.trim();
+
+  if(!player){
+    alert("กรุณาใส่ชื่อผู้เล่นก่อนครับ");
+    return;
+  }
+
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+  document.getElementById("name").textContent = player;
+
+  newGame();
 }
-function render(){
-document.getElementById("turn").textContent="ตาของ "+(document.getElementById("name").value||"ผู้เล่น")+" — ต้องต่อด้านที่เป็น “ผู้ส่งสาร”";
-document.getElementById("scores").innerHTML=`<div class="score">คะแนน: ${scores[0]}</div>`;
-document.getElementById("board").innerHTML=board.map(x=>card(x[0],x[1],x[2],x[3],x[0]=="START"?"start":"")).join("");
-document.getElementById("hand").innerHTML=hand.map((x,i)=>`<div onclick="play(${i})">${card(...x,x[0]=="Noise"?"noise":"")}</div>`).join("");
-document.getElementById("deck").textContent=`กองกลาง: ${Math.max(0,deck.length-hand.length)} เบี้ย`;
+
+function newGame(){
+
+  score = 0;
+  board = [];
+  nextNumber = null;
+
+  let shuffled = [...allDominoes].sort(() => Math.random() - .5);
+
+  hand = shuffled.slice(0,7);
+
+  document.getElementById("score").textContent = score;
+
+  renderBoard();
+  renderHand();
+
+  setMessage("เริ่มเกมได้เลย! เลือกโดมิโน 1 ตัว");
 }
-function play(i){
-let p=hand[i], end=board[board.length-1][1];
-if(p[0]!==end && !(end==="Noise" && p[0]==="Noise")){
-alert("ยังต่อเบี้ยนี้ไม่ได้ ต้องหาเบี้ยที่ตรงกับด้านปลายแถว");return;
+
+function renderBoard(){
+
+  const boardEl = document.getElementById("board");
+
+  if(board.length === 0){
+    boardEl.innerHTML =
+      "<span>เลือกโดมิโนจากด้านล่างเพื่อเริ่มเล่น</span>";
+    return;
+  }
+
+  boardEl.innerHTML = "";
+
+  board.forEach(d => {
+    boardEl.appendChild(createDomino(d[0],d[1]));
+  });
 }
-board.push(p);hand.splice(i,1);scores[0]+=10;
-if(p[1]==="ผู้ส่งสาร") scores[0]+=20;
-if(hand.length===0) alert("🎉 คุณชนะ! เบี้ยหมดมือแล้ว");
-render();
+
+function renderHand(){
+
+  const handEl = document.getElementById("hand");
+
+  handEl.innerHTML = "";
+
+  hand.forEach((d,index) => {
+
+    const tile = createDomino(d[0],d[1]);
+
+    tile.onclick = () => playDomino(index);
+
+    handEl.appendChild(tile);
+  });
 }
-function draw(){
-if(deck.length){let p=deck.shift();hand.push(p);render()}else alert("กองกลางหมดแล้ว");
+
+function createDomino(a,b){
+
+  const div = document.createElement("div");
+
+  div.className = "domino";
+
+  div.innerHTML = `
+    <div class="half">${a}</div>
+    <div class="half">${b}</div>
+  `;
+
+  return div;
 }
+
+function playDomino(index){
+
+  const tile = hand[index];
+
+  // ตัวแรกวางได้ทุกตัว
+  if(board.length === 0){
+
+    board.push(tile);
+
+    nextNumber = tile[1];
+
+    hand.splice(index,1);
+
+    score += 10;
+
+    setMessage(
+      "เยี่ยม! ตอนนี้ต้องต่อด้วยตัวที่มีเลข " +
+      nextNumber
+    );
+
+    renderBoard();
+    renderHand();
+    updateScore();
+
+    checkWin();
+
+    return;
+  }
+
+  // ตรวจว่าต่อได้ไหม
+  if(tile[0] === nextNumber){
+
+    board.push(tile);
+
+    nextNumber = tile[1];
+
+    hand.splice(index,1);
+
+    score += 10;
+
+    setMessage(
+      "ถูกต้อง! ต่อได้อีกครั้งด้วยเลข " +
+      nextNumber
+    );
+
+    renderBoard();
+    renderHand();
+    updateScore();
+
+    checkWin();
+
+  }else if(tile[1] === nextNumber){
+
+    // กลับด้านให้เลขที่ตรงอยู่ด้านหน้า
+    board.push([tile[1],tile[0]]);
+
+    nextNumber = tile[0];
+
+    hand.splice(index,1);
+
+    score += 10;
+
+    setMessage(
+      "ถูกต้อง! ต่อได้อีกครั้งด้วยเลข " +
+      nextNumber
+    );
+
+    renderBoard();
+    renderHand();
+    updateScore();
+
+    checkWin();
+
+  }else{
+
+    score = Math.max(0,score - 2);
+
+    updateScore();
+
+    setMessage(
+      "❌ ยังต่อไม่ได้ ต้องใช้โดมิโนที่มีเลข " +
+      nextNumber
+    );
+  }
+}
+
+function checkWin(){
+
+  if(hand.length === 0){
+
+    setMessage(
+      "🎉 คุณชนะแล้ว! เคลียร์โดมิโนหมดทุกตัว"
+    );
+
+    document.getElementById("message").className =
+      "message win";
+  }
+}
+
+function updateScore(){
+  document.getElementById("score").textContent = score;
+}
+
+function setMessage(text){
+
+  const el = document.getElementById("message");
+
+  el.className = "message";
+  el.textContent = text;
+}
+
 </script>
-</body></html>
+
+</body>
+</html>
