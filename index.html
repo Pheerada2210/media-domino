@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>สื่อ-ต่อ-สาร | Domino</title>
 
 <style>
@@ -12,20 +13,17 @@
 
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    "Noto Sans Thai",
-    sans-serif;
-  background: #f5f7fb;
-  color: #29334d;
+  font-family: system-ui, -apple-system, "Noto Sans Thai", sans-serif;
+  background: #f4f7fb;
+  color: #263238;
 }
 
+/* HEADER */
 header {
-  padding: 22px 15px;
-  text-align: center;
+  background: linear-gradient(135deg, #19b6c9, #7048e8);
   color: white;
-  background: linear-gradient(135deg, #25b8c7, #7750e8);
+  text-align: center;
+  padding: 22px 15px;
 }
 
 header h1 {
@@ -38,8 +36,9 @@ header p {
   font-size: 16px;
 }
 
+/* MAIN */
 .wrap {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
   padding: 18px;
 }
@@ -49,249 +48,240 @@ header p {
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 18px;
-  box-shadow: 0 6px 24px rgba(0,0,0,.07);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 }
 
 h2 {
   margin-top: 0;
 }
 
+/* INPUT */
 input {
   width: 100%;
-  padding: 14px;
-  border: 2px solid #d9deeb;
+  padding: 13px;
+  border: 2px solid #d7deea;
   border-radius: 12px;
-  font-size: 17px;
+  font-size: 16px;
   margin: 8px 0;
 }
 
 button {
   border: 0;
   border-radius: 12px;
-  padding: 13px 20px;
+  padding: 12px 18px;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  background: #7350e8;
+  background: #7048e8;
   color: white;
-  margin: 4px;
+  margin: 5px;
 }
 
 button:hover {
-  opacity: .9;
+  opacity: 0.9;
 }
 
 button.secondary {
-  background: #dfe5f2;
-  color: #34405c;
+  background: #7b8794;
+}
+
+button.success {
+  background: #20a464;
 }
 
 button.danger {
-  background: #f16b78;
+  background: #e05252;
 }
 
+/* STATUS */
 .status {
   text-align: center;
-  font-weight: 800;
-  margin: 10px 0;
+  font-weight: 700;
   font-size: 18px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #eef1ff;
+  margin: 10px 0;
 }
 
-.hidden {
-  display: none !important;
+.message {
+  text-align: center;
+  font-weight: 700;
+  min-height: 25px;
 }
 
-.info {
-  background: #eef7ff;
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 15px;
-}
-
-.rules {
-  background: #fff8df;
-  border-left: 5px solid #f1c84b;
-  padding: 12px 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-/* ---------------- DOMINO ---------------- */
-
-.domino-area {
+/* BOARD */
+.board {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
-  min-height: 160px;
-  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 2px dashed #d7deea;
 }
 
+/* DOMINO */
 .domino {
-  width: 185px;
-  min-height: 115px;
+  width: 190px;
+  min-height: 105px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: white;
-  border: 4px solid #cbd2df;
-  border-radius: 17px;
+  border: 4px solid #333;
+  border-radius: 14px;
   overflow: hidden;
-  cursor: pointer;
-  transition: .2s;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transition: transform .15s, box-shadow .15s;
 }
 
 .domino:hover {
   transform: translateY(-3px);
-  box-shadow: 0 7px 17px rgba(0,0,0,.12);
-}
-
-.domino.selected {
-  border-color: #7651e8;
-  box-shadow: 0 0 0 4px #ddd5ff;
+  box-shadow: 0 7px 15px rgba(0,0,0,0.16);
 }
 
 .half {
-  min-height: 115px;
-  padding: 7px;
+  min-height: 105px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   text-align: center;
-  border-right: 2px solid #d8dce7;
+  position: relative;
+}
+
+.half:first-child {
+  border-right: 2px solid #333;
 }
 
 .half:last-child {
-  border-right: 0;
+  border-left: 0;
 }
 
 .icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 4px;
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 5px;
 }
 
-.term {
-  font-weight: 800;
+.label {
   font-size: 15px;
-  line-height: 1.2;
-}
-
-.small {
-  font-size: 12px;
-  color: #65708a;
-  margin-top: 3px;
-}
-
-/* ---------------- ICON COLORS ---------------- */
-
-.sender {
-  background: #dff4ff;
-}
-
-.encode {
-  background: #eee4ff;
-}
-
-.media {
-  background: #e1f8e9;
-}
-
-.decode {
-  background: #dff3ff;
-}
-
-.receiver {
-  background: #ffe5ed;
-}
-
-.response {
-  background: #eee5ff;
-}
-
-.feedback {
-  background: #e4f8e9;
+  font-weight: 800;
 }
 
 .noise {
-  background: #ffe46c;
-  color: #ee3f67;
-  font-weight: 900;
+  background: #fff176 !important;
+  color: #6b5600;
 }
 
-/* ---------------- BOARD ---------------- */
+.noise .icon {
+  display: none;
+}
 
-.board {
-  min-height: 155px;
-  padding: 15px;
+/* HAND */
+.hand {
   display: flex;
   flex-wrap: wrap;
+  gap: 14px;
   justify-content: center;
-  align-items: center;
-  gap: 8px;
-  background: #f3f5fa;
-  border-radius: 17px;
 }
 
-.board .domino {
-  width: 145px;
-  min-height: 90px;
-  cursor: default;
+.hand .domino {
+  width: 175px;
+  cursor: pointer;
 }
 
-.board .half {
-  min-height: 90px;
+.hand .domino:hover {
+  transform: translateY(-7px) rotate(-1deg);
 }
 
-.board .icon {
-  width: 43px;
-  height: 43px;
+/* PALETTE */
+.messenger {
+  background: #ffe4e9;
 }
 
-.board .term {
-  font-size: 12px;
+.encoding {
+  background: #e8ddff;
 }
 
-/* ---------------- SCORE ---------------- */
+.media {
+  background: #dff7f2;
+}
 
-.scores {
+.decoding {
+  background: #fff0d5;
+}
+
+.receiver {
+  background: #dcecff;
+}
+
+.response {
+  background: #e4f6d5;
+}
+
+.feedback {
+  background: #ffe2c6;
+}
+
+/* PLAYER */
+.player {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
+  align-items: center;
 }
 
+/* RULES */
+.rules {
+  background: #fff9e6;
+  border-left: 6px solid #ffc107;
+}
+
+.rules li {
+  margin-bottom: 7px;
+}
+
+/* ROUND */
+.round {
+  text-align: center;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+/* SCORE */
 .score {
-  background: #f1f3f8;
-  padding: 10px 18px;
-  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
   font-weight: 700;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
-
+/* MOBILE */
 @media (max-width: 600px) {
-
   header h1 {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   .domino {
+    width: 170px;
+  }
+
+  .hand .domino {
     width: 160px;
   }
 
-  .icon {
-    width: 52px;
-    height: 52px;
-  }
-
-  .term {
+  .label {
     font-size: 13px;
   }
 
-  .board .domino {
-    width: 130px;
+  .icon {
+    font-size: 34px;
   }
 }
 </style>
@@ -300,751 +290,894 @@ button.danger {
 <body>
 
 <header>
-  <h1>🀄 สื่อ-ต่อ-สาร</h1>
+  <h1>📢 สื่อ-ต่อ-สาร</h1>
   <p>เกมโดมิโนในกระบวนการสื่อสาร</p>
 </header>
 
 <div class="wrap">
 
-<!-- START -->
-<section id="startScreen" class="card">
+  <!-- START -->
+  <section class="card" id="startScreen">
 
-  <h2>เริ่มเกม</h2>
+    <h2>เริ่มเกม</h2>
 
-  <p>
-    เกมนี้ช่วยเรียนรู้ลำดับและองค์ประกอบของกระบวนการสื่อสาร
-  </p>
+    <p>
+      เกมนี้มีโดมิโนทั้งหมด 22 เบี้ย
+      <br>
+      รอบที่ 1 เป็นรอบทดลอง สามารถวางเบี้ยได้อย่างอิสระ
+    </p>
 
-  <div class="info">
-    👋 <b>กติกาพิเศษรอบที่ 1</b><br>
-    รอบแรกสามารถวางเบี้ยตรงไหนก็ได้
-    จะวางมั่วหรือวางตามความเข้าใจก็ได้
-    ไม่ต้องกลัวผิด
-  </div>
+    <input
+      id="playerName"
+      type="text"
+      placeholder="ชื่อผู้เล่น"
+    >
 
-  <input
-    id="playerName"
-    placeholder="ชื่อผู้เล่น"
-    maxlength="30"
-  >
+    <button onclick="startGame()">
+      เริ่มเล่น
+    </button>
 
-  <button onclick="startGame()">
-    เริ่มเล่น
-  </button>
-
-</section>
+  </section>
 
 
-<!-- GAME -->
-<section id="gameScreen" class="hidden">
+  <!-- GAME -->
+  <section class="card" id="gameScreen" style="display:none;">
 
-  <div class="card">
-
-    <div class="status" id="roundText">
-      รอบที่ 1
+    <div class="round" id="roundTitle">
+      รอบที่ 1 — ทดลองวาง
     </div>
 
-    <div class="rules" id="ruleText">
-      🎲 <b>รอบที่ 1:</b>
-      วางเบี้ยตรงไหนก็ได้
-      ลองเรียงตามความเข้าใจของเราเอง
+    <div class="status" id="status">
+      วางเบี้ยไหนก่อนก็ได้เลย 🎲
     </div>
 
-    <div class="scores">
-      <div class="score">
-        👤 <span id="nameText"></span>
-      </div>
-
-      <div class="score">
-        🧩 เบี้ยที่วาง:
-        <span id="placedCount">0</span>
-      </div>
-
-      <div class="score">
-        ⭐ คะแนน:
-        <span id="score">0</span>
-      </div>
+    <div class="score">
+      <div>👤 ผู้เล่น: <span id="playerDisplay">-</span></div>
+      <div>🁢 เบี้ยในมือ: <span id="remaining">22</span></div>
     </div>
 
-  </div>
+  </section>
 
 
   <!-- BOARD -->
-  <div class="card">
+  <section class="card" id="boardCard" style="display:none;">
 
-    <h2>กระดานเกม</h2>
+    <h2>กระดานโดมิโน</h2>
 
     <div id="board" class="board">
-      <div style="color:#7b8499;">
-        แตะเบี้ยด้านล่างเพื่อวางบนกระดาน
+      <div style="color:#8993a4;">
+        เลือกเบี้ยจากด้านล่างเพื่อเริ่มวาง
       </div>
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- DOMINO HAND -->
-  <div class="card">
+  <!-- HAND -->
+  <section class="card" id="handCard" style="display:none;">
 
-    <h2>🧩 เบี้ยโดมิโน</h2>
+    <h2>เบี้ยโดมิโนของฉัน</h2>
 
-    <p id="instruction">
-      รอบที่ 1 วางตรงไหนก็ได้
-    </p>
+    <div id="hand" class="hand"></div>
 
-    <div id="hand" class="domino-area"></div>
+    <div class="message" id="message"></div>
 
-    <div style="text-align:center;margin-top:12px;">
+    <div style="text-align:center; margin-top:15px;">
+
+      <button
+        id="nextRoundBtn"
+        class="success"
+        onclick="startRound2()"
+        style="display:none;"
+      >
+        ▶️ เข้าสู่รอบที่ 2
+      </button>
+
       <button
         class="secondary"
-        onclick="resetBoard()">
-        ↩️ เริ่มวางใหม่
+        onclick="resetGame()"
+      >
+        🔄 เริ่มเกมใหม่
       </button>
 
-      <button
-        onclick="finishRound()">
-        ตรวจคำตอบ
-      </button>
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- RESULT -->
-<section id="resultScreen" class="card hidden">
+  <!-- RULES -->
+  <section class="card rules">
 
-  <h2>🎉 จบเกม!</h2>
+    <h2>📖 กติกา</h2>
 
-  <div id="resultText"></div>
+    <ul>
+      <li>
+        <b>รอบที่ 1:</b>
+        ทดลองวางได้อย่างอิสระ จะวางเบี้ยไหนก่อนหรือวางมั่วก็ได้
+      </li>
 
-  <button onclick="location.reload()">
-    🔄 เล่นอีกครั้ง
-  </button>
+      <li>
+        เมื่อเล่นรอบที่ 1 ครบแล้ว
+        กด <b>“เข้าสู่รอบที่ 2”</b>
+      </li>
 
-</section>
+      <li>
+        <b>รอบที่ 2:</b>
+        ต้องต่อเบี้ยโดยให้คำที่ติดกันเป็นคำเดียวกัน
+      </li>
+
+      <li>
+        สามารถต่อได้ทั้งด้านซ้ายและด้านขวาของแถวโดมิโน
+      </li>
+
+      <li>
+        ถ้าด้านของเบี้ยไม่ตรงกับปลายที่เปิดอยู่
+        จะไม่สามารถวางได้
+      </li>
+
+      <li>
+        เบี้ย <b>Noise</b> เป็นสิ่งรบกวน
+        ใช้สีเหลืองเด่นและไม่มีรูปภาพ
+      </li>
+
+      <li>
+        ผู้ชนะคือผู้ที่วางเบี้ยหมดก่อน 🎉
+      </li>
+    </ul>
+
+  </section>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   DATA
-===================================================== */
+/* =========================================================
+   ข้อมูลโดมิโน 22 เบี้ย
+   ========================================================= */
 
-const tiles = [
+const dominoData = [
 
   {
-    id: "sender",
-    name: "ผู้ส่งสาร",
-    desc: "เริ่มต้นการสื่อสาร",
-    className: "sender",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <circle cx="50" cy="35" r="18" fill="#f6c7b6"/>
-        <path d="M30 32 Q50 5 70 32 L70 55 L30 55Z"
-              fill="#7651e8"/>
-        <path d="M31 56 L20 88 L80 88 L69 56"
-              fill="#ffb5a7"/>
-        <path d="M58 43 L90 28 L90 54 L58 48Z"
-              fill="#f16b78"/>
-        <circle cx="52" cy="34" r="3" fill="#29334d"/>
-        <path d="M65 39 Q75 45 80 43"
-              stroke="#29334d"
-              stroke-width="3"
-              fill="none"/>
-        <path d="M92 25 Q98 22 98 18"
-              stroke="#f1c84b"
-              stroke-width="4"
-              fill="none"/>
-      </svg>`
+    id: 1,
+    a: "Start",
+    b: "ผู้ส่งสาร"
   },
 
   {
-    id: "encode",
-    name: "การเข้ารหัส",
-    desc: "คิดและแปลงสาร",
-    className: "encode",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="25" fill="#f6c7b6"/>
-        <path d="M25 45 Q30 15 55 20 Q75 18 78 43"
-              fill="#6f5267"/>
-        <circle cx="42" cy="50" r="3"/>
-        <circle cx="59" cy="50" r="3"/>
-        <path d="M42 63 Q50 68 58 63"
-              stroke="#29334d"
-              stroke-width="3"
-              fill="none"/>
-        <circle cx="72" cy="22" r="14"
-                fill="#f1c84b"
-                stroke="#29334d"
-                stroke-width="3"/>
-        <path d="M72 12 V32 M62 22 H82"
-              stroke="#29334d"
-              stroke-width="4"/>
-        <path d="M72 8 L77 4 M88 22 L94 22 M72 36 L77 40"
-              stroke="#7350e8"
-              stroke-width="4"/>
-      </svg>`
+    id: 2,
+    a: "ผู้ส่งสาร",
+    b: "การเข้ารหัส"
   },
 
   {
-    id: "media",
-    name: "ข่าว/สารสื่อ",
-    desc: "ช่องทางการสื่อสาร",
-    className: "media",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="18"
-                fill="#65bde9"
-                stroke="#29334d"
-                stroke-width="3"/>
-        <circle cx="22" cy="28" r="13" fill="#6b65d8"/>
-        <circle cx="78" cy="28" r="13" fill="#ed6ca0"/>
-        <circle cx="22" cy="76" r="13" fill="#58bd75"/>
-        <circle cx="78" cy="76" r="13" fill="#f16b78"/>
-        <path d="M32 34 L42 43 M68 34 L58 43
-                 M32 68 L42 58 M68 68 L58 58"
-              stroke="#4b7bc2"
-              stroke-width="5"/>
-        <path d="M18 23 V33 M13 28 H27"
-              stroke="white"
-              stroke-width="3"/>
-        <path d="M72 70 L84 78 L72 84Z"
-              fill="white"/>
-      </svg>`
+    id: 3,
+    a: "ข่าวสาร/สื่อ",
+    b: "การเข้ารหัส"
   },
 
   {
-    id: "decode",
-    name: "การถอดรหัส",
-    desc: "ตีความสาร",
-    className: "decode",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <circle cx="42" cy="43" r="27" fill="#f6c7b6"/>
-        <path d="M18 39 Q23 12 47 17 Q65 15 69 37"
-              fill="#6d5360"/>
-        <circle cx="35" cy="44" r="4"/>
-        <circle cx="52" cy="44" r="4"/>
-        <path d="M35 57 Q43 62 51 57"
-              stroke="#29334d"
-              stroke-width="3"
-              fill="none"/>
-        <circle cx="73" cy="57" r="19"
-                fill="none"
-                stroke="#29334d"
-                stroke-width="7"/>
-        <path d="M87 71 L96 80"
-              stroke="#29334d"
-              stroke-width="7"
-              stroke-linecap="round"/>
-        <circle cx="73" cy="57" r="8"
-                fill="#dff3ff"/>
-      </svg>`
+    id: 4,
+    a: "การเข้ารหัส",
+    b: "ข่าวสาร/สื่อ"
   },
 
   {
-    id: "receiver",
-    name: "ผู้รับสาร",
-    desc: "ผู้ได้รับสาร",
-    className: "receiver",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <circle cx="25" cy="37" r="14" fill="#f6c7b6"/>
-        <circle cx="50" cy="30" r="15" fill="#f6c7b6"/>
-        <circle cx="76" cy="38" r="14" fill="#f6c7b6"/>
-
-        <path d="M10 77 Q25 55 40 77"
-              fill="#62a9d9"/>
-        <path d="M32 80 Q50 48 68 80"
-              fill="#f28da9"/>
-        <path d="M60 77 Q76 55 91 77"
-              fill="#65b78c"/>
-
-        <path d="M17 39 Q25 46 33 39
-                 M68 40 Q76 47 84 40"
-              stroke="#29334d"
-              stroke-width="3"
-              fill="none"/>
-
-        <path d="M46 52 Q50 47 54 52"
-              stroke="#29334d"
-              stroke-width="3"
-              fill="none"/>
-      </svg>`
+    id: 5,
+    a: "ข่าวสาร/สื่อ",
+    b: "การถอดรหัส"
   },
 
   {
-    id: "response",
-    name: "การตอบสนอง",
-    desc: "การกระทำหลังรับสาร",
-    className: "response",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <rect x="25" y="10" width="50" height="80"
-              rx="10"
-              fill="#65708a"
-              stroke="#29334d"
-              stroke-width="3"/>
-        <rect x="30" y="19" width="40" height="58"
-              rx="5"
-              fill="#eef3ff"/>
-        <circle cx="50" cy="48" r="17"
-                fill="#62c18b"/>
-        <path d="M41 48 L48 55 L61 40"
-              stroke="white"
-              stroke-width="5"
-              fill="none"/>
-        <circle cx="50" cy="84" r="3"
-                fill="white"/>
-        <path d="M37 30 H63"
-              stroke="#c4cce0"
-              stroke-width="4"/>
-      </svg>`
+    id: 6,
+    a: "การถอดรหัส",
+    b: "ผู้รับสาร"
   },
 
   {
-    id: "feedback",
-    name: "ผลสะท้อนกลับ",
-    desc: "ผลตอบกลับ/ยอดขาย",
-    className: "feedback",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <rect x="15" y="65" width="12" height="20"
-              rx="3" fill="#65aee1"/>
-        <rect x="32" y="55" width="12" height="30"
-              rx="3" fill="#68c58c"/>
-        <rect x="49" y="42" width="12" height="43"
-              rx="3" fill="#f1c84b"/>
-        <rect x="66" y="27" width="12" height="58"
-              rx="3" fill="#ee7999"/>
-        <path d="M12 58 Q35 50 51 38 Q67 26 88 12"
-              fill="none"
-              stroke="#4b9e75"
-              stroke-width="6"/>
-        <path d="M78 12 H91 V25"
-              fill="none"
-              stroke="#4b9e75"
-              stroke-width="6"/>
-        <circle cx="76" cy="69" r="18"
-                fill="#fff0a8"/>
-        <text x="76" y="76"
-              text-anchor="middle"
-              font-size="22"
-              font-weight="bold"
-              fill="#4b9e75">%</text>
-      </svg>`
+    id: 7,
+    a: "ผู้รับสาร",
+    b: "การตอบสนอง"
   },
 
   {
-    id: "noise",
-    name: "สิ่งรบกวน",
-    desc: "รบกวนการสื่อสาร",
-    className: "noise",
-    icon: `
-      <svg class="icon" viewBox="0 0 100 100">
-        <path d="M50 5 L61 30 L88 18 L76 45
-                 L98 57 L72 67 L82 94
-                 L55 78 L39 99 L35 72
-                 L7 83 L22 57 L2 41
-                 L30 36 L23 9 L47 27Z"
-              fill="#f45d75"
-              stroke="#29334d"
-              stroke-width="3"/>
-        <text x="50" y="63"
-              text-anchor="middle"
-              font-size="18"
-              font-weight="900"
-              fill="white">!</text>
-      </svg>`
+    id: 8,
+    a: "การตอบสนอง",
+    b: "ผลสะท้อนกลับ"
+  },
+
+  {
+    id: 9,
+    a: "ผลสะท้อนกลับ",
+    b: "ผู้ส่งสาร"
+  },
+
+  {
+    id: 10,
+    a: "ผู้รับสาร",
+    b: "ผลสะท้อนกลับ"
+  },
+
+  {
+    id: 11,
+    a: "ผู้ส่งสาร",
+    b: "ผู้ส่งสาร"
+  },
+
+  {
+    id: 12,
+    a: "การเข้ารหัส",
+    b: "การเข้ารหัส"
+  },
+
+  {
+    id: 13,
+    a: "ข่าวสาร/สื่อ",
+    b: "ข่าวสาร/สื่อ"
+  },
+
+  {
+    id: 14,
+    a: "การถอดรหัส",
+    b: "การถอดรหัส"
+  },
+
+  {
+    id: 15,
+    a: "ผู้รับสาร",
+    b: "ผู้รับสาร"
+  },
+
+  {
+    id: 16,
+    a: "การตอบสนอง",
+    b: "การตอบสนอง"
+  },
+
+  {
+    id: 17,
+    a: "ผลสะท้อนกลับ",
+    b: "ผลสะท้อนกลับ"
+  },
+
+  {
+    id: 18,
+    a: "Noise",
+    b: "Noise"
+  },
+
+  {
+    id: 19,
+    a: "Noise",
+    b: "ข่าวสาร/สื่อ"
+  },
+
+  {
+    id: 20,
+    a: "Noise",
+    b: "การถอดรหัส"
+  },
+
+  {
+    id: 21,
+    a: "Noise",
+    b: "ผู้ส่งสาร"
+  },
+
+  {
+    id: 22,
+    a: "Noise",
+    b: "การตอบสนอง"
   }
 
 ];
 
 
-/* =====================================================
-   GAME VARIABLES
-===================================================== */
+/* =========================================================
+   รูปภาพ/ไอคอนของแต่ละประเภท
+   ========================================================= */
+
+const icons = {
+
+  "Start": "▶️",
+
+  "ผู้ส่งสาร": "📣",
+
+  "การเข้ารหัส": "🧠⚙️",
+
+  "ข่าวสาร/สื่อ": "📱🔗",
+
+  "การถอดรหัส": "👁️",
+
+  "ผู้รับสาร": "👥👂",
+
+  "การตอบสนอง": "📱✅",
+
+  "ผลสะท้อนกลับ": "📈💰",
+
+  "Noise": ""
+
+};
+
+
+/* =========================================================
+   สีของแต่ละประเภท
+   ========================================================= */
+
+const classes = {
+
+  "Start": "messenger",
+
+  "ผู้ส่งสาร": "messenger",
+
+  "การเข้ารหัส": "encoding",
+
+  "ข่าวสาร/สื่อ": "media",
+
+  "การถอดรหัส": "decoding",
+
+  "ผู้รับสาร": "receiver",
+
+  "การตอบสนอง": "response",
+
+  "ผลสะท้อนกลับ": "feedback",
+
+  "Noise": "noise"
+
+};
+
+
+/* =========================================================
+   ตัวแปรเกม
+   ========================================================= */
+
+let hand = [];
+
+let board = [];
+
+let currentRound = 1;
 
 let player = "";
-let round = 1;
-let score = 0;
-let placed = [];
-let remaining = [...tiles];
 
 
-/* =====================================================
-   START GAME
-===================================================== */
+/* =========================================================
+   เริ่มเกม
+   ========================================================= */
 
 function startGame() {
 
-  const name =
-    document.getElementById("playerName").value.trim();
+  player =
+    document.getElementById("playerName").value.trim()
+    || "ผู้เล่น";
 
-  player = name || "ผู้เล่น";
+  document.getElementById("playerDisplay").textContent =
+    player;
 
-  document.getElementById("nameText").textContent = player;
+  document.getElementById("startScreen").style.display =
+    "none";
 
-  document.getElementById("startScreen")
-    .classList.add("hidden");
+  document.getElementById("gameScreen").style.display =
+    "block";
 
-  document.getElementById("gameScreen")
-    .classList.remove("hidden");
+  document.getElementById("boardCard").style.display =
+    "block";
+
+  document.getElementById("handCard").style.display =
+    "block";
+
+  /*
+    เริ่มด้วยเบี้ยทั้ง 22 เบี้ย
+  */
+
+  hand = [...dominoData];
+
+  board = [];
+
+  currentRound = 1;
+
+  updateRound();
 
   renderHand();
+
+  renderBoard();
+
 }
 
 
-/* =====================================================
-   CREATE DOMINO
-===================================================== */
+/* =========================================================
+   สร้างเบี้ยโดมิโน
+   ========================================================= */
 
-function createDomino(tile, side = false) {
+function createDomino(tile, clickable = true) {
 
-  const el = document.createElement("div");
+  const domino =
+    document.createElement("div");
 
-  el.className = "domino";
+  domino.className = "domino";
 
-  el.innerHTML = `
-    <div class="half ${tile.className}">
-      ${tile.icon}
-      <div class="term">${tile.name}</div>
-      <div class="small">${tile.desc}</div>
-    </div>
+  if (clickable) {
 
-    <div class="half ${tile.className}">
-      ${tile.icon}
-      <div class="term">${tile.name}</div>
-    </div>
-  `;
+    domino.onclick = function() {
 
-  if (!side) {
-
-    el.onclick = () => {
-
-      if (round === 1) {
-        placeTile(tile);
-      } else {
-        tryPlaceTile(tile);
-      }
+      playTile(tile.id);
 
     };
 
   }
 
-  return el;
+
+  const left =
+    document.createElement("div");
+
+  left.className =
+    "half " + classes[tile.a];
+
+
+  const right =
+    document.createElement("div");
+
+  right.className =
+    "half " + classes[tile.b];
+
+
+  const leftIcon =
+    document.createElement("div");
+
+  leftIcon.className =
+    "icon";
+
+  leftIcon.textContent =
+    icons[tile.a];
+
+
+  const rightIcon =
+    document.createElement("div");
+
+  rightIcon.className =
+    "icon";
+
+  rightIcon.textContent =
+    icons[tile.b];
+
+
+  const leftLabel =
+    document.createElement("div");
+
+  leftLabel.className =
+    "label";
+
+  leftLabel.textContent =
+    tile.a;
+
+
+  const rightLabel =
+    document.createElement("div");
+
+  rightLabel.className =
+    "label";
+
+  rightLabel.textContent =
+    tile.b;
+
+
+  left.appendChild(leftIcon);
+
+  left.appendChild(leftLabel);
+
+  right.appendChild(rightIcon);
+
+  right.appendChild(rightLabel);
+
+
+  domino.appendChild(left);
+
+  domino.appendChild(right);
+
+
+  return domino;
+
 }
 
 
-/* =====================================================
-   SHOW HAND
-===================================================== */
+/* =========================================================
+   แสดงเบี้ยในมือ
+   ========================================================= */
 
 function renderHand() {
 
-  const hand = document.getElementById("hand");
+  const handElement =
+    document.getElementById("hand");
 
-  hand.innerHTML = "";
+  handElement.innerHTML = "";
 
-  remaining.forEach(tile => {
 
-    hand.appendChild(createDomino(tile));
+  hand.forEach(tile => {
+
+    const domino =
+      createDomino(tile, true);
+
+    handElement.appendChild(domino);
 
   });
 
-}
 
-
-/* =====================================================
-   ROUND 1
-===================================================== */
-
-function placeTile(tile) {
-
-  placed.push(tile);
-
-  remaining =
-    remaining.filter(t => t.id !== tile.id);
-
-  renderBoard();
-  renderHand();
-
-  document.getElementById("placedCount")
-    .textContent = placed.length;
-}
-
-
-/* =====================================================
-   ROUND 2+
-===================================================== */
-
-function tryPlaceTile(tile) {
-
-  if (placed.length === 0) {
-
-    placeTile(tile);
-    return;
-
-  }
-
-  const last =
-    placed[placed.length - 1];
-
-  /*
-    กติกา:
-    หลังรอบแรกต้องวางตามลำดับ
-    ของกระบวนการสื่อสาร
-  */
-
-  const index =
-    tiles.findIndex(t => t.id === tile.id);
-
-  const lastIndex =
-    tiles.findIndex(t => t.id === last.id);
-
-  if (index === lastIndex + 1) {
-
-    placeTile(tile);
-
-    score += 10;
-
-    document.getElementById("score")
-      .textContent = score;
-
-  } else {
-
-    alert(
-      "ยังไม่ตรงค่ะ 😊\n\n" +
-      "ลองคิดว่าขั้นตอนต่อไปของกระบวนการสื่อสารคืออะไร"
-    );
-
-  }
+  document.getElementById("remaining")
+    .textContent = hand.length;
 
 }
 
 
-/* =====================================================
-   BOARD
-===================================================== */
+/* =========================================================
+   แสดงกระดาน
+   ========================================================= */
 
 function renderBoard() {
 
-  const board =
+  const boardElement =
     document.getElementById("board");
 
-  board.innerHTML = "";
+  boardElement.innerHTML = "";
 
-  placed.forEach(tile => {
 
-    board.appendChild(
-      createDomino(tile, true)
-    );
+  if (board.length === 0) {
+
+    boardElement.innerHTML =
+      `<div style="color:#8993a4;">
+        ยังไม่มีเบี้ยบนกระดาน
+      </div>`;
+
+    return;
+
+  }
+
+
+  board.forEach(tile => {
+
+    const domino =
+      createDomino(tile, false);
+
+    boardElement.appendChild(domino);
 
   });
 
 }
 
 
-/* =====================================================
-   RESET BOARD
-===================================================== */
+/* =========================================================
+   ตรวจสอบการต่อเบี้ย
+   ========================================================= */
 
-function resetBoard() {
+function canPlay(tile) {
 
-  if (
-    !confirm(
-      "ต้องการเริ่มวางเบี้ยใหม่หรือไม่?"
-    )
-  ) return;
+  /*
+    รอบที่ 1:
+    วางได้ทุกเบี้ย
+  */
 
-  remaining = [...tiles];
-  placed = [];
+  if (currentRound === 1) {
 
-  renderBoard();
-  renderHand();
+    return true;
 
-  document.getElementById("placedCount")
-    .textContent = 0;
+  }
+
+
+  /*
+    ถ้ากระดานยังว่าง
+    รอบ 2 ก็ให้เริ่มได้
+  */
+
+  if (board.length === 0) {
+
+    return true;
+
+  }
+
+
+  const first =
+    board[0];
+
+  const last =
+    board[board.length - 1];
+
+
+  /*
+    ต่อด้านซ้ายหรือด้านขวาได้
+  */
+
+  const canLeft =
+    tile.a === first.a ||
+    tile.b === first.a;
+
+  const canRight =
+    tile.a === last.b ||
+    tile.b === last.b;
+
+
+  return canLeft || canRight;
 
 }
 
 
-/* =====================================================
-   FINISH ROUND
-===================================================== */
+/* =========================================================
+   เล่นเบี้ย
+   ========================================================= */
 
-function finishRound() {
+function playTile(id) {
 
-  if (placed.length !== tiles.length) {
+  const index =
+    hand.findIndex(tile => tile.id === id);
 
-    alert(
-      "ยังวางเบี้ยไม่ครบค่ะ 😊\n" +
-      "ลองวางให้ครบทุกใบก่อน"
+  if (index === -1) return;
+
+
+  const tile =
+    hand[index];
+
+
+  /* ตรวจสอบกติกา */
+
+  if (!canPlay(tile)) {
+
+    showMessage(
+      "❌ เบี้ยนี้ยังต่อไม่ได้ ต้องให้ด้านที่ติดกันเป็นคำเดียวกัน",
+      true
     );
 
     return;
+
   }
 
-  if (round === 1) {
 
-    const correct =
-      placed.every(
-        (tile, i) =>
-          tile.id === tiles[i].id
+  /*
+    รอบที่ 1
+    วางตรงไหนก็ได้
+  */
+
+  if (currentRound === 1) {
+
+    board.push(tile);
+
+  }
+
+  /*
+    รอบที่ 2
+    พยายามต่อให้ถูกด้าน
+  */
+
+  else {
+
+    placeCorrectly(tile);
+
+  }
+
+
+  /*
+    เอาเบี้ยออกจากมือ
+  */
+
+  hand.splice(index, 1);
+
+
+  renderHand();
+
+  renderBoard();
+
+
+  showMessage(
+    "วางเบี้ยแล้ว 👍",
+    false
+  );
+
+
+  /*
+    ถ้าวางครบ 22 เบี้ย
+  */
+
+  if (hand.length === 0) {
+
+    if (currentRound === 1) {
+
+      showMessage(
+        "🎉 รอบที่ 1 จบแล้ว! ทดลองได้ครบทุกเบี้ยแล้ว",
+        false
       );
 
-    if (correct) {
+      document.getElementById("nextRoundBtn")
+        .style.display = "inline-block";
 
-      score += 100;
+    }
 
-      alert(
-        "เยี่ยมมาก! 🎉\n" +
-        "รอบที่ 1 เรียงได้ถูกต้อง"
-      );
+    else {
 
-    } else {
-
-      alert(
-        "ไม่เป็นไรเลยค่ะ 💜\n" +
-        "รอบที่ 1 เป็นรอบทดลอง\n" +
-        "รอบต่อไปเราจะมีกติกาการเรียงเบี้ย"
+      showMessage(
+        "🏆 ยอดเยี่ยม! วางครบทั้ง 22 เบี้ยแล้ว!",
+        false
       );
 
     }
 
-    score += 50;
+  }
 
-    round = 2;
+}
 
-    remaining = [...tiles];
-    placed = [];
 
-    updateRound();
+/* =========================================================
+   ต่อเบี้ยให้ถูกต้องในรอบที่ 2
+   ========================================================= */
 
-    renderBoard();
-    renderHand();
+function placeCorrectly(tile) {
+
+  if (board.length === 0) {
+
+    board.push(tile);
 
     return;
+
   }
 
 
-  /* ---------------- ROUND 2 ---------------- */
+  const first =
+    board[0];
 
-  const correct =
-    placed.every(
-      (tile, i) =>
-        tile.id === tiles[i].id
-    );
+  const last =
+    board[board.length - 1];
 
-  if (correct) {
 
-    score += 100;
+  /*
+    ถ้าต่อด้านซ้ายได้
+  */
 
-    alert(
-      "🎉 ถูกต้อง!\n" +
-      "คุณเรียงกระบวนการสื่อสารได้ครบแล้ว"
-    );
+  if (tile.b === first.a) {
 
-    finishGame();
+    board.unshift(tile);
 
-  } else {
+    return;
 
-    alert(
-      "เกือบแล้วค่ะ 😊\n" +
-      "ลองจัดลำดับใหม่อีกครั้ง"
-    );
+  }
+
+
+  if (tile.a === first.a) {
+
+    board.unshift({
+      id: tile.id,
+      a: tile.b,
+      b: tile.a
+    });
+
+    return;
+
+  }
+
+
+  /*
+    ถ้าต่อด้านขวาได้
+  */
+
+  if (tile.a === last.b) {
+
+    board.push(tile);
+
+    return;
+
+  }
+
+
+  if (tile.b === last.b) {
+
+    board.push({
+      id: tile.id,
+      a: tile.b,
+      b: tile.a
+    });
+
+    return;
 
   }
 
 }
 
 
-/* =====================================================
-   UPDATE ROUND
-===================================================== */
+/* =========================================================
+   เข้าสู่รอบ 2
+   ========================================================= */
+
+function startRound2() {
+
+  /*
+    รีเซ็ตกระดานเพื่อให้รอบ 2
+    เป็นการเล่นโดมิโนจริง
+  */
+
+  board = [];
+
+  currentRound = 2;
+
+
+  document.getElementById("nextRoundBtn")
+    .style.display = "none";
+
+
+  /*
+    เริ่มรอบใหม่ด้วยเบี้ยครบ 22 เบี้ย
+  */
+
+  hand = [...dominoData];
+
+
+  updateRound();
+
+  renderHand();
+
+  renderBoard();
+
+
+  showMessage(
+    "รอบที่ 2 เริ่มแล้ว! ต่อเบี้ยให้คำที่ติดกันตรงกันนะ 🎯",
+    false
+  );
+
+}
+
+
+/* =========================================================
+   เปลี่ยนข้อความรอบ
+   ========================================================= */
 
 function updateRound() {
 
-  document.getElementById("roundText")
-    .textContent =
-      "รอบที่ " + round;
+  const title =
+    document.getElementById("roundTitle");
 
-  document.getElementById("ruleText")
-    .innerHTML = `
-      🧠 <b>รอบที่ 2:</b>
-      ต้องเรียงเบี้ยตามกระบวนการสื่อสาร
-      ให้ถูกต้อง
-    `;
+  if (currentRound === 1) {
 
-  document.getElementById("instruction")
-    .textContent =
-      "แตะเบี้ยตามลำดับที่คิดว่าถูกต้อง";
+    title.textContent =
+      "รอบที่ 1 — ทดลองวาง 🎲";
 
-  document.getElementById("score")
-    .textContent = score;
+    document.getElementById("status")
+      .textContent =
+      "วางเบี้ยไหนก่อนก็ได้ จะวางมั่วก็ได้!";
 
-}
+  }
 
+  else {
 
-/* =====================================================
-   FINISH GAME
-===================================================== */
+    title.textContent =
+      "รอบที่ 2 — ต่อโดมิโนจริง 🁢";
 
-function finishGame() {
+    document.getElementById("status")
+      .textContent =
+      "ต้องต่อให้คำที่ติดกันเป็นคำเดียวกัน";
 
-  document.getElementById("gameScreen")
-    .classList.add("hidden");
-
-  document.getElementById("resultScreen")
-    .classList.remove("hidden");
-
-  document.getElementById("resultText")
-    .innerHTML = `
-      <div class="info">
-        👤 ผู้เล่น: <b>${escapeHtml(player)}</b>
-      </div>
-
-      <div class="info">
-        ⭐ คะแนนรวม:
-        <strong style="font-size:28px;">
-          ${score}
-        </strong>
-        คะแนน
-      </div>
-
-      <p>
-        🎊 ขอบคุณที่เล่นเกม
-        <b>สื่อ-ต่อ-สาร</b>
-      </p>
-
-      <p>
-        คุณได้เรียนรู้กระบวนการสื่อสารตั้งแต่
-        ผู้ส่งสาร → การเข้ารหัส → ข่าว/สารสื่อ
-        → การถอดรหัส → ผู้รับสาร
-        → การตอบสนอง → ผลสะท้อนกลับ
-      </p>
-    `;
+  }
 
 }
 
 
-/* =====================================================
-   SECURITY
-===================================================== */
+/* =========================================================
+   ข้อความแจ้งเตือน
+   ========================================================= */
 
-function escapeHtml(text) {
+function showMessage(text, error) {
 
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  const message =
+    document.getElementById("message");
+
+  message.textContent =
+    text;
+
+  message.style.color =
+    error ? "#d64545" : "#20a464";
+
+}
+
+
+/* =========================================================
+   เริ่มใหม่
+   ========================================================= */
+
+function resetGame() {
+
+  location.reload();
 
 }
 
