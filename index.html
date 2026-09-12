@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>สื่อ-ต่อ-สาร | เกมโดมิโนกระบวนการสื่อสาร</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -13,223 +12,280 @@
 *{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:"Noto Sans Thai","Sarabun",Arial,sans-serif;
-  background:linear-gradient(135deg,#fff8fb,#eefaff);
-  color:#414b61;
+ margin:0;
+ font-family:"Noto Sans Thai","Sarabun",Arial,sans-serif;
+ background:linear-gradient(135deg,#fff8fb,#eefaff);
+ color:#414b61;
 }
 
 header{
-  background:linear-gradient(135deg,#91dfe2,#b89be7);
-  color:white;
-  text-align:center;
-  padding:22px 12px;
-  box-shadow:0 4px 18px #0002;
+ background:linear-gradient(135deg,#91dfe2,#b89be7);
+ color:#fff;
+ text-align:center;
+ padding:22px 12px;
+ box-shadow:0 4px 18px #0002;
 }
 
-header h1{margin:0;font-size:30px}
-header p{margin:5px 0 0}
+header h1{
+ margin:0;
+ font-size:clamp(25px,6vw,36px);
+}
+
+header p{
+ margin:5px 0 0;
+}
 
 .container{
-  width:min(1100px,94%);
-  margin:auto;
-  padding:18px 0 50px;
+ width:min(1150px,94%);
+ margin:auto;
+ padding:18px 0 50px;
 }
 
 .card{
-  background:#fffffff2;
-  border-radius:24px;
-  padding:20px;
-  margin-bottom:18px;
-  box-shadow:0 7px 25px #5b648015;
+ background:#fffffff2;
+ border-radius:24px;
+ padding:20px;
+ margin-bottom:18px;
+ box-shadow:0 7px 25px #5b648015;
 }
 
-h2{margin-top:0;color:#59627a}
+h2{
+ margin-top:0;
+ color:#59627a;
+}
 
 input{
-  width:100%;
-  padding:13px 15px;
-  border:2px solid #dce2ee;
-  border-radius:14px;
-  font-size:16px;
-  margin:6px 0 10px;
+ width:100%;
+ padding:13px 15px;
+ border:2px solid #dce2ee;
+ border-radius:14px;
+ font-size:16px;
+ margin:6px 0 10px;
+ outline:none;
+}
+
+input:focus{
+ border-color:#9a83dd;
 }
 
 button{
-  border:0;
-  border-radius:14px;
-  padding:12px 19px;
-  background:#8d72d8;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  margin:4px;
+ border:0;
+ border-radius:14px;
+ padding:12px 19px;
+ background:#8d72d8;
+ color:white;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer;
+ margin:4px;
 }
 
 button:hover{
-  transform:translateY(-1px);
+ filter:brightness(1.04);
+ transform:translateY(-1px);
 }
 
 button:disabled{
-  opacity:.4;
-  cursor:not-allowed;
+ opacity:.4;
+ cursor:not-allowed;
+ transform:none;
 }
 
-.hidden{display:none!important}
-.center{text-align:center}
+.secondary{
+ background:#91b9d8;
+}
+
+.danger{
+ background:#d98b9d;
+}
+
+.hidden{
+ display:none!important;
+}
+
+.center{
+ text-align:center;
+}
 
 .roomCode{
-  text-align:center;
-  font-size:32px;
-  font-weight:900;
-  letter-spacing:5px;
-  background:#f0eaff;
-  color:#7358b6;
-  padding:14px;
-  border-radius:18px;
-  margin:12px 0;
+ text-align:center;
+ font-size:clamp(28px,8vw,42px);
+ font-weight:900;
+ letter-spacing:6px;
+ background:#f0eaff;
+ color:#7358b6;
+ padding:14px;
+ border-radius:18px;
+ margin:12px 0;
 }
 
 .players{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
 }
 
 .player{
-  background:#f3f5fa;
-  border-radius:14px;
-  padding:9px 13px;
+ background:#f3f5fa;
+ border-radius:14px;
+ padding:9px 13px;
 }
 
 .player.me{
-  background:#ddf8ef;
-  font-weight:bold;
+ background:#ddf8ef;
+ font-weight:bold;
 }
 
 .player.turn{
-  outline:3px solid #86d5c5;
+ outline:3px solid #86d5c5;
 }
 
 .status{
-  text-align:center;
-  background:#f5f6fa;
-  border-radius:15px;
-  padding:12px;
-  font-weight:bold;
-  margin:10px 0;
+ text-align:center;
+ background:#f5f6fa;
+ border-radius:15px;
+ padding:12px;
+ font-weight:bold;
+ margin:10px 0;
 }
 
 .message{
-  text-align:center;
-  font-size:18px;
-  font-weight:900;
-  color:#7659b9;
+ text-align:center;
+ font-size:18px;
+ font-weight:900;
+ color:#7659b9;
+ min-height:25px;
+}
+
+.big{
+ font-size:28px;
+ font-weight:900;
+}
+
+.small{
+ font-size:13px;
+ color:#7b8292;
+}
+
+hr{
+ border:0;
+ border-top:1px solid #e5e7ef;
+ margin:18px 0;
 }
 
 /* BOARD */
 
 .boardWrap{
-  overflow-x:auto;
-  padding-bottom:8px;
+ overflow-x:auto;
+ padding:10px 2px 16px;
 }
 
 .board{
-  min-width:max-content;
-  min-height:190px;
-  background:linear-gradient(135deg,#f1f5fa,#eaf0f7);
-  border-radius:20px;
-  padding:22px;
-  display:flex;
-  align-items:center;
-  gap:8px;
+ min-width:max-content;
+ min-height:190px;
+ background:linear-gradient(135deg,#f1f5fa,#eaf0f7);
+ border-radius:20px;
+ padding:22px;
+ display:flex;
+ align-items:center;
+ gap:8px;
 }
 
 .board .domino{
-  width:145px;
-  min-height:105px;
+ width:145px;
+ min-height:105px;
 }
 
 .board .half{
-  min-height:105px;
+ min-height:105px;
 }
 
 .board .art{
-  font-size:27px;
-  width:42px;
-  height:42px;
+ width:42px;
+ height:42px;
+ font-size:25px;
 }
 
 .board .label{
-  font-size:10px;
+ font-size:10px;
 }
 
 /* DOMINO */
 
 .hand{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
+ display:flex;
+ flex-wrap:wrap;
+ justify-content:center;
+ gap:12px;
 }
 
 .domino{
-  width:185px;
-  min-height:120px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  border-radius:18px;
-  overflow:hidden;
-  background:white;
-  border:3px solid #cdd4e1;
-  box-shadow:0 5px 14px #0002;
-  transition:.18s;
+ width:185px;
+ min-height:125px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ border-radius:18px;
+ overflow:hidden;
+ background:white;
+ border:3px solid #cdd4e1;
+ box-shadow:0 5px 14px #0002;
+ transition:.18s;
+ flex-shrink:0;
 }
 
 .hand .domino{
-  cursor:pointer;
+ cursor:pointer;
 }
 
 .hand .domino:hover{
-  transform:translateY(-5px);
+ transform:translateY(-5px);
 }
 
 .domino.playable{
-  border-color:#73cdbb;
-  box-shadow:0 0 0 4px #73cdbb33,0 6px 15px #0002;
+ border-color:#73cdbb;
+ box-shadow:0 0 0 4px #73cdbb33,0 6px 15px #0002;
+}
+
+.domino.blocked{
+ opacity:.55;
 }
 
 .half{
-  min-height:120px;
-  padding:7px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  border-right:2px solid #d3d8e2;
+ min-height:125px;
+ padding:7px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ border-right:2px solid #d3d8e2;
 }
 
 .half:last-child{
-  border-right:0;
+ border-right:0;
 }
 
 .art{
-  width:58px;
-  height:58px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:35px;
-  border-radius:16px;
-  margin-bottom:4px;
+ width:58px;
+ height:58px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:35px;
+ border-radius:16px;
+ margin-bottom:4px;
+ overflow:hidden;
+}
+
+.art svg{
+ width:100%;
+ height:100%;
 }
 
 .label{
-  font-size:13px;
-  line-height:1.2;
-  font-weight:900;
+ font-size:13px;
+ line-height:1.2;
+ font-weight:900;
 }
 
 /* PASTEL */
@@ -244,106 +300,95 @@ button:disabled{
 .start{background:#e1edff}
 
 .noise{
-  background:repeating-linear-gradient(
-    -45deg,
-    #fff16b 0px,
-    #fff16b 9px,
-    #ffd65b 9px,
-    #ffd65b 18px
-  );
-  border-color:#efb600;
-}
-
-/* PROCESS */
-
-.process{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  margin:15px 0;
-}
-
-.process span{
-  background:#f2f4fa;
-  padding:7px 10px;
-  border-radius:12px;
-  font-weight:bold;
-  font-size:13px;
-}
-
-.arrow{
-  color:#8d72d8;
-  font-weight:bold;
+ background:repeating-linear-gradient(
+ -45deg,
+ #fff16b 0px,
+ #fff16b 9px,
+ #ffd65b 9px,
+ #ffd65b 18px
+ );
+ border-color:#efb600;
 }
 
 /* RULES */
 
 .rules{
-  background:#fffaf0;
-  border-left:6px solid #e2bd5b;
+ background:#fffaf0;
+ border-left:6px solid #e2bd5b;
 }
 
 .rules li{
-  margin-bottom:8px;
-  line-height:1.5;
+ margin-bottom:8px;
+ line-height:1.5;
 }
 
-/* WINNER */
+/* PLAY AREA */
 
-.winner{
-  text-align:center;
-  padding:25px;
-  border-radius:20px;
-  background:#effff7;
+.actionBox{
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:6px;
 }
 
-.big{
-  font-size:28px;
-  font-weight:900;
-}
-
-.score{
-  margin-left:auto;
-  font-weight:bold;
-}
-
-.playerRow{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:#f5f7fb;
-  padding:9px 12px;
-  border-radius:14px;
-  margin:5px 0;
-}
-
-.small{
-  font-size:13px;
-  color:#7b8292;
-}
-
-.endPoint{
-  padding:10px 15px;
-  border-radius:14px;
-  background:#fff;
-  border:2px dashed #aab4c8;
-  font-weight:bold;
-  white-space:nowrap;
+.loopNotice{
+ background:#f4edff;
+ border-radius:16px;
+ padding:12px;
+ text-align:center;
+ margin-top:12px;
 }
 
 .noiseNotice{
-  background:#fff7bf;
-  border:2px solid #efc94c;
-  padding:12px;
-  border-radius:15px;
-  margin-top:10px;
-  font-weight:bold;
+ background:#fff8c9;
+ border:2px solid #f0c943;
+ border-radius:16px;
+ padding:14px;
+ margin-top:12px;
+ text-align:center;
+ font-weight:bold;
 }
 
-.scoreTable{
-  margin-top:15px;
+.winner{
+ text-align:center;
+ padding:25px;
+ border-radius:20px;
+ background:#effff7;
+}
+
+.playerRow{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ background:#f5f7fb;
+ padding:9px 12px;
+ border-radius:14px;
+ margin:5px 0;
+}
+
+.score{
+ margin-left:auto;
+ font-weight:bold;
+}
+
+.infoGrid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+ gap:10px;
+ margin-top:12px;
+}
+
+.infoItem{
+ background:#f6f7fb;
+ padding:12px;
+ border-radius:15px;
+ text-align:center;
+}
+
+@media(max-width:600px){
+ .card{padding:15px}
+ .domino{width:165px}
+ .half{min-height:115px}
 }
 </style>
 </head>
@@ -351,8 +396,8 @@ button:disabled{
 <body>
 
 <header>
-  <h1>📢 สื่อ-ต่อ-สาร</h1>
-  <p>เกมโดมิโนกระบวนการสื่อสาร</p>
+<h1>📢 สื่อ-ต่อ-สาร</h1>
+<p>เกมโดมิโนกระบวนการสื่อสาร</p>
 </header>
 
 <div class="container">
@@ -361,29 +406,37 @@ button:disabled{
 
 <section id="home" class="card">
 
-  <h2>🎮 เข้าสู่เกม</h2>
+<h2>🎮 เข้าสู่เกม</h2>
 
-  <p>ให้นักเรียนแต่ละกลุ่มใช้รหัสห้องเดียวกัน</p>
+<p>
+ให้นักเรียนแต่ละกลุ่มใช้ <b>รหัสห้องเดียวกัน</b>
+เพื่อเล่นร่วมกัน
+</p>
 
-  <input
-    id="playerName"
-    placeholder="ชื่อผู้เล่น"
-  >
+<input
+ id="playerName"
+ placeholder="ชื่อผู้เล่น"
+ maxlength="30"
+>
 
-  <button onclick="createRoom()">
-    🏠 สร้างห้อง
-  </button>
+<button onclick="createRoom()">
+🏠 สร้างห้อง
+</button>
 
-  <hr>
+<hr>
 
-  <input
-    id="roomInput"
-    placeholder="ใส่รหัสห้อง เช่น ABC123"
-  >
+<input
+ id="roomInput"
+ placeholder="ใส่รหัสห้อง เช่น ABC123"
+ maxlength="6"
+ style="text-transform:uppercase"
+>
 
-  <button onclick="joinRoom()">
-    🚪 เข้าห้อง
-  </button>
+<button onclick="joinRoom()">
+🚪 เข้าห้อง
+</button>
+
+<div id="homeMessage" class="message"></div>
 
 </section>
 
@@ -392,37 +445,32 @@ button:disabled{
 
 <section id="waiting" class="card hidden">
 
-  <h2>🏠 ห้องเรียน</h2>
+<h2>🏠 ห้องเรียน</h2>
 
-  <div id="roomCode" class="roomCode">
-    ------
-  </div>
+<div id="roomCode" class="roomCode">
+------
+</div>
 
-  <div class="center">
-    ส่งรหัสนี้ให้เพื่อนในกลุ่ม
-  </div>
+<div class="center">
+ส่งรหัสนี้ให้เพื่อนในกลุ่ม
+</div>
 
-  <h3>👥 ผู้เล่นในห้อง</h3>
+<h3>👥 ผู้เล่นในห้อง</h3>
 
-  <div id="waitingPlayers" class="players"></div>
+<div id="waitingPlayers" class="players"></div>
 
-  <div
-    id="waitingMessage"
-    class="message">
-  </div>
+<div id="waitingMessage" class="message"></div>
 
-  <div class="center">
+<div class="center">
 
-    <button
-      id="startGameBtn"
-      onclick="startGame()"
-      class="hidden">
+<button
+ id="startGameBtn"
+ onclick="startGame()"
+>
+▶️ เริ่มเกม
+</button>
 
-      ▶️ เริ่มเกม
-
-    </button>
-
-  </div>
+</div>
 
 </section>
 
@@ -431,150 +479,129 @@ button:disabled{
 
 <section id="game" class="hidden">
 
-  <section class="card">
+<section class="card">
 
-    <div
-      id="roundText"
-      class="big center">
+<div id="roundText" class="big center">
+รอบที่ 1
+</div>
 
-      รอบที่ 1
+<div id="status" class="status"></div>
 
-    </div>
+<div id="turnMessage" class="message"></div>
 
-    <div
-      id="status"
-      class="status">
-    </div>
+<div id="noiseNotice" class="noiseNotice hidden"></div>
 
-    <div
-      id="turnMessage"
-      class="message">
-    </div>
+<div class="infoGrid">
 
-    <div class="process">
+<div class="infoItem">
+ผู้เล่น
+<br>
+<b id="playerCount">0</b>/5
+</div>
 
-      <span>📣 ผู้ส่งสาร</span>
-      <b class="arrow">→</b>
+<div class="infoItem">
+กองกลาง
+<br>
+<b id="pileCount">0</b> เบี้ย
+</div>
 
-      <span>🧠 การเข้ารหัส</span>
-      <b class="arrow">→</b>
+<div class="infoItem">
+เบี้ยของฉัน
+<br>
+<b id="myTileCount">0</b> ใบ
+</div>
 
-      <span>📱 ข่าวสาร/สื่อ</span>
-      <b class="arrow">→</b>
+</div>
 
-      <span>👁️ การถอดรหัส</span>
-      <b class="arrow">→</b>
-
-      <span>👥 ผู้รับสาร</span>
-      <b class="arrow">→</b>
-
-      <span>📱 การตอบสนอง</span>
-      <b class="arrow">→</b>
-
-      <span>📈 ผลสะท้อนกลับ</span>
-      <b class="arrow">↩️</b>
-
-    </div>
-
-  </section>
+</section>
 
 
-  <!-- BOARD -->
+<!-- BOARD -->
 
-  <section class="card">
+<section class="card">
 
-    <h2>🧩 กระดาน</h2>
+<h2>🧩 กระดาน</h2>
 
-    <div class="boardWrap">
+<div class="boardWrap">
+<div id="board" class="board"></div>
+</div>
 
-      <div id="board" class="board"></div>
-
-    </div>
-
-    <div
-      id="noiseNotice"
-      class="noiseNotice hidden">
-    </div>
-
-  </section>
+</section>
 
 
-  <!-- HAND -->
+<!-- HAND -->
 
-  <section class="card">
+<section class="card">
 
-    <h2>🖐️ เบี้ยของฉัน</h2>
+<h2>🖐️ เบี้ยของฉัน</h2>
 
-    <div id="hand" class="hand"></div>
+<div id="hand" class="hand"></div>
 
-    <div
-      id="handHint"
-      class="small center">
-    </div>
+<div id="handHint" class="small center"></div>
 
-  </section>
+</section>
 
 
-  <!-- ACTION -->
+<!-- ACTION -->
 
-  <section class="card center">
+<section class="card center">
 
-    <h2>🎯 การเล่น</h2>
+<h2>🎯 การเล่น</h2>
 
-    <button
-      id="drawBtn"
-      onclick="drawTile()">
+<div class="actionBox">
 
-      🂠 จั่วเบี้ย
+<button
+ id="drawBtn"
+ onclick="drawTile()"
+>
+🂠 จั่วเบี้ย
+</button>
 
-    </button>
+<button
+ id="passBtn"
+ onclick="passTurn()"
+ class="secondary"
+>
+⏭️ ผ่าน
+</button>
 
-    <button
-      id="passBtn"
-      onclick="passTurn()">
+</div>
 
-      ⏭️ ผ่าน
+<p class="small">
+ถ้าปลายแถวเป็น Noise ระบบจะเข้าสู่โหมด
+<b>กำจัดสิ่งรบกวน</b>
+</p>
 
-    </button>
-
-    <div>
-      กองกลางเหลือ
-      <b id="pileCount">0</b>
-      เบี้ย
-    </div>
-
-  </section>
-
-
-  <!-- PLAYERS -->
-
-  <section class="card">
-
-    <h2>👥 ผู้เล่น</h2>
-
-    <div id="gamePlayers"></div>
-
-  </section>
+</section>
 
 
-  <!-- WINNER -->
+<!-- PLAYERS -->
 
-  <section
-    id="winnerBox"
-    class="card winner hidden">
+<section class="card">
 
-    <div class="big">
-      🏆 จบเกม!
-    </div>
+<h2>👥 ผู้เล่น</h2>
 
-    <p id="winnerText"></p>
+<div id="gamePlayers"></div>
 
-    <div
-      id="scoreTable"
-      class="scoreTable">
-    </div>
+</section>
 
-  </section>
+
+<!-- WINNER -->
+
+<section
+ id="winnerBox"
+ class="card winner hidden"
+>
+
+<div class="big">
+🏆 จบเกม!
+</div>
+
+<p id="winnerText"></p>
+
+<div id="finalScores"></div>
+
+</section>
 
 </section>
 
@@ -592,28 +619,27 @@ button:disabled{
 </li>
 
 <li>
-ผู้เล่นจั่วเบี้ยคนละ 5 ใบ
+ผู้เล่น 5 คน จั่วเบี้ยคนละ 5 ใบ
 </li>
 
 <li>
 วางเบี้ยเริ่มต้น
 <b>[ START | ผู้ส่งสาร ]</b>
-ลงที่กลางวง
+ลงกลางวง
 </li>
 
 <li>
 <b>รอบที่ 1 เป็นรอบทดลอง</b>
 สามารถวางเบี้ยได้อย่างอิสระ
-เพื่อให้ผู้เล่นได้ทำความคุ้นเคยกับเกม
 </li>
 
 <li>
-เมื่อเข้าสู่ <b>รอบที่ 2</b>
-จะต้องต่อเบี้ยตามกระบวนการสื่อสาร
+เมื่อจบรอบทดลอง
+จะเข้าสู่การต่อกระบวนการสื่อสาร
 </li>
 
 <li>
-กระบวนการคือ
+ลำดับปกติคือ
 <b>
 ผู้ส่งสาร →
 การเข้ารหัส →
@@ -639,26 +665,19 @@ button:disabled{
 </li>
 
 <li>
-เมื่อมี Noise ขวางทาง
-ผู้เล่นคนถัดไปจะไม่สามารถวางเบี้ยปกติได้
-ต้องจั่วจนพบเบี้ย
-<b>[ Noise | คำศัพท์อื่น ]</b>
+เมื่อปลายแถวเป็น Noise
+ผู้เล่นต้องจั่วจนกว่าจะพบ
+<b>Noise | คำศัพท์อื่น</b>
 เพื่อกำจัดสิ่งรบกวน
 </li>
 
 <li>
-เมื่อพบเบี้ย Noise ที่จับคู่กับคำศัพท์อื่น
-ผู้เล่นสามารถวางเบี้ยนั้นต่อได้
-และกระบวนการกลับเข้าสู่เส้นทางปกติ
-</li>
-
-<li>
-ผู้ที่เบี้ยในมือหมดก่อน
+ใครวางเบี้ยจนหมดมือก่อน
 เป็นผู้ชนะ
 </li>
 
 <li>
-ผู้ที่วางเบี้ยเพื่อปิดลูป
+ผู้ที่วางเบี้ยปิดลูป
 <b>ผลสะท้อนกลับ → ผู้ส่งสาร</b>
 ได้คะแนนพิเศษ
 </li>
@@ -673,172 +692,224 @@ button:disabled{
 <script>
 
 /* =====================================================
-   FIREBASE
+ FIREBASE
 ===================================================== */
 
 const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyAR2nJYKhnFllOqvF8hkWEG33ClsGdCd8",
-
-  authDomain:
-    "media-domino-class.firebaseapp.com",
-
-  databaseURL:
-    "https://media-domino-class-default-rtdb.firebaseio.com",
-
-  projectId:
-    "media-domino-class",
-
-  storageBucket:
-    "media-domino-class.firebasestorage.app",
-
-  messagingSenderId:
-    "77074557166",
-
-  appId:
-    "1:77074557166:web:9430f277e173d389a9abff",
-
-  measurementId:
-    "G-MPFMVRYYDE"
-
+ apiKey:"AIzaSyAR2nJYKhnFllOqvF8hkWEG33ClsGdCd8",
+ authDomain:"media-domino-class.firebaseapp.com",
+ databaseURL:"https://media-domino-class-default-rtdb.firebaseio.com",
+ projectId:"media-domino-class",
+ storageBucket:"media-domino-class.firebasestorage.app",
+ messagingSenderId:"77074557166",
+ appId:"1:77074557166:web:9430f277e173d389a9abff",
+ measurementId:"G-MPFMVRYYDE"
 };
 
-firebase.initializeApp(firebaseConfig);
+if(!firebase.apps.length){
+ firebase.initializeApp(firebaseConfig);
+}
 
-const db =
-  firebase.database();
+const db=firebase.database();
 
 
 /* =====================================================
-   เบี้ย 30 ใบ
-=====================================================
-
-22 แบบตามรายการครูกำหนด
-+
-8 ใบสำรองเพื่อให้มีเบี้ยสำหรับจั่ว
-
+ TILES
 ===================================================== */
 
-const BASE_TILES = [
+const BASE_TILES=[
 
-  ["START","ผู้ส่งสาร"],
+ ["START","ผู้ส่งสาร"],
 
-  ["ผู้ส่งสาร","การเข้ารหัส"],
+ ["ผู้ส่งสาร","การเข้ารหัส"],
 
-  ["ข่าวสาร/สื่อ","การเข้ารหัส"],
+ ["ข่าวสาร/สื่อ","การเข้ารหัส"],
 
-  ["การเข้ารหัส","ข่าวสาร/สื่อ"],
+ ["การเข้ารหัส","ข่าวสาร/สื่อ"],
 
-  ["ข่าวสาร/สื่อ","การถอดรหัส"],
+ ["ข่าวสาร/สื่อ","การถอดรหัส"],
 
-  ["การถอดรหัส","ผู้รับสาร"],
+ ["การถอดรหัส","ผู้รับสาร"],
 
-  ["ผู้รับสาร","การตอบสนอง"],
+ ["ผู้รับสาร","การตอบสนอง"],
 
-  ["การตอบสนอง","ผลสะท้อนกลับ"],
+ ["การตอบสนอง","ผลสะท้อนกลับ"],
 
-  ["ผลสะท้อนกลับ","ผู้ส่งสาร"],
+ ["ผลสะท้อนกลับ","ผู้ส่งสาร"],
 
-  ["ผู้รับสาร","ผลสะท้อนกลับ"],
+ ["ผู้รับสาร","ผลสะท้อนกลับ"],
 
-  ["ผู้ส่งสาร","ผู้ส่งสาร"],
+ ["ผู้ส่งสาร","ผู้ส่งสาร"],
 
-  ["การเข้ารหัส","การเข้ารหัส"],
+ ["การเข้ารหัส","การเข้ารหัส"],
 
-  ["ข่าวสาร/สื่อ","ข่าวสาร/สื่อ"],
+ ["ข่าวสาร/สื่อ","ข่าวสาร/สื่อ"],
 
-  ["การถอดรหัส","การถอดรหัส"],
+ ["การถอดรหัส","การถอดรหัส"],
 
-  ["ผู้รับสาร","ผู้รับสาร"],
+ ["ผู้รับสาร","ผู้รับสาร"],
 
-  ["การตอบสนอง","การตอบสนอง"],
+ ["การตอบสนอง","การตอบสนอง"],
 
-  ["ผลสะท้อนกลับ","ผลสะท้อนกลับ"],
+ ["ผลสะท้อนกลับ","ผลสะท้อนกลับ"],
 
-  ["Noise","Noise"],
+ ["Noise","Noise"],
 
-  ["Noise","ข่าวสาร/สื่อ"],
+ ["Noise","ข่าวสาร/สื่อ"],
 
-  ["Noise","การถอดรหัส"],
+ ["Noise","การถอดรหัส"],
 
-  ["Noise","ผู้ส่งสาร"],
+ ["Noise","ผู้ส่งสาร"],
 
-  ["Noise","การตอบสนอง"],
+ ["Noise","การตอบสนอง"],
 
-  /* สำรอง */
+ /* เบี้ยสำรองสำหรับกองกลาง */
 
-  ["ผู้ส่งสาร","การเข้ารหัส"],
-
-  ["ข่าวสาร/สื่อ","การถอดรหัส"],
-
-  ["ผู้รับสาร","การตอบสนอง"],
-
-  ["ผลสะท้อนกลับ","ผู้ส่งสาร"],
-
-  ["Noise","ข่าวสาร/สื่อ"],
-
-  ["Noise","การถอดรหัส"],
-
-  ["Noise","ผู้ส่งสาร"],
-
-  ["Noise","การตอบสนอง"]
+ ["ผู้ส่งสาร","การเข้ารหัส"],
+ ["ข่าวสาร/สื่อ","การถอดรหัส"],
+ ["ผู้รับสาร","การตอบสนอง"],
+ ["ผลสะท้อนกลับ","ผู้ส่งสาร"],
+ ["Noise","ข่าวสาร/สื่อ"],
+ ["Noise","การถอดรหัส"],
+ ["Noise","ผู้ส่งสาร"],
+ ["Noise","การตอบสนอง"]
 
 ];
 
 
 /* =====================================================
-   ภาพประกอบ
+ SVG ILLUSTRATIONS
+ การ์ตูนกึ่งสมจริง / pastel
 ===================================================== */
 
-const ART = {
+function svg(type){
 
-  "START":"🚩",
+ const common=`
+ <svg viewBox="0 0 100 100"
+ xmlns="http://www.w3.org/2000/svg">
+ `;
 
-  "ผู้ส่งสาร":"📣",
+ const end="</svg>";
 
-  "การเข้ารหัส":"🧠⚙️",
+ if(type==="START"){
+  return common+
+  `<circle cx="50" cy="50" r="43" fill="#dcecff"/>
+   <path d="M28 72V28" stroke="#6579a8" stroke-width="5" stroke-linecap="round"/>
+   <path d="M30 30h42l-12 15 12 15H30z" fill="#f7a9b9"/>
+   <circle cx="55" cy="45" r="4" fill="#fff"/>
+  `+end;
+ }
 
-  "ข่าวสาร/สื่อ":"📱🌐",
+ if(type==="ผู้ส่งสาร"){
+  return common+
+  `<circle cx="50" cy="42" r="19" fill="#f6c8b7"/>
+   <path d="M31 39c2-20 35-22 39 0" fill="#8e6d72"/>
+   <path d="M35 63c6-8 25-8 31 0l5 25H29z" fill="#e7a7bd"/>
+   <path d="M60 48l19-9v18z" fill="#f2a4b5"/>
+   <path d="M79 39l12-5M79 57l12 5M82 48h14" stroke="#8d72d8" stroke-width="4" stroke-linecap="round"/>
+   <circle cx="43" cy="43" r="2" fill="#414b61"/>
+   <circle cx="57" cy="43" r="2" fill="#414b61"/>
+  `+end;
+ }
 
-  "การถอดรหัส":"👁️",
+ if(type==="การเข้ารหัส"){
+  return common+
+  `<circle cx="50" cy="42" r="20" fill="#f4c5b5"/>
+   <path d="M30 40c2-22 36-25 41 0" fill="#8c7187"/>
+   <path d="M32 64c8-9 28-9 36 0l5 23H27z" fill="#b89be7"/>
+   <circle cx="74" cy="23" r="10" fill="#d7c4fa"/>
+   <path d="M74 15v16M66 23h16M68 17l12 12M80 17L68 29" stroke="#7358b6" stroke-width="3"/>
+   <path d="M40 45h20M44 50h12" stroke="#7a6b84" stroke-width="3" stroke-linecap="round"/>
+  `+end;
+ }
 
-  "ผู้รับสาร":"👥👂",
+ if(type==="ข่าวสาร/สื่อ"){
+  return common+
+  `<circle cx="50" cy="50" r="38" fill="#d1f1e8"/>
+   <rect x="25" y="28" width="50" height="36" rx="8" fill="#fff" stroke="#78bda9" stroke-width="3"/>
+   <circle cx="37" cy="40" r="7" fill="#f3b2c1"/>
+   <path d="M49 39h17M49 47h12M33 55h32" stroke="#91a1b7" stroke-width="4" stroke-linecap="round"/>
+   <path d="M19 70c10 8 20 11 31 11M81 70c-10 8-20 11-31 11" stroke="#8d72d8" stroke-width="4" fill="none"/>
+   <circle cx="19" cy="70" r="6" fill="#a99be3"/>
+   <circle cx="81" cy="70" r="6" fill="#a99be3"/>
+  `+end;
+ }
 
-  "การตอบสนอง":"📱✓",
+ if(type==="การถอดรหัส"){
+  return common+
+  `<circle cx="50" cy="43" r="21" fill="#f5c9b8"/>
+   <path d="M30 42c1-21 38-25 41 0" fill="#786d7e"/>
+   <path d="M31 66c8-10 29-10 38 0l5 21H26z" fill="#f1d39a"/>
+   <ellipse cx="42" cy="43" rx="6" ry="4" fill="#fff"/>
+   <ellipse cx="58" cy="43" rx="6" ry="4" fill="#fff"/>
+   <circle cx="42" cy="43" r="2.5" fill="#414b61"/>
+   <circle cx="58" cy="43" r="2.5" fill="#414b61"/>
+   <path d="M45 55c4 3 7 3 11 0" stroke="#bd7f82" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  `+end;
+ }
 
-  "ผลสะท้อนกลับ":"📈💰",
+ if(type==="ผู้รับสาร"){
+  return common+
+  `<circle cx="50" cy="50" r="42" fill="#dcecff"/>
+   <circle cx="30" cy="42" r="12" fill="#f4c4b3"/>
+   <circle cx="50" cy="37" r="13" fill="#f1c0ae"/>
+   <circle cx="71" cy="42" r="12" fill="#f5cbb9"/>
+   <path d="M17 65c5-10 21-10 27 0v19H14z" fill="#9ec8ea"/>
+   <path d="M36 61c6-11 23-11 29 0v23H34z" fill="#a9dfd0"/>
+   <path d="M61 65c5-10 21-10 27 0v19H58z" fill="#c9b5ef"/>
+   <path d="M25 44h9M66 44h9" stroke="#7358b6" stroke-width="3" stroke-linecap="round"/>
+   <path d="M43 46c-4 4-5 8-5 12M57 46c4 4 5 8 5 12" stroke="#7a8498" stroke-width="3" fill="none"/>
+  `+end;
+ }
 
-  "Noise":"⚡"
+ if(type==="การตอบสนอง"){
+  return common+
+  `<rect x="27" y="16" width="46" height="70" rx="9" fill="#53627b"/>
+   <rect x="31" y="22" width="38" height="55" rx="5" fill="#f4fffb"/>
+   <circle cx="50" cy="69" r="3" fill="#cbd2df"/>
+   <circle cx="50" cy="42" r="15" fill="#d9f3df"/>
+   <path d="M42 42l6 6 12-14" stroke="#68b989" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="M17 65l8 8M83 65l-8 8" stroke="#d69aaa" stroke-width="4" stroke-linecap="round"/>
+  `+end;
+ }
 
-};
+ if(type==="ผลสะท้อนกลับ"){
+  return common+
+  `<rect x="16" y="19" width="68" height="65" rx="12" fill="#fff0df"/>
+   <path d="M27 70V48M41 70V57M55 70V39M69 70V30" stroke="#8bc4a2" stroke-width="8" stroke-linecap="round"/>
+   <path d="M25 36l15-9 14 8 18-17" stroke="#d78c9d" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="M66 18h9v9" stroke="#d78c9d" stroke-width="5" fill="none"/>
+   <text x="50" y="91" text-anchor="middle" font-size="9" fill="#8d72d8">ยอดขาย ↑</text>
+  `+end;
+ }
+
+ if(type==="Noise"){
+  return common+
+  `<circle cx="50" cy="50" r="40" fill="#fff16b"/>
+   <path d="M17 29L83 71M22 75L78 25M17 51h66" stroke="#e2a900" stroke-width="7" stroke-linecap="round"/>
+   <path d="M44 24l-7 27h15l-8 27 20-33H49z" fill="#fff" stroke="#e2a900" stroke-width="3" stroke-linejoin="round"/>
+  `+end;
+ }
+
+ return "";
+}
 
 
-const CLASS = {
-
-  "START":"start",
-
-  "ผู้ส่งสาร":"sender",
-
-  "การเข้ารหัส":"encoding",
-
-  "ข่าวสาร/สื่อ":"media",
-
-  "การถอดรหัส":"decoding",
-
-  "ผู้รับสาร":"receiver",
-
-  "การตอบสนอง":"response",
-
-  "ผลสะท้อนกลับ":"feedback",
-
-  "Noise":"noise"
-
+const CLASS={
+ "START":"start",
+ "ผู้ส่งสาร":"sender",
+ "การเข้ารหัส":"encoding",
+ "ข่าวสาร/สื่อ":"media",
+ "การถอดรหัส":"decoding",
+ "ผู้รับสาร":"receiver",
+ "การตอบสนอง":"response",
+ "ผลสะท้อนกลับ":"feedback",
+ "Noise":"noise"
 };
 
 
 /* =====================================================
-   ตัวแปร
+ GAME VARIABLES
 ===================================================== */
 
 let roomCode="";
@@ -846,1596 +917,1536 @@ let myId="";
 let myName="";
 let roomRef=null;
 let gameState=null;
+let roomListener=null;
 
 
 /* =====================================================
-   สุ่ม
+ UTILS
 ===================================================== */
 
 function shuffle(arr){
 
-  const a=[...arr];
+ let a=[...arr];
 
-  for(
-    let i=a.length-1;
-    i>0;
-    i--
-  ){
+ for(let i=a.length-1;i>0;i--){
 
-    const j=
-      Math.floor(
-        Math.random()*(i+1)
-      );
+  const j=Math.floor(Math.random()*(i+1));
 
-    [a[i],a[j]]=
-      [a[j],a[i]];
+  [a[i],a[j]]=[a[j],a[i];
 
-  }
+ }
 
-  return a;
+ return a;
 }
 
-
-/* =====================================================
-   สร้างรหัสห้อง
-===================================================== */
 
 function makeRoomCode(){
 
-  const chars=
-    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+ const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-  let code="";
+ let code="";
 
-  for(let i=0;i<6;i++){
+ for(let i=0;i<6;i++){
 
-    code+=
-      chars[
-        Math.floor(
-          Math.random()*chars.length
-        )
-      ];
+  code+=chars[
+   Math.floor(Math.random()*chars.length)
+  ];
 
-  }
+ }
 
-  return code;
+ return code;
 }
 
-
-/* =====================================================
-   Player ID
-===================================================== */
 
 function makePlayerId(){
 
-  return "p_"+
-    Date.now().toString(36)+
-    "_"+
-    Math.random()
-      .toString(36)
-      .slice(2,9);
+ return "p_"+
+ Date.now().toString(36)+
+ "_"+
+ Math.random().toString(36).slice(2,9);
+
+}
+
+
+function setHomeMessage(text){
+
+ document.getElementById("homeMessage")
+ .textContent=text;
+
+}
+
+
+function escapeHtml(text){
+
+ return String(text)
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
 
 }
 
 
 /* =====================================================
-   สร้างห้อง
+ CREATE ROOM
 ===================================================== */
 
 async function createRoom(){
 
-  myName=
-    document
-      .getElementById("playerName")
-      .value.trim();
+ const input=
+ document.getElementById("playerName");
 
-  if(!myName){
+ myName=input.value.trim();
 
-    alert("กรุณาใส่ชื่อก่อนค่ะ");
+ if(!myName){
 
-    return;
+  setHomeMessage("กรุณาใส่ชื่อก่อนค่ะ");
 
-  }
+  input.focus();
 
-  myId=makePlayerId();
+  return;
+ }
+
+ myId=makePlayerId();
+
+ let attempts=0;
+
+ while(attempts<10){
 
   roomCode=makeRoomCode();
 
-  roomRef=
-    db.ref(
-      "rooms/"+roomCode
-    );
+  const ref=db.ref("rooms/"+roomCode);
 
-  const players={};
+  const snap=await ref.once("value");
 
-  players[myId]={
+  if(!snap.exists()){
 
-    id:myId,
-    name:myName,
-    joinedAt:
-      firebase.database.ServerValue.TIMESTAMP
+   roomRef=ref;
 
-  };
-
-  const initial={
-
-    roomCode:roomCode,
-
-    hostId:myId,
-
-    status:"waiting",
-
-    round:1,
-
-    turnIndex:0,
-
-    currentPlayerId:null,
-
-    players:players,
-
-    board:[],
-
-    hands:{},
-
-    drawPile:[],
-
-    scores:{},
-
-    winner:null,
-
-    loopBonus:0,
-
-    createdAt:
-      firebase.database.ServerValue.TIMESTAMP
-
-  };
-
-  try{
-
-    await roomRef.set(initial);
-
-    showWaiting();
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "สร้างห้องไม่สำเร็จค่ะ\n"+
-      error.message
-    );
+   break;
 
   }
+
+  attempts++;
+
+ }
+
+ if(!roomRef){
+
+  setHomeMessage("สร้างห้องไม่สำเร็จ กรุณาลองใหม่ค่ะ");
+
+  return;
+
+ }
+
+ const players={};
+
+ players[myId]={
+  id:myId,
+  name:myName,
+  joinedAt:Date.now()
+ };
+
+ const initial={
+
+  roomCode,
+  hostId:myId,
+  status:"waiting",
+  round:1,
+  currentPlayerId:null,
+
+  players,
+
+  board:[],
+
+  hands:{},
+
+  drawPile:[],
+
+  scores:{},
+
+  winner:null,
+
+  loopCount:0,
+
+  noiseActive:false,
+
+  noiseSide:null,
+
+  createdAt:Date.now()
+
+ };
+
+ await roomRef.set(initial);
+
+ showWaiting();
 
 }
 
 
 /* =====================================================
-   เข้าห้อง
+ JOIN ROOM
 ===================================================== */
 
 async function joinRoom(){
 
-  myName=
-    document
-      .getElementById("playerName")
-      .value.trim();
+ myName=
+ document.getElementById("playerName")
+ .value.trim();
 
-  roomCode=
-    document
-      .getElementById("roomInput")
-      .value
-      .trim()
-      .toUpperCase();
+ roomCode=
+ document.getElementById("roomInput")
+ .value.trim()
+ .toUpperCase();
 
-  if(!myName){
+ if(!myName){
 
-    alert("กรุณาใส่ชื่อก่อนค่ะ");
+  setHomeMessage("กรุณาใส่ชื่อก่อนค่ะ");
 
-    return;
+  return;
+
+ }
+
+ if(!roomCode){
+
+  setHomeMessage("กรุณาใส่รหัสห้องค่ะ");
+
+  return;
+
+ }
+
+ myId=makePlayerId();
+
+ roomRef=db.ref("rooms/"+roomCode);
+
+ try{
+
+  const snap=await roomRef.once("value");
+
+  if(!snap.exists()){
+
+   setHomeMessage("ไม่พบห้องนี้ค่ะ กรุณาตรวจสอบรหัสอีกครั้ง");
+
+   return;
+
+  }
+
+  const data=snap.val();
+
+  const players=data.players||{};
+
+  if(Object.keys(players).length>=5){
+
+   setHomeMessage("ห้องนี้มีผู้เล่นครบ 5 คนแล้วค่ะ");
+
+   return;
 
   }
 
-  if(!roomCode){
+  if(data.status!=="waiting"){
 
-    alert("กรุณาใส่รหัสห้องค่ะ");
+   setHomeMessage("เกมห้องนี้เริ่มไปแล้วค่ะ");
 
-    return;
-
-  }
-
-  myId=makePlayerId();
-
-  roomRef=
-    db.ref(
-      "rooms/"+roomCode
-    );
-
-  try{
-
-    const snap=
-      await roomRef.once("value");
-
-    if(!snap.exists()){
-
-      alert(
-        "ไม่พบห้องนี้ค่ะ\n\n"+
-        "ตรวจสอบรหัสห้องอีกครั้ง"
-      );
-
-      return;
-
-    }
-
-    const data=snap.val();
-
-    const players=
-      data.players || {};
-
-    if(
-      Object.keys(players).length>=5
-    ){
-
-      alert(
-        "ห้องนี้มีผู้เล่นครบ 5 คนแล้วค่ะ"
-      );
-
-      return;
-
-    }
-
-    if(data.status!=="waiting"){
-
-      alert(
-        "เกมห้องนี้เริ่มไปแล้วค่ะ"
-      );
-
-      return;
-
-    }
-
-    const player={
-
-      id:myId,
-      name:myName,
-      joinedAt:
-        firebase.database.ServerValue.TIMESTAMP
-
-    };
-
-    await roomRef.update({
-
-      ["players/"+myId]:
-        player
-
-    });
-
-    showWaiting();
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "เข้าห้องไม่สำเร็จค่ะ\n"+
-      error.message
-    );
+   return;
 
   }
+
+  players[myId]={
+   id:myId,
+   name:myName,
+   joinedAt:Date.now()
+  };
+
+  await roomRef.update({
+   ["players/"+myId]:players[myId]
+  });
+
+  showWaiting();
+
+ }catch(error){
+
+  console.error(error);
+
+  setHomeMessage(
+   "เชื่อมต่อห้องไม่สำเร็จ กรุณาลองใหม่ค่ะ"
+  );
+
+ }
 
 }
 
 
 /* =====================================================
-   หน้ารอ
+ WAITING
 ===================================================== */
 
 function showWaiting(){
 
-  document
-    .getElementById("home")
-    .classList.add("hidden");
+ document.getElementById("home")
+ .classList.add("hidden");
 
-  document
-    .getElementById("waiting")
-    .classList.remove("hidden");
+ document.getElementById("waiting")
+ .classList.remove("hidden");
 
-  document
-    .getElementById("roomCode")
-    .textContent=roomCode;
+ document.getElementById("game")
+ .classList.add("hidden");
 
-  listenRoom();
+ document.getElementById("roomCode")
+ .textContent=roomCode;
+
+ listenRoom();
 
 }
 
-
-/* =====================================================
-   REALTIME
-===================================================== */
 
 function listenRoom(){
 
-  if(!roomRef)return;
+ if(!roomRef)return;
 
-  roomRef.off();
+ if(roomListener){
 
-  roomRef.on(
-    "value",
-    snap=>{
+  roomRef.off("value",roomListener);
 
-      if(!snap.exists())return;
+ }
 
-      gameState=snap.val();
+ roomListener=snap=>{
 
-      if(
-        gameState.status==="waiting"
-      ){
+  if(!snap.exists())return;
 
-        renderWaiting();
+  gameState=snap.val();
 
-      }
+  if(gameState.status==="waiting"){
 
-      if(
-        gameState.status==="playing" ||
-        gameState.status==="finished"
-      ){
-
-        document
-          .getElementById("waiting")
-          .classList.add("hidden");
-
-        document
-          .getElementById("game")
-          .classList.remove("hidden");
-
-        renderGame();
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   Waiting
-===================================================== */
-
-function renderWaiting(){
-
-  const players=
-    Object.values(
-      gameState.players || {}
-    );
-
-  const box=
-    document
-      .getElementById(
-        "waitingPlayers"
-      );
-
-  box.innerHTML="";
-
-  players.forEach(p=>{
-
-    const div=
-      document.createElement("div");
-
-    div.className=
-      "player "+
-      (p.id===myId ? "me":"");
-
-    div.textContent=
-      "👤 "+p.name;
-
-    box.appendChild(div);
-
-  });
-
-  document
-    .getElementById(
-      "waitingMessage"
-    )
-    .textContent=
-      players.length+"/5 คน";
-
-  const start=
-    document
-      .getElementById(
-        "startGameBtn"
-      );
-
-  if(
-    gameState.hostId===myId
-  ){
-
-    start.classList.remove(
-      "hidden"
-    );
-
-    if(players.length<2){
-
-      start.disabled=true;
-
-      start.textContent=
-        "⏳ รอเพื่อนเข้าห้อง";
-
-    }else{
-
-      start.disabled=false;
-
-      start.textContent=
-        "▶️ เริ่มเกม";
-
-    }
-
-  }else{
-
-    start.classList.add(
-      "hidden"
-    );
+   renderWaiting();
 
   }
 
+  if(
+   gameState.status==="playing"||
+   gameState.status==="finished"
+  ){
+
+   document.getElementById("waiting")
+   .classList.add("hidden");
+
+   document.getElementById("game")
+   .classList.remove("hidden");
+
+   renderGame();
+
+  }
+
+ };
+
+ roomRef.on("value",roomListener);
+
+}
+
+
+function renderWaiting(){
+
+ const players=
+ Object.values(gameState.players||{});
+
+ const box=
+ document.getElementById("waitingPlayers");
+
+ box.innerHTML="";
+
+ players.forEach((p,index)=>{
+
+  const div=document.createElement("div");
+
+  div.className=
+   "player "+
+   (p.id===myId?"me":"");
+
+  div.textContent=
+   (index+1)+". 👤 "+p.name;
+
+  box.appendChild(div);
+
+ });
+
+ const count=players.length;
+
+ document.getElementById("waitingMessage")
+ .textContent=
+  count+"/5 คน";
+
+ const start=
+ document.getElementById("startGameBtn");
+
+ if(gameState.hostId===myId){
+
+  start.classList.remove("hidden");
+
+  if(count<2){
+
+   start.disabled=true;
+
+   start.textContent=
+    "⏳ รอเพื่อนเข้าห้อง";
+
+  }else{
+
+   start.disabled=false;
+
+   start.textContent=
+    count===5
+    ?"▶️ เริ่มเกม 5 คน"
+    :"▶️ เริ่มเกม";
+
+  }
+
+ }else{
+
+  start.classList.add("hidden");
+
+ }
+
 }
 
 
 /* =====================================================
-   เริ่มเกม
+ START GAME
 ===================================================== */
 
 async function startGame(){
 
-  if(
-    gameState.hostId!==myId
-  )return;
+ if(!gameState||gameState.hostId!==myId)return;
 
-  const players=
-    Object.values(
-      gameState.players || {}
-    );
+ const players=
+ Object.values(gameState.players||{});
 
-  if(players.length<2){
+ if(players.length<2){
 
-    alert(
-      "ต้องมีผู้เล่นอย่างน้อย 2 คนค่ะ"
-    );
+  alert("ต้องมีผู้เล่นอย่างน้อย 2 คนค่ะ");
 
-    return;
+  return;
+
+ }
+
+ const deck=shuffle(BASE_TILES);
+
+ const startIndex=
+ deck.findIndex(
+  t=>t[0]==="START"&&t[1]==="ผู้ส่งสาร"
+ );
+
+ const startTile=
+ deck.splice(startIndex,1)[0];
+
+ const hands={};
+
+ players.forEach(p=>{
+
+  hands[p.id]=[];
+
+  for(let i=0;i<5;i++){
+
+   if(deck.length){
+
+    hands[p.id].push(deck.pop());
+
+   }
 
   }
 
-  const shuffled=
-    shuffle(BASE_TILES);
+ });
 
-  const startIndex=
-    shuffled.findIndex(
-      t=>
-        t[0]==="START" &&
-        t[1]==="ผู้ส่งสาร"
-    );
+ const scores={};
 
-  const startTile=
-    shuffled.splice(
-      startIndex,
-      1
-    )[0];
+ players.forEach(p=>{
+  scores[p.id]=0;
+ });
 
-  const hands={};
+ await roomRef.update({
 
-  players.forEach(p=>{
+  status:"playing",
 
-    hands[p.id]=[];
+  round:1,
 
-    for(let i=0;i<5;i++){
+  currentPlayerId:players[0].id,
 
-      hands[p.id].push(
-        shuffled.pop()
-      );
+  board:[startTile],
 
-    }
+  hands,
 
-  });
+  drawPile:deck,
 
-  const drawPile=shuffled;
+  scores,
 
-  const scores={};
+  winner:null,
 
-  players.forEach(p=>{
-    scores[p.id]=0;
-  });
+  loopCount:0,
 
-  await roomRef.update({
+  noiseActive:false,
 
-    status:"playing",
+  noiseSide:null
 
-    round:1,
-
-    turnIndex:0,
-
-    currentPlayerId:
-      players[0].id,
-
-    board:[startTile],
-
-    hands:hands,
-
-    drawPile:drawPile,
-
-    scores:scores,
-
-    winner:null,
-
-    loopBonus:0
-
-  });
+ });
 
 }
 
 
 /* =====================================================
-   สร้าง DOMINO
+ DOMINO
 ===================================================== */
 
 function makeDomino(tile,clickFn){
 
-  const d=
-    document.createElement("div");
+ const d=document.createElement("div");
 
-  d.className="domino";
+ d.className="domino";
 
-  if(clickFn){
+ if(clickFn){
+  d.onclick=clickFn;
+ }
 
-    d.onclick=clickFn;
+ d.appendChild(makeHalf(tile[0]));
+ d.appendChild(makeHalf(tile[1]));
 
-  }
-
-  d.appendChild(
-    makeHalf(tile[0])
-  );
-
-  d.appendChild(
-    makeHalf(tile[1])
-  );
-
-  return d;
+ return d;
 
 }
 
 
 function makeHalf(word){
 
-  const h=
-    document.createElement("div");
+ const h=document.createElement("div");
 
-  h.className=
-    "half "+CLASS[word];
+ h.className=
+  "half "+CLASS[word];
 
-  const art=
-    document.createElement("div");
+ const art=document.createElement("div");
 
-  art.className="art";
+ art.className="art";
 
-  art.textContent=
-    ART[word];
+ art.innerHTML=svg(word);
 
-  const label=
-    document.createElement("div");
+ const label=document.createElement("div");
 
-  label.className="label";
+ label.className="label";
 
-  label.textContent=
-    word;
+ label.textContent=word;
 
-  h.appendChild(art);
-  h.appendChild(label);
+ h.appendChild(art);
+ h.appendChild(label);
 
-  return h;
+ return h;
 
 }
 
 
 /* =====================================================
-   กระดาน
+ BOARD
 ===================================================== */
 
 function renderBoard(){
 
-  const board=
-    document.getElementById("board");
+ const boardEl=
+ document.getElementById("board");
 
-  board.innerHTML="";
+ boardEl.innerHTML="";
 
-  const tiles=
-    gameState.board || [];
+ const tiles=
+ gameState.board||[];
 
-  tiles.forEach(tile=>{
+ tiles.forEach(tile=>{
 
-    board.appendChild(
-      makeDomino(tile)
-    );
+  boardEl.appendChild(
+   makeDomino(tile)
+  );
 
-  });
-
-  if(tiles.length){
-
-    const last=
-      tiles[tiles.length-1];
-
-    const end=
-      document.createElement("div");
-
-    end.className="endPoint";
-
-    end.textContent=
-      "ปลายแถว: "+last[1];
-
-    board.appendChild(end);
-
-  }
+ });
 
 }
 
 
 /* =====================================================
-   กติกากระบวนการ
+ PROCESS RULE
 ===================================================== */
 
 const PROCESS=[
-
-  "ผู้ส่งสาร",
-
-  "การเข้ารหัส",
-
-  "ข่าวสาร/สื่อ",
-
-  "การถอดรหัส",
-
-  "ผู้รับสาร",
-
-  "การตอบสนอง",
-
-  "ผลสะท้อนกลับ"
-
+ "ผู้ส่งสาร",
+ "การเข้ารหัส",
+ "ข่าวสาร/สื่อ",
+ "การถอดรหัส",
+ "ผู้รับสาร",
+ "การตอบสนอง",
+ "ผลสะท้อนกลับ"
 ];
 
 
-/* =====================================================
-   ตรวจว่าเป็น Noise
-===================================================== */
+function nextWords(word){
 
-function isNoise(tile){
+ if(word==="ผลสะท้อนกลับ"){
 
-  return (
-    tile[0]==="Noise" ||
-    tile[1]==="Noise"
-  );
+  return ["ผู้ส่งสาร"];
 
-}
+ }
 
+ const i=PROCESS.indexOf(word);
 
-/* =====================================================
-   ปลายแถว
-===================================================== */
+ if(i>=0 && i<PROCESS.length-1){
 
-function getEnd(){
+  return [PROCESS[i+1]];
 
-  const board=
-    gameState.board || [];
+ }
 
-  if(!board.length)return null;
-
-  return board[
-    board.length-1
-  ][1];
+ return [];
 
 }
 
 
 /* =====================================================
-   รอบที่ 1
-=====================================================
-
-รอบทดลอง:
-เบี้ยอะไรก็ได้
-
-แต่ยังคงวางต่อทางขวา
-เพื่อให้กระดานเป็นเส้นเดียว
-
+ BOARD ENDS
 ===================================================== */
 
-function canPlayRound1(tile){
+function getEnds(){
 
-  return true;
+ const board=gameState.board||[];
+
+ if(!board.length){
+
+  return {
+   left:null,
+   right:null
+  };
+
+ }
+
+ return {
+  left:board[0][0],
+  right:board[board.length-1][1]
+ };
 
 }
 
 
 /* =====================================================
-   รอบที่ 2
-=====================================================
-
-ต้องต่อจากคำที่ปลายแถว
-
-ตัวอย่าง:
-
-ผู้ส่งสาร
-→ การเข้ารหัส
-→ ข่าวสาร/สื่อ
-→ การถอดรหัส
-...
-
+ NOISE
 ===================================================== */
 
-function canPlayNormal(tile){
+function boardHasNoiseAtEnd(){
 
-  const end=getEnd();
+ const ends=getEnds();
 
-  if(!end)return true;
+ return ends.left==="Noise"||
+        ends.right==="Noise";
 
-  /*
-     Noise | Noise
-     ต้องใช้เบี้ย Noise
-     แก้ Noise เท่านั้น
-  */
+}
 
-  if(end==="Noise"){
 
-    return (
-      tile[0]==="Noise" &&
-      tile[1]!=="Noise"
-    );
+function isNoiseClearTile(tile){
 
-  }
-
-  /*
-     ถ้าปลายแถวเป็นศัพท์ปกติ
-     ต้องให้เบี้ยเริ่มด้วยศัพท์นั้น
-     หรือเป็นคู่ศัพท์นั้น
-  */
-
-  return tile[0]===end;
+ return (
+  tile[0]==="Noise" &&
+  tile[1]!=="Noise"
+ )||
+ (
+  tile[1]==="Noise" &&
+  tile[0]!=="Noise"
+ );
 
 }
 
 
 /* =====================================================
-   ตรวจวางได้
+ PLAYABLE
 ===================================================== */
 
 function playable(tile){
 
-  if(
-    gameState.round===1
-  ){
+ if(!gameState)return false;
 
-    return canPlayRound1(tile);
+ const board=gameState.board||[];
 
-  }
+ if(gameState.round===1){
 
-  return canPlayNormal(tile);
+  return true;
+
+ }
+
+ if(gameState.noiseActive){
+
+  return isNoiseClearTile(tile);
+
+ }
+
+ if(!board.length){
+
+  return true;
+
+ }
+
+ const ends=getEnds();
+
+ const leftNext=nextWords(ends.left);
+ const rightNext=nextWords(ends.right);
+
+ return (
+  leftNext.includes(tile[0])||
+  leftNext.includes(tile[1])||
+  rightNext.includes(tile[0])||
+  rightNext.includes(tile[1])
+ );
 
 }
 
 
 /* =====================================================
-   ตรวจว่าเป็นการปิดลูป
+ ORIENT
 ===================================================== */
 
-function isLoopClosing(tile){
+function orientForRight(tile,target){
 
-  const end=getEnd();
+ if(tile[0]===target){
 
-  return (
-    end==="ผลสะท้อนกลับ" &&
-    tile[0]==="ผู้ส่งสาร"
-  );
+  return [tile[0],tile[1]];
+
+ }
+
+ if(tile[1]===target){
+
+  return [tile[1],tile[0]];
+
+ }
+
+ return null;
+
+}
+
+
+function orientForLeft(tile,target){
+
+ if(tile[1]===target){
+
+  return [tile[0],tile[1]];
+
+ }
+
+ if(tile[0]===target){
+
+  return [tile[1],tile[0]];
+
+ }
+
+ return null;
 
 }
 
 
 /* =====================================================
-   วางเบี้ย
+ PLAY TILE
 ===================================================== */
 
 async function playTile(index){
 
-  if(!gameState)return;
+ if(!gameState)return;
 
-  if(
-    gameState.status!=="playing"
-  )return;
+ if(gameState.status!=="playing")return;
 
-  if(
-    gameState.currentPlayerId!==myId
-  ){
+ if(gameState.currentPlayerId!==myId){
 
-    alert(
-      "ยังไม่ถึงตาของคุณค่ะ 😊"
-    );
+  alert("ยังไม่ถึงตาของคุณค่ะ 😊");
 
-    return;
+  return;
 
-  }
+ }
 
-  const hand=
-    gameState.hands?.[myId] || [];
+ const hand=
+ gameState.hands?.[myId]||[];
 
-  const tile=hand[index];
+ const tile=hand[index];
 
-  if(!tile)return;
+ if(!tile)return;
 
-  /*
-     ตรวจ Noise
-  */
+ if(!playable(tile)){
 
-  const end=getEnd();
+  alert(
+   gameState.noiseActive
+   ?"⚡ ตอนนี้ปลายแถวเป็น Noise\nต้องใช้เบี้ย Noise | คำศัพท์อื่น เพื่อกำจัดสิ่งรบกวน"
+   :"เบี้ยนี้ยังต่อไม่ได้ค่ะ\nต้องต่อให้ตรงตามกระบวนการสื่อสาร"
+  );
 
-  if(
-    gameState.round>1 &&
-    end==="Noise" &&
-    !(
-      tile[0]==="Noise" &&
-      tile[1]!=="Noise"
-    )
-  ){
+  return;
 
-    alert(
-      "⚡ ตอนนี้มี Noise ขวางอยู่\n\n"+
-      "ต้องใช้เบี้ย [ Noise | คำศัพท์อื่น ] "+
-      "เพื่อกำจัดสิ่งรบกวนค่ะ"
-    );
+ }
 
-    return;
+ const board=[...(gameState.board||[])];
 
-  }
+ let placed=null;
+ let side=null;
+ let specialLoop=false;
 
-  /*
-     ตรวจรอบปกติ
-  */
+ /* รอบ 1 อิสระ */
 
-  if(
-    gameState.round>1 &&
-    !canPlayNormal(tile)
-  ){
+ if(gameState.round===1){
 
-    alert(
-      "🧩 เบี้ยนี้ยังต่อไม่ได้ค่ะ\n\n"+
-      "ปลายแถวคือ: "+end+
-      "\nต้องใช้เบี้ยที่ขึ้นต้นด้วย \""+
-      end+"\""
-    );
+  board.push(tile);
+  placed=tile;
+  side="right";
 
-    return;
+ }
 
-  }
+ /* กำจัด Noise */
 
-  /*
-     ทุกเบี้ยวางทางขวา
-  */
+ else if(gameState.noiseActive){
 
-  const board=[
-    ...(gameState.board || [])
-  ];
+  const ends=getEnds();
 
-  let placed=[...tile];
+  if(ends.right==="Noise"){
 
-  /*
-     รอบ 1:
-     วางอะไรก็ได้
-  */
+   placed=orientForRight(tile,"Noise");
 
-  if(
-    gameState.round===1
-  ){
+   if(placed){
 
     board.push(placed);
+    side="right";
 
-  }else{
+   }
 
-    /*
-       รอบ 2:
-       ต้องต่อให้ตรง
-    */
+  }else if(ends.left==="Noise"){
 
-    if(
-      placed[0]!==end
-    ){
+   placed=orientForLeft(tile,"Noise");
 
-      /*
-         กรณี Noise
-         ไม่อนุญาตให้กลับด้าน
-      */
+   if(placed){
 
-      if(
-        placed[1]===end &&
-        placed[0]!=="Noise"
-      ){
+    board.unshift(placed);
+    side="left";
 
-        placed=[
-          placed[1],
-          placed[0]
-        ];
+   }
 
-      }else{
+  }
 
-        alert(
-          "เบี้ยนี้วางไม่ได้ค่ะ"
-        );
+ }
 
-        return;
+ /* รอบปกติ */
 
-      }
+ else{
+
+  const ends=getEnds();
+
+  /* ให้ต่อด้านขวาก่อน */
+
+  const rightExpected=nextWords(ends.right);
+
+  if(
+   rightExpected.includes(tile[0])||
+   rightExpected.includes(tile[1])
+  ){
+
+   for(const expected of rightExpected){
+
+    const oriented=
+     orientForRight(tile,expected);
+
+    if(oriented){
+
+     placed=oriented;
+     break;
 
     }
 
+   }
+
+   if(placed){
+
     board.push(placed);
+    side="right";
+
+   }
 
   }
 
-  hand.splice(index,1);
+  /* ถ้าต่อขวาไม่ได้ ลองซ้าย */
 
-  /*
-     ตรวจปิดลูป
-  */
+  if(!placed){
 
-  let newScore=
-    Number(
-      gameState.scores?.[myId] || 0
-    );
+   const leftExpected=nextWords(ends.left);
 
-  let bonus=
-    Number(
-      gameState.loopBonus || 0
-    );
+   for(const expected of leftExpected){
 
-  if(
-    gameState.round>1 &&
-    isLoopClosing(placed)
-  ){
+    const oriented=
+     orientForLeft(tile,expected);
 
-    newScore+=5;
+    if(oriented){
 
-    bonus+=5;
+     placed=oriented;
+     break;
 
-    alert(
-      "🎉 ปิดลูปสำเร็จ!\n\n"+
-      "ได้รับคะแนนพิเศษ +5 คะแนน"
-    );
+    }
+
+   }
+
+   if(placed){
+
+    board.unshift(placed);
+    side="left";
+
+   }
 
   }
 
-  /*
-     ตรวจชนะ
-  */
+ }
 
-  if(hand.length===0){
+ if(!placed){
 
-    const scores={
-      ...(gameState.scores || {})
-    };
+  alert("เบี้ยนี้ยังวางไม่ได้ค่ะ");
 
-    scores[myId]=newScore;
+  return;
 
-    await roomRef.update({
+ }
 
-      board:board,
+ hand.splice(index,1);
 
-      ["hands/"+myId]:hand,
+ let scores={
+  ...(gameState.scores||{})
+ };
 
-      ["scores/"+myId]:newScore,
+ /* ปิดลูปพิเศษ */
 
-      loopBonus:bonus,
+ if(
+  gameState.round>=2 &&
+  (
+   (placed[0]==="ผลสะท้อนกลับ"&&
+    placed[1]==="ผู้ส่งสาร")||
+   (placed[1]==="ผลสะท้อนกลับ"&&
+    placed[0]==="ผู้ส่งสาร")
+  )
+ ){
 
-      status:"finished",
+  scores[myId]=(scores[myId]||0)+5;
+  specialLoop=true;
 
-      winner:myId
+ }
 
-    });
+ let noiseActive=false;
 
-    return;
+ if(
+  board[0]?.[0]==="Noise"||
+  board[board.length-1]?.[1]==="Noise"
+ ){
 
-  }
+  noiseActive=true;
 
-  /*
-     รอบ 1:
-     ผู้เล่นทุกคนต้องได้ทดลองวาง
-     อย่างน้อยคนละ 1 ครั้ง
-  */
+ }
 
-  let round=
-    gameState.round;
+ /* หลังเล่นเบี้ย Noise | คำศัพท์
+    ถือว่ากำจัดสิ่งรบกวน */
 
-  let turnIndex=
-    Number(
-      gameState.turnIndex || 0
-    );
+ if(
+  gameState.noiseActive &&
+  isNoiseClearTile(placed)
+ ){
 
-  const players=
-    Object.values(
-      gameState.players || {}
-    );
+  noiseActive=false;
 
-  if(
-    round===1 &&
-    board.length>=
-      players.length+1
-  ){
+ }
 
-    round=2;
+ const players=
+ Object.values(gameState.players||{});
 
-  }
+ const myIndex=
+ players.findIndex(p=>p.id===myId);
 
-  /*
-     คนถัดไป
-  */
+ const nextPlayer=
+ players[
+  (myIndex+1)%players.length
+ ];
 
-  turnIndex=
-    (turnIndex+1)%
-    players.length;
+ let round=gameState.round;
 
-  const nextPlayer=
-    players[turnIndex];
+ /*
+  รอบ 1:
+  START + จำนวนผู้เล่น
+  เมื่อทุกคนมีโอกาสเล่นแล้ว
+  เข้าสู่รอบ 2
+ */
 
-  const updates={
+ if(
+  round===1 &&
+  board.length>=players.length+1
+ ){
 
-    board:board,
+  round=2;
 
-    ["hands/"+myId]:hand,
+ }
 
-    ["scores/"+myId]:newScore,
+ if(hand.length===0){
 
-    round:round,
+  await roomRef.update({
 
-    turnIndex:turnIndex,
+   board,
 
-    currentPlayerId:
-      nextPlayer.id
+   ["hands/"+myId]:hand,
 
-  };
+   scores,
 
-  await roomRef.update(
-    updates
-  );
+   status:"finished",
+
+   winner:myId,
+
+   currentPlayerId:null,
+
+   round,
+
+   noiseActive,
+
+   noiseSide:side
+
+  });
+
+  return;
+
+ }
+
+ await roomRef.update({
+
+  board,
+
+  ["hands/"+myId]:hand,
+
+  scores,
+
+  round,
+
+  currentPlayerId:nextPlayer.id,
+
+  noiseActive,
+
+  noiseSide:side
+
+ });
+
+ if(specialLoop){
+
+  setTimeout(()=>{
+   alert("🔄 ปิดลูปสำเร็จ! ได้คะแนนพิเศษ +5");
+  },100);
+
+ }
 
 }
 
 
 /* =====================================================
-   จั่วเบี้ย
+ DRAW
 ===================================================== */
 
 async function drawTile(){
 
-  if(!gameState)return;
+ if(!gameState)return;
 
-  if(
-    gameState.status!=="playing"
-  )return;
+ if(gameState.status!=="playing")return;
 
-  if(
-    gameState.currentPlayerId!==myId
-  ){
+ if(gameState.currentPlayerId!==myId){
 
-    alert(
-      "ยังไม่ถึงตาคุณค่ะ"
-    );
+  alert("ยังไม่ถึงตาของคุณค่ะ");
 
-    return;
+  return;
 
-  }
+ }
 
-  const pile=[
-    ...(gameState.drawPile || [])
-  ];
+ let pile=
+ [...(gameState.drawPile||[])];
 
-  if(!pile.length){
+ if(!pile.length){
 
-    alert(
-      "กองกลางหมดแล้วค่ะ"
-    );
+  alert("กองกลางหมดแล้วค่ะ");
 
-    return;
+  return;
 
-  }
+ }
 
-  const tile=
-    pile.pop();
+ let hand=
+ [...(gameState.hands?.[myId]||[])];
 
-  const hand=[
-    ...(gameState.hands?.[myId] || [])
-  ];
+ /*
+  ถ้าปลายแถวเป็น Noise
+  ต้องจั่วจนเจอ Noise | คำศัพท์อื่น
+ */
 
-  hand.push(tile);
+ if(gameState.noiseActive){
 
-  /*
-     ถ้าเจอ Noise | คำอื่น
-     และปลายแถวเป็น Noise
-     สามารถใช้กำจัด Noise ได้ทันที
-  */
+  let foundIndex=-1;
 
-  if(
-    getEnd()==="Noise" &&
-    tile[0]==="Noise" &&
-    tile[1]!=="Noise"
-  ){
+  for(let i=pile.length-1;i>=0;i--){
 
-    alert(
-      "⚡ พบเบี้ย Noise สำหรับกำจัดสิ่งรบกวนแล้วค่ะ!\n\n"+
-      "กดเบี้ยนี้เพื่อวางต่อและกลับเข้าสู่กระบวนการปกติ"
-    );
+   if(isNoiseClearTile(pile[i])){
 
-  }else{
+    foundIndex=i;
+    break;
 
-    alert(
-      "🂠 จั่วได้: "+tile[0]+" | "+tile[1]
-    );
+   }
 
   }
 
-  await roomRef.update({
+  if(foundIndex===-1){
+
+   /*
+    ไม่มีเบี้ยกำจัด Noise ในกอง
+    จั่ว 1 ใบตามปกติ
+   */
+
+   const tile=pile.pop();
+
+   hand.push(tile);
+
+   await roomRef.update({
 
     drawPile:pile,
 
     ["hands/"+myId]:hand
 
+   });
+
+   alert(
+    "⚡ ยังไม่พบเบี้ยกำจัด Noise\nจั่วได้ 1 ใบ"
+   );
+
+   return;
+
+  }
+
+  /*
+   จั่วทุกใบจนถึงใบ Noise ที่ใช้กำจัด
+  */
+
+  const drawn=[];
+
+  while(pile.length-1>=foundIndex){
+
+   drawn.push(pile.pop());
+
+  }
+
+  hand.push(...drawn);
+
+  await roomRef.update({
+
+   drawPile:pile,
+
+   ["hands/"+myId]:hand
+
   });
+
+  alert(
+   "⚡ กำจัดสิ่งรบกวนได้แล้ว!\n"+
+   "จั่วทั้งหมด "+drawn.length+
+   " ใบ และพบเบี้ย Noise ที่ใช้ต่อได้"
+  );
+
+  return;
+
+ }
+
+ const tile=pile.pop();
+
+ hand.push(tile);
+
+ await roomRef.update({
+
+  drawPile:pile,
+
+  ["hands/"+myId]:hand
+
+ });
 
 }
 
 
 /* =====================================================
-   ผ่าน
+ PASS
 ===================================================== */
 
 async function passTurn(){
 
-  if(!gameState)return;
+ if(!gameState)return;
 
-  if(
-    gameState.status!=="playing"
-  )return;
+ if(gameState.currentPlayerId!==myId){
 
-  if(
-    gameState.currentPlayerId!==myId
-  )return;
+  return;
 
-  /*
-     ถ้ามี Noise ห้ามผ่าน
-  */
+ }
 
-  if(
-    gameState.round>1 &&
-    getEnd()==="Noise"
-  ){
+ const pile=
+ gameState.drawPile||[];
 
-    alert(
-      "⚡ มี Noise ขวางอยู่\n\n"+
-      "ต้องจั่วจนพบเบี้ย [ Noise | คำศัพท์อื่น ]"
-    );
+ const hand=
+ gameState.hands?.[myId]||[];
 
-    return;
+ /*
+  ไม่ให้ผ่าน ถ้ามีเบี้ยที่วางได้
+ */
 
-  }
+ const canPlay=
+ hand.some(tile=>playable(tile));
 
-  const players=
-    Object.values(
-      gameState.players || {}
-    );
+ if(canPlay){
 
-  let turnIndex=
-    Number(
-      gameState.turnIndex || 0
-    );
+  alert(
+   "คุณยังมีเบี้ยที่สามารถวางได้ค่ะ 😊"
+  );
 
-  turnIndex=
-    (turnIndex+1)%
-    players.length;
+  return;
 
-  await roomRef.update({
+ }
 
-    turnIndex:turnIndex,
+ const players=
+ Object.values(gameState.players||{});
 
-    currentPlayerId:
-      players[turnIndex].id
+ const i=
+ players.findIndex(p=>p.id===myId);
 
-  });
+ const next=
+ players[(i+1)%players.length];
+
+ await roomRef.update({
+
+  currentPlayerId:next.id
+
+ });
 
 }
 
 
 /* =====================================================
-   แสดงมือ
+ HAND
 ===================================================== */
 
 function renderHand(){
 
-  const box=
-    document.getElementById("hand");
+ const box=
+ document.getElementById("hand");
 
-  box.innerHTML="";
+ box.innerHTML="";
 
-  const hand=
-    gameState.hands?.[myId] || [];
+ const hand=
+ gameState.hands?.[myId]||[];
 
-  hand.forEach(
-    (tile,index)=>{
+ hand.forEach((tile,index)=>{
 
-      const d=
-        makeDomino(
-          tile,
-          ()=>playTile(index)
-        );
-
-      if(
-        gameState.currentPlayerId===myId &&
-        playable(tile)
-      ){
-
-        d.classList.add(
-          "playable"
-        );
-
-      }
-
-      box.appendChild(d);
-
-    }
-  );
-
-  let hint="";
+  const d=
+   makeDomino(
+    tile,
+    ()=>playTile(index)
+   );
 
   if(
-    gameState.currentPlayerId!==myId
+   gameState.currentPlayerId===myId&&
+   playable(tile)
   ){
 
-    hint=
-      "⏳ รอผู้เล่นคนอื่น";
-
-  }else if(
-    gameState.round===1
-  ){
-
-    hint=
-      "🎲 รอบที่ 1: เลือกเบี้ยใบไหนก็ได้เพื่อทดลองวาง";
-
-  }else if(
-    getEnd()==="Noise"
-  ){
-
-    hint=
-      "⚡ มี Noise ขวางอยู่ — ต้องหา [ Noise | คำศัพท์อื่น ]";
-
-  }else{
-
-    hint=
-      "✨ ถึงตาคุณ — เลือกเบี้ยที่ตรงกับปลายแถว";
+   d.classList.add("playable");
 
   }
 
-  document
-    .getElementById("handHint")
-    .textContent=hint;
+  box.appendChild(d);
+
+ });
+
+ document.getElementById("myTileCount")
+ .textContent=hand.length;
+
+ if(gameState.currentPlayerId===myId){
+
+  if(gameState.noiseActive){
+
+   document.getElementById("handHint")
+   .textContent=
+    "⚡ ต้องหาเบี้ย Noise | คำศัพท์อื่น เพื่อกำจัดสิ่งรบกวน";
+
+  }else{
+
+   document.getElementById("handHint")
+   .textContent=
+    "✨ ถึงตาคุณแล้ว เลือกเบี้ยที่มีกรอบสีเขียว";
+
+  }
+
+ }else{
+
+  document.getElementById("handHint")
+  .textContent=
+   "⏳ รอผู้เล่นคนอื่น";
+
+ }
 
 }
 
 
 /* =====================================================
-   ผู้เล่น
+ PLAYERS
 ===================================================== */
 
 function renderGamePlayers(){
 
-  const box=
-    document.getElementById(
-      "gamePlayers"
-    );
+ const box=
+ document.getElementById("gamePlayers");
 
-  box.innerHTML="";
+ box.innerHTML="";
 
-  const players=
-    Object.values(
-      gameState.players || {}
-    );
+ const players=
+ Object.values(gameState.players||{});
 
-  players.forEach(p=>{
+ players.forEach((p,index)=>{
 
-    const row=
-      document.createElement("div");
+  const row=
+   document.createElement("div");
 
-    row.className="playerRow";
+  row.className="playerRow";
 
-    if(p.id===myId){
+  if(p.id===myId)
+   row.classList.add("me");
 
-      row.classList.add("me");
+  if(p.id===gameState.currentPlayerId)
+   row.classList.add("turn");
 
-    }
+  const hand=
+   gameState.hands?.[p.id]||[];
 
-    if(
-      p.id===
-      gameState.currentPlayerId
-    ){
+  const score=
+   gameState.scores?.[p.id]||0;
 
-      row.classList.add("turn");
+  row.innerHTML=
+   "👤 <b>"+
+   escapeHtml(p.name)+
+   "</b>"+
+   " — เหลือ "+
+   hand.length+
+   " เบี้ย"+
+   "<span class='score'>⭐ "+
+   score+
+   "</span>";
 
-    }
+  if(p.id===gameState.currentPlayerId){
 
-    const hand=
-      gameState.hands?.[p.id] || [];
+   row.innerHTML+=" 🎯";
 
-    const score=
-      Number(
-        gameState.scores?.[p.id] || 0
-      );
+  }
 
-    row.innerHTML=
-      "👤 <b>"+
-      escapeHtml(p.name)+
-      "</b>"+
-      " — เหลือ "+
-      hand.length+
-      " เบี้ย"+
-      " <span class='score'>"+
-      score+
-      " คะแนน</span>";
+  box.appendChild(row);
 
-    if(
-      p.id===
-      gameState.currentPlayerId
-    ){
+ });
 
-      row.innerHTML+=
-        " 🎯";
-
-    }
-
-    box.appendChild(row);
-
-  });
+ document.getElementById("playerCount")
+ .textContent=players.length;
 
 }
 
 
 /* =====================================================
-   Escape
-===================================================== */
-
-function escapeHtml(text){
-
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   แสดงเกม
+ GAME RENDER
 ===================================================== */
 
 function renderGame(){
 
-  renderBoard();
+ renderBoard();
 
-  renderHand();
+ renderHand();
 
-  renderGamePlayers();
+ renderGamePlayers();
 
-  document
-    .getElementById("pileCount")
-    .textContent=
-      (
-        gameState.drawPile || []
-      ).length;
+ document.getElementById("pileCount")
+ .textContent=
+  (gameState.drawPile||[]).length;
 
-  document
-    .getElementById("roundText")
-    .textContent=
-      gameState.round===1
-      ? "รอบที่ 1 — ทดลองวาง 🎲"
-      : "รอบที่ 2 — กระบวนการสื่อสาร 🧩";
+ document.getElementById("roundText")
+ .textContent=
+  gameState.round===1
+  ?"รอบที่ 1 — ทดลองวาง 🎲"
+  :"รอบที่ 2 — กระบวนการสื่อสาร 🧩";
 
-  /*
-     Noise notice
-  */
+ const noiseBox=
+  document.getElementById("noiseNotice");
 
-  const notice=
-    document.getElementById(
-      "noiseNotice"
-    );
+ if(gameState.noiseActive){
 
-  if(
-    gameState.round>1 &&
-    getEnd()==="Noise"
-  ){
+  noiseBox.classList.remove("hidden");
 
-    notice.classList.remove(
-      "hidden"
-    );
+  noiseBox.textContent=
+   "⚡ สิ่งรบกวนเกิดขึ้น! "+
+   "ผู้เล่นที่ถึงตาต้องจั่วจนพบ "+
+   "Noise | คำศัพท์อื่น เพื่อกำจัดสิ่งรบกวน";
 
-    notice.textContent=
-      "⚡ สิ่งรบกวนกำลังขวางกระบวนการ! "+
-      "ผู้เล่นคนถัดไปต้องจั่วจนพบ "+
-      "[ Noise | คำศัพท์อื่น ]";
+ }else{
 
-  }else{
+  noiseBox.classList.add("hidden");
 
-    notice.classList.add(
-      "hidden"
-    );
+ }
 
-  }
+ if(gameState.status==="finished"){
 
-  /*
-     เกมจบ
-  */
+  document.getElementById("status")
+   .textContent="🏆 เกมจบแล้ว";
 
-  if(
-    gameState.status==="finished"
-  ){
+  document.getElementById("turnMessage")
+   .textContent="";
 
-    document
-      .getElementById("status")
-      .textContent=
-        "🏆 เกมจบแล้ว";
+  document.getElementById("winnerBox")
+   .classList.remove("hidden");
 
-    document
-      .getElementById("turnMessage")
-      .textContent="";
+  const winner=
+   gameState.players?.[gameState.winner];
 
-    document
-      .getElementById("winnerBox")
-      .classList.remove(
-        "hidden"
-      );
+  document.getElementById("winnerText")
+   .textContent=
+    winner
+    ? winner.name+" เป็นผู้ชนะ 🎉"
+    : "จบเกมแล้ว";
 
-    const winner=
-      gameState.players?.[
-        gameState.winner
-      ];
+  renderFinalScores();
 
-    document
-      .getElementById("winnerText")
-      .textContent=
-        winner
-        ? winner.name+
-          " เป็นผู้ชนะ 🎉"
-        : "จบเกมแล้ว";
+  return;
 
-    renderScores();
+ }
 
-    return;
+ document.getElementById("winnerBox")
+ .classList.add("hidden");
 
-  }
+ const current=
+  gameState.players?.[
+   gameState.currentPlayerId
+  ];
 
-  /*
-     เกมกำลังเล่น
-  */
+ if(!current)return;
 
-  document
-    .getElementById("winnerBox")
-    .classList.add(
-      "hidden"
-    );
+ if(current.id===myId){
 
-  const current=
-    gameState.players?.[
-      gameState.currentPlayerId
-    ];
+  document.getElementById("status")
+   .textContent=
+    gameState.noiseActive
+    ?"⚡ ถึงตาคุณ — กำจัดสิ่งรบกวน"
+    :"✨ ถึงตาของคุณ!";
 
-  if(!current)return;
+  document.getElementById("turnMessage")
+   .textContent=
+    gameState.noiseActive
+    ?"จั่วจนพบ Noise | คำศัพท์อื่น"
+    :"เลือกเบี้ยที่ต้องการวาง";
 
-  if(
-    current.id===myId
-  ){
+ }else{
 
-    document
-      .getElementById("status")
-      .textContent=
-        "✨ ถึงตาของคุณ!";
+  document.getElementById("status")
+   .textContent=
+    "กำลังรอ "+current.name;
 
-    document
-      .getElementById("turnMessage")
-      .textContent=
-        gameState.round===1
-        ? "🎲 รอบทดลอง — เลือกเบี้ยอะไรก็ได้"
-        : getEnd()==="Noise"
-        ? "⚡ ต้องกำจัด Noise ก่อน"
-        : "เลือกเบี้ยที่ต่อกับปลายแถว";
+  document.getElementById("turnMessage")
+   .textContent=
+    "🎯 ถึงตาของ "+current.name;
 
-  }else{
+ }
 
-    document
-      .getElementById("status")
-      .textContent=
-        "กำลังรอ "+current.name;
+}
 
-    document
-      .getElementById("turnMessage")
-      .textContent=
-        "🎯 ถึงตาของ "+current.name;
 
-  }
+function renderFinalScores(){
+
+ const box=
+ document.getElementById("finalScores");
+
+ box.innerHTML="<h3>คะแนน</h3>";
+
+ const players=
+ Object.values(gameState.players||{});
+
+ players
+ .sort(
+  (a,b)=>
+   (gameState.scores?.[b.id]||0)-
+   (gameState.scores?.[a.id]||0)
+ )
+ .forEach((p,i)=>{
+
+  const score=
+   gameState.scores?.[p.id]||0;
+
+  const div=
+   document.createElement("div");
+
+  div.className="playerRow";
+
+  div.innerHTML=
+   (i+1)+". "+
+   escapeHtml(p.name)+
+   "<span class='score'>⭐ "+
+   score+
+   "</span>";
+
+  box.appendChild(div);
+
+ });
 
 }
 
 
 /* =====================================================
-   คะแนน
+ AUTO CONNECT
 ===================================================== */
 
-function renderScores(){
+window.addEventListener("load",()=>{
 
-  const box=
-    document.getElementById(
-      "scoreTable"
-    );
+ const savedName=
+  localStorage.getItem("mediaDominoName");
 
-  const players=
-    Object.values(
-      gameState.players || {}
-    );
+ if(savedName){
 
-  players.sort(
-    (a,b)=>
-      Number(
-        gameState.scores?.[b.id] || 0
-      )-
-      Number(
-        gameState.scores?.[a.id] || 0
-      )
-  );
+  document.getElementById("playerName")
+   .value=savedName;
 
-  box.innerHTML=
-    "<h3>🏅 คะแนน</h3>";
+ }
 
-  players.forEach((p,index)=>{
+});
 
-    const score=
-      Number(
-        gameState.scores?.[p.id] || 0
-      );
 
-    const row=
-      document.createElement("div");
+document
+.getElementById("playerName")
+.addEventListener("change",e=>{
 
-    row.className="playerRow";
+ localStorage.setItem(
+  "mediaDominoName",
+  e.target.value.trim()
+ );
 
-    row.innerHTML=
-      (index===0 ? "🥇 " : "")+
-      "<b>"+
-      escapeHtml(p.name)+
-      "</b>"+
-      " — "+
-      score+
-      " คะแนน";
-
-    box.appendChild(row);
-
-  });
-
-}
+});
 
 
 /* =====================================================
-   ป้องกันชื่อหายจาก Firebase
+ ENTER = JOIN
 ===================================================== */
 
-window.addEventListener(
-  "beforeunload",
-  ()=>{
+document
+.getElementById("roomInput")
+.addEventListener("keydown",e=>{
 
-    /*
-       ไม่ลบผู้เล่น
-       เพราะมือถืออาจ refresh
-    */
+ if(e.key==="Enter"){
 
-  }
-);
+  joinRoom();
+
+ }
+
+});
+
+
+/* =====================================================
+ MOBILE FRIENDLY ROOM CODE
+===================================================== */
+
+document
+.getElementById("roomInput")
+.addEventListener("input",e=>{
+
+ e.target.value=
+  e.target.value
+  .toUpperCase()
+  .replace(/[^A-Z0-9]/g,"")
+  .slice(0,6);
+
+});
 
 </script>
 
